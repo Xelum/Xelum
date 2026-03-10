@@ -27,7 +27,7 @@
 
     .app {
       width: 100%;
-      max-width: 520px;
+      max-width: 560px;
     }
 
     .topbar {
@@ -105,7 +105,7 @@
 
     .card-area {
       position: relative;
-      height: 360px;
+      height: 380px;
       margin-top: 8px;
     }
 
@@ -145,10 +145,10 @@
       background: linear-gradient(180deg, rgba(61, 47, 33, 0.97), rgba(33, 26, 21, 0.97));
       border: 1px solid rgba(222, 190, 134, 0.22);
       border-radius: 24px;
-      padding: 30px 24px;
+      padding: 18px 20px 24px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       text-align: center;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -194,6 +194,32 @@
       pointer-events: none;
     }
 
+    .scene-image {
+      width: 100%;
+      height: 120px;
+      border-radius: 16px;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, rgba(199,171,120,0.18), rgba(90,65,40,0.18));
+      border: 1px solid rgba(222, 190, 134, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d8c29c;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .scene-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     .card-label {
       font-size: 12px;
       text-transform: uppercase;
@@ -205,10 +231,10 @@
     }
 
     .card-text {
-      font-size: 28px;
+      font-size: 27px;
       line-height: 1.35;
       color: #fff5df;
-      max-width: 400px;
+      max-width: 420px;
       position: relative;
       z-index: 1;
     }
@@ -277,17 +303,57 @@
       color: #fff4df;
     }
 
+    .history {
+      margin-top: 18px;
+      background: rgba(25, 20, 16, 0.88);
+      border: 1px solid rgba(210, 185, 139, 0.14);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .history h3 {
+      margin: 0 0 12px;
+      color: #f0dec0;
+      font-size: 20px;
+    }
+
+    .history-item {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .history-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .history-name {
+      color: #fff1d6;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .history-text {
+      color: #d8c7ab;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
     @media (max-width: 640px) {
       .title {
         font-size: 34px;
       }
 
       .card-area {
-        height: 320px;
+        height: 340px;
       }
 
       .card {
-        padding: 24px 18px;
+        padding: 16px 16px 20px;
+      }
+
+      .scene-image {
+        height: 96px;
       }
 
       .card-text {
@@ -305,7 +371,7 @@
   <div class="app">
     <div class="topbar">
       <h1 class="title">Xelum</h1>
-      <div class="king-name">Re in carica: <span id="nomeRe">Aurelius</span></div>
+      <div class="king-name">Re in carica: <span id="nomeRe">Lucius Aurelius</span></div>
       <div class="day">Giorno <span id="giorno">1</span> di regno</div>
     </div>
 
@@ -336,6 +402,7 @@
       <div class="choice-hint choice-right" id="rightHint">Destra</div>
 
       <div class="card show" id="gameCard">
+        <div class="scene-image" id="sceneImage">Scena del regno</div>
         <div class="card-label" id="cardLabel">Consiglio del regno</div>
         <div class="card-text" id="testoCarta">
           Un mercante chiede meno tasse per aiutare il popolo.
@@ -358,65 +425,88 @@
         <button onclick="nuovoRegno()">Inizia un nuovo regno</button>
       </div>
     </div>
+
+    <div class="history" id="historyBox">
+      <h3>Annali del regno</h3>
+      <div id="historyList">
+        <div class="history-text">Nessun regno concluso per ora.</div>
+      </div>
+    </div>
   </div>
 
   <script>
-    const nomiLatini = [
-      "Aurelius", "Cassianus", "Lucius", "Octavianus", "Tiberius",
-      "Valerius", "Marcellus", "Severus", "Hadrianus", "Drusus",
-      "Flavianus", "Maximus", "Aelianus", "Quintus", "Rufinus"
+    const praenomina = [
+      "Lucius", "Marcus", "Gaius", "Tiberius", "Quintus",
+      "Aulus", "Publius", "Sextus", "Decimus", "Titus"
+    ];
+
+    const nomina = [
+      "Aurelius", "Severus", "Cassianus", "Valerius", "Octavianus",
+      "Flavianus", "Hadrianus", "Marcellus", "Drusus", "Aelianus"
     ];
 
     const eventi = [
       {
         testo: "Un mercante chiede meno tasse per aiutare il popolo.",
+        image: "",
         sinistra: {
           etichetta: "Rifiuta",
           testoConseguenza: "Hai mantenuto le imposte. Il tesoro cresce, ma nelle strade aumenta il malcontento.",
+          image: "",
           effetti: { popolo: -6, esercito: 0, oro: 5, fede: 0 }
         },
         destra: {
           etichetta: "Accetta",
           testoConseguenza: "Hai abbassato le tasse. Il popolo approva, ma le casse del regno si fanno più leggere.",
+          image: "",
           effetti: { popolo: 6, esercito: 0, oro: -6, fede: 0 }
         }
       },
       {
         testo: "Il comandante chiede nuovi fondi per addestrare l'esercito.",
+        image: "",
         sinistra: {
           etichetta: "Rifiuta",
           testoConseguenza: "Hai negato nuovi fondi. Il tesoro regge, ma i soldati si sentono trascurati.",
+          image: "",
           effetti: { popolo: 0, esercito: -7, oro: 3, fede: 0 }
         },
         destra: {
           etichetta: "Finanzia",
           testoConseguenza: "Hai rinforzato l'addestramento. L'esercito cresce, ma l'oro diminuisce.",
+          image: "",
           effetti: { popolo: 0, esercito: 7, oro: -7, fede: 0 }
         }
       },
       {
         testo: "Un vescovo chiede una donazione per restaurare il tempio.",
+        image: "",
         sinistra: {
           etichetta: "Rifiuta",
           testoConseguenza: "Hai rifiutato l'offerta. Conservi oro, ma il clero guarda con freddezza il trono.",
+          image: "",
           effetti: { popolo: 0, esercito: 0, oro: 2, fede: -7 }
         },
         destra: {
           etichetta: "Dona",
           testoConseguenza: "Il tempio verrà restaurato. La fede si rafforza, ma spendi parte del tesoro.",
+          image: "",
           effetti: { popolo: 0, esercito: 0, oro: -5, fede: 8 }
         }
       },
       {
         testo: "I contadini chiedono più grano dai magazzini reali.",
+        image: "",
         sinistra: {
           etichetta: "Nega",
           testoConseguenza: "Hai protetto le scorte. Il regno conserva risorse, ma il popolo soffre.",
+          image: "",
           effetti: { popolo: -8, esercito: 0, oro: 3, fede: 0 }
         },
         destra: {
           etichetta: "Concedi",
           testoConseguenza: "Hai aperto i granai. Il popolo ti acclama, ma le riserve del regno si riducono.",
+          image: "",
           effetti: { popolo: 8, esercito: 0, oro: -5, fede: 0 }
         }
       }
@@ -434,18 +524,24 @@
       lockChoice: false
     };
 
+    let cronacaRegni = JSON.parse(localStorage.getItem("xelum_cronaca_regni") || "[]");
+
     const card = document.getElementById("gameCard");
     const leftHint = document.getElementById("leftHint");
     const rightHint = document.getElementById("rightHint");
     const regnoButtons = document.getElementById("regnoButtons");
     const summaryBox = document.getElementById("summaryBox");
+    const sceneImage = document.getElementById("sceneImage");
+    const historyList = document.getElementById("historyList");
 
     let isDragging = false;
     let startX = 0;
     let currentX = 0;
 
     function nomeLatinoCasuale() {
-      return nomiLatini[Math.floor(Math.random() * nomiLatini.length)];
+      const praenomen = praenomina[Math.floor(Math.random() * praenomina.length)];
+      const nomen = nomina[Math.floor(Math.random() * nomina.length)];
+      return `${praenomen} ${nomen}`;
     }
 
     function limitaStat(valore) {
@@ -466,6 +562,14 @@
       document.getElementById("esercitoBar").style.width = game.esercito + "%";
       document.getElementById("oroBar").style.width = game.oro + "%";
       document.getElementById("fedeBar").style.width = game.fede + "%";
+    }
+
+    function mostraImmagine(url, fallbackText) {
+      if (url && url.trim() !== "") {
+        sceneImage.innerHTML = `<img src="${url}" alt="Scena">`;
+      } else {
+        sceneImage.textContent = fallbackText;
+      }
     }
 
     function mostraHints(deltaX) {
@@ -523,6 +627,7 @@
       document.getElementById("cardLabel").textContent = "Consiglio del regno";
       document.getElementById("testoCarta").textContent = evento.testo;
       document.getElementById("testoCarta").classList.remove("gameover");
+      mostraImmagine(evento.image, "Scena del regno");
 
       nascondiSezioneRegno();
       resetCard();
@@ -530,31 +635,81 @@
     }
 
     function finaleRegno() {
+      const durata = game.giorno;
+
       if (game.popolo === 0) {
-        return "Il popolo ha perso ogni fiducia nella corona e il trono è caduto tra rivolte e rabbia.";
+        if (durata <= 5) return "Il popolo ti ha respinto quasi subito. Il tuo nome è stato cancellato dalle piazze del regno.";
+        if (durata <= 12) return "Dopo anni inquieti, il popolo si è sollevato contro la corona e ha spezzato il tuo dominio.";
+        return "Hai resistito a lungo, ma il popolo ha finito per stancarsi del tuo governo e il trono è crollato tra le rivolte.";
       }
+
       if (game.esercito === 0) {
-        return "L'esercito si è dissolto. Senza spade a difendere il trono, il regno è stato travolto.";
+        if (durata <= 5) return "I soldati hanno perso subito fiducia nel tuo comando. Le mura sono rimaste senza difesa.";
+        if (durata <= 12) return "L'esercito si è disgregato nel tempo e il regno è stato travolto da nemici e tradimenti.";
+        return "Dopo un lungo regno, le tue legioni si sono indebolite fino a lasciare il trono senza protezione.";
       }
+
       if (game.oro === 0) {
-        return "Le casse del regno si sono svuotate. La fame del debito ha divorato la tua corona.";
+        if (durata <= 5) return "Le casse si sono svuotate troppo presto. Il regno non ha mai davvero preso forma.";
+        if (durata <= 12) return "Il peso delle spese e delle concessioni ha dissanguato la corona fino alla rovina.";
+        return "Hai governato a lungo, ma alla fine il debito ha divorato palazzo, esercito e fedeltà.";
       }
+
       if (game.fede === 0) {
-        return "La fede è crollata. Templi vuoti e presagi oscuri hanno segnato la fine del tuo nome.";
+        if (durata <= 5) return "Gli dèi ti hanno voltato le spalle quasi subito. Il regno è precipitato nell'ombra.";
+        if (durata <= 12) return "Templi freddi e altari vuoti hanno segnato il declino della tua dinastia.";
+        return "Hai retto per anni, ma quando la fede si è spenta il tuo nome è divenuto presagio di rovina.";
       }
-      return "Il regno è terminato nel silenzio del destino.";
+
+      return "Il regno si è concluso nel silenzio del destino.";
+    }
+
+    function salvaStoricoRegno() {
+      const record = {
+        nomeRe: game.nomeRe,
+        durata: game.giorno,
+        popolo: game.popolo,
+        esercito: game.esercito,
+        oro: game.oro,
+        fede: game.fede,
+        finale: finaleRegno()
+      };
+
+      cronacaRegni.unshift(record);
+      cronacaRegni = cronacaRegni.slice(0, 8);
+      localStorage.setItem("xelum_cronaca_regni", JSON.stringify(cronacaRegni));
+      renderStoricoRegni();
+    }
+
+    function renderStoricoRegni() {
+      if (cronacaRegni.length === 0) {
+        historyList.innerHTML = `<div class="history-text">Nessun regno concluso per ora.</div>`;
+        return;
+      }
+
+      historyList.innerHTML = cronacaRegni.map(regno => `
+        <div class="history-item">
+          <div class="history-name">${regno.nomeRe}</div>
+          <div class="history-text">
+            Durata: ${regno.durata} giorni · Popolo ${regno.popolo} · Esercito ${regno.esercito} · Oro ${regno.oro} · Fede ${regno.fede}
+          </div>
+          <div class="history-text">${regno.finale}</div>
+        </div>
+      `).join("");
     }
 
     function mostraRiepilogoFinale() {
+      const finale = finaleRegno();
       document.getElementById("summaryRe").textContent = game.nomeRe;
       document.getElementById("summaryDurata").textContent = `${game.giorno} giorni`;
       document.getElementById("summaryPopolo").textContent = game.popolo;
       document.getElementById("summaryEsercito").textContent = game.esercito;
       document.getElementById("summaryOro").textContent = game.oro;
       document.getElementById("summaryFede").textContent = game.fede;
-      document.getElementById("summaryFinale").textContent = finaleRegno();
+      document.getElementById("summaryFinale").textContent = finale;
 
       summaryBox.classList.remove("hidden");
+      salvaStoricoRegno();
     }
 
     function applicaScelta(lato) {
@@ -579,6 +734,7 @@
         resetCard();
         document.getElementById("cardLabel").textContent = "Esito della decisione";
         document.getElementById("testoCarta").textContent = scelta.testoConseguenza;
+        mostraImmagine(scelta.image, "Esito della scelta");
 
         if (
           game.popolo === 0 ||
@@ -648,6 +804,7 @@
       }
     });
 
+    renderStoricoRegni();
     nuovoRegno();
   </script>
 </body>
