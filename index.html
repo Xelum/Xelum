@@ -44,6 +44,13 @@
       text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
     }
 
+    .king-name {
+      font-size: 15px;
+      color: #d7c29a;
+      margin-bottom: 6px;
+      letter-spacing: 0.4px;
+    }
+
     .day {
       font-size: 16px;
       color: #d2b98b;
@@ -98,7 +105,7 @@
 
     .card-area {
       position: relative;
-      height: 340px;
+      height: 360px;
       margin-top: 8px;
     }
 
@@ -139,7 +146,6 @@
       border: 1px solid rgba(222, 190, 134, 0.22);
       border-radius: 24px;
       padding: 30px 24px;
-      min-height: 280px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -149,12 +155,35 @@
       overflow: hidden;
       touch-action: none;
       cursor: grab;
-      transition: transform 0.25s ease;
+      transition: transform 0.25s ease, opacity 0.25s ease;
     }
 
     .card.dragging {
       transition: none;
       cursor: grabbing;
+    }
+
+    .card.exit-right {
+      transform: translateX(700px) rotate(24deg);
+      opacity: 0;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+
+    .card.exit-left {
+      transform: translateX(-700px) rotate(-24deg);
+      opacity: 0;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+
+    .card.enter {
+      opacity: 0;
+      transform: scale(0.96) translateY(16px);
+    }
+
+    .card.show {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      transition: transform 0.25s ease, opacity 0.25s ease;
     }
 
     .card::before {
@@ -188,6 +217,8 @@
       display: flex;
       justify-content: center;
       margin-top: 18px;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     button {
@@ -209,6 +240,10 @@
       transform: translateY(-1px);
     }
 
+    .secondary-btn {
+      background: #5f4630;
+    }
+
     .hidden {
       display: none;
     }
@@ -217,13 +252,38 @@
       color: #ffcf9d;
     }
 
+    .summary {
+      margin-top: 18px;
+      background: rgba(25, 20, 16, 0.94);
+      border: 1px solid rgba(210, 185, 139, 0.18);
+      border-radius: 18px;
+      padding: 18px 16px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .summary h2 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      color: #f5e6c8;
+    }
+
+    .summary p {
+      margin: 8px 0;
+      color: #eadac0;
+      line-height: 1.5;
+    }
+
+    .summary strong {
+      color: #fff4df;
+    }
+
     @media (max-width: 640px) {
       .title {
         font-size: 34px;
       }
 
       .card-area {
-        height: 300px;
+        height: 320px;
       }
 
       .card {
@@ -245,6 +305,7 @@
   <div class="app">
     <div class="topbar">
       <h1 class="title">Xelum</h1>
+      <div class="king-name">Re in carica: <span id="nomeRe">Aurelius</span></div>
       <div class="day">Giorno <span id="giorno">1</span> di regno</div>
     </div>
 
@@ -274,8 +335,8 @@
       <div class="choice-hint choice-left" id="leftHint">Sinistra</div>
       <div class="choice-hint choice-right" id="rightHint">Destra</div>
 
-      <div class="card" id="gameCard">
-        <div class="card-label">Consiglio del regno</div>
+      <div class="card show" id="gameCard">
+        <div class="card-label" id="cardLabel">Consiglio del regno</div>
         <div class="card-text" id="testoCarta">
           Un mercante chiede meno tasse per aiutare il popolo.
         </div>
@@ -285,19 +346,26 @@
     <div class="buttons hidden" id="regnoButtons">
       <button onclick="vaiAlGiornoSuccessivo()">Vai al giorno successivo</button>
     </div>
+
+    <div class="summary hidden" id="summaryBox">
+      <h2>Fine del regno</h2>
+      <p><strong>Sovrano:</strong> <span id="summaryRe"></span></p>
+      <p><strong>Durata:</strong> <span id="summaryDurata"></span></p>
+      <p><strong>Valori finali:</strong> Popolo <span id="summaryPopolo"></span> · Esercito <span id="summaryEsercito"></span> · Oro <span id="summaryOro"></span> · Fede <span id="summaryFede"></span></p>
+      <p><strong>Destino del regno:</strong> <span id="summaryFinale"></span></p>
+
+      <div class="buttons">
+        <button onclick="nuovoRegno()">Inizia un nuovo regno</button>
+      </div>
+    </div>
   </div>
 
   <script>
-    const game = {
-      giorno: 1,
-      popolo: 50,
-      esercito: 50,
-      oro: 50,
-      fede: 50,
-      sceltaCorrente: null,
-      gameOver: false,
-      lockChoice: false
-    };
+    const nomiLatini = [
+      "Aurelius", "Cassianus", "Lucius", "Octavianus", "Tiberius",
+      "Valerius", "Marcellus", "Severus", "Hadrianus", "Drusus",
+      "Flavianus", "Maximus", "Aelianus", "Quintus", "Rufinus"
+    ];
 
     const eventi = [
       {
@@ -354,13 +422,31 @@
       }
     ];
 
+    const game = {
+      nomeRe: "",
+      giorno: 1,
+      popolo: 50,
+      esercito: 50,
+      oro: 50,
+      fede: 50,
+      sceltaCorrente: null,
+      gameOver: false,
+      lockChoice: false
+    };
+
     const card = document.getElementById("gameCard");
     const leftHint = document.getElementById("leftHint");
     const rightHint = document.getElementById("rightHint");
+    const regnoButtons = document.getElementById("regnoButtons");
+    const summaryBox = document.getElementById("summaryBox");
 
     let isDragging = false;
     let startX = 0;
     let currentX = 0;
+
+    function nomeLatinoCasuale() {
+      return nomiLatini[Math.floor(Math.random() * nomiLatini.length)];
+    }
 
     function limitaStat(valore) {
       if (valore < 0) return 0;
@@ -369,6 +455,7 @@
     }
 
     function aggiornaStatistiche() {
+      document.getElementById("nomeRe").textContent = game.nomeRe;
       document.getElementById("giorno").textContent = game.giorno;
       document.getElementById("popoloValue").textContent = game.popolo;
       document.getElementById("esercitoValue").textContent = game.esercito;
@@ -395,7 +482,9 @@
     }
 
     function resetCard() {
+      card.classList.remove("exit-left", "exit-right", "dragging", "enter");
       card.style.transform = "translateX(0px) rotate(0deg)";
+      card.style.opacity = "1";
       leftHint.classList.remove("visible");
       rightHint.classList.remove("visible");
     }
@@ -407,11 +496,21 @@
     }
 
     function mostraSezioneRegno() {
-      document.getElementById("regnoButtons").classList.remove("hidden");
+      regnoButtons.classList.remove("hidden");
     }
 
     function nascondiSezioneRegno() {
-      document.getElementById("regnoButtons").classList.add("hidden");
+      regnoButtons.classList.add("hidden");
+    }
+
+    function animaIngressoCarta() {
+      card.classList.add("enter");
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          card.classList.add("show");
+          card.classList.remove("enter");
+        });
+      });
     }
 
     function caricaEvento() {
@@ -421,11 +520,41 @@
       game.sceltaCorrente = evento;
       game.lockChoice = false;
 
+      document.getElementById("cardLabel").textContent = "Consiglio del regno";
       document.getElementById("testoCarta").textContent = evento.testo;
       document.getElementById("testoCarta").classList.remove("gameover");
 
       nascondiSezioneRegno();
       resetCard();
+      animaIngressoCarta();
+    }
+
+    function finaleRegno() {
+      if (game.popolo === 0) {
+        return "Il popolo ha perso ogni fiducia nella corona e il trono è caduto tra rivolte e rabbia.";
+      }
+      if (game.esercito === 0) {
+        return "L'esercito si è dissolto. Senza spade a difendere il trono, il regno è stato travolto.";
+      }
+      if (game.oro === 0) {
+        return "Le casse del regno si sono svuotate. La fame del debito ha divorato la tua corona.";
+      }
+      if (game.fede === 0) {
+        return "La fede è crollata. Templi vuoti e presagi oscuri hanno segnato la fine del tuo nome.";
+      }
+      return "Il regno è terminato nel silenzio del destino.";
+    }
+
+    function mostraRiepilogoFinale() {
+      document.getElementById("summaryRe").textContent = game.nomeRe;
+      document.getElementById("summaryDurata").textContent = `${game.giorno} giorni`;
+      document.getElementById("summaryPopolo").textContent = game.popolo;
+      document.getElementById("summaryEsercito").textContent = game.esercito;
+      document.getElementById("summaryOro").textContent = game.oro;
+      document.getElementById("summaryFede").textContent = game.fede;
+      document.getElementById("summaryFinale").textContent = finaleRegno();
+
+      summaryBox.classList.remove("hidden");
     }
 
     function applicaScelta(lato) {
@@ -435,39 +564,62 @@
       const scelta = game.sceltaCorrente[lato];
       const effetti = scelta.effetti;
 
-      game.popolo = limitaStat(game.popolo + effetti.popolo);
-      game.esercito = limitaStat(game.esercito + effetti.esercito);
-      game.oro = limitaStat(game.oro + effetti.oro);
-      game.fede = limitaStat(game.fede + effetti.fede);
-      game.giorno += 1;
+      card.classList.remove("dragging");
+      card.classList.add(lato === "destra" ? "exit-right" : "exit-left");
 
-      aggiornaStatistiche();
+      setTimeout(() => {
+        game.popolo = limitaStat(game.popolo + effetti.popolo);
+        game.esercito = limitaStat(game.esercito + effetti.esercito);
+        game.oro = limitaStat(game.oro + effetti.oro);
+        game.fede = limitaStat(game.fede + effetti.fede);
+        game.giorno += 1;
 
-      if (
-        game.popolo === 0 ||
-        game.esercito === 0 ||
-        game.oro === 0 ||
-        game.fede === 0
-      ) {
-        game.gameOver = true;
-        document.getElementById("testoCarta").textContent =
-          scelta.testoConseguenza + " Il tuo regno è crollato: una delle risorse è arrivata a zero.";
-        document.getElementById("testoCarta").classList.add("gameover");
+        aggiornaStatistiche();
+
         resetCard();
-        return;
-      }
+        document.getElementById("cardLabel").textContent = "Esito della decisione";
+        document.getElementById("testoCarta").textContent = scelta.testoConseguenza;
 
-      document.getElementById("testoCarta").textContent = scelta.testoConseguenza;
-      resetCard();
-      mostraSezioneRegno();
+        if (
+          game.popolo === 0 ||
+          game.esercito === 0 ||
+          game.oro === 0 ||
+          game.fede === 0
+        ) {
+          game.gameOver = true;
+          document.getElementById("testoCarta").textContent =
+            scelta.testoConseguenza + " La tua dinastia si spegne qui.";
+          document.getElementById("testoCarta").classList.add("gameover");
+          mostraRiepilogoFinale();
+          return;
+        }
+
+        mostraSezioneRegno();
+      }, 320);
     }
 
     function vaiAlGiornoSuccessivo() {
       caricaEvento();
     }
 
+    function nuovoRegno() {
+      game.nomeRe = nomeLatinoCasuale();
+      game.giorno = 1;
+      game.popolo = 50;
+      game.esercito = 50;
+      game.oro = 50;
+      game.fede = 50;
+      game.sceltaCorrente = null;
+      game.gameOver = false;
+      game.lockChoice = false;
+
+      summaryBox.classList.add("hidden");
+      aggiornaStatistiche();
+      caricaEvento();
+    }
+
     card.addEventListener("pointerdown", (e) => {
-      if (game.gameOver || game.lockChoice || !document.getElementById("regnoButtons").classList.contains("hidden")) return;
+      if (game.gameOver || game.lockChoice || !regnoButtons.classList.contains("hidden")) return;
 
       isDragging = true;
       startX = e.clientX;
@@ -496,8 +648,7 @@
       }
     });
 
-    aggiornaStatistiche();
-    caricaEvento();
+    nuovoRegno();
   </script>
 </body>
 </html>
