@@ -53,7 +53,7 @@
       padding: 30px 20px;
       border-radius: 14px;
       margin-bottom: 20px;
-      min-height: 80px;
+      min-height: 90px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -75,7 +75,7 @@
       color: white;
       font-size: 16px;
       cursor: pointer;
-      min-width: 170px;
+      min-width: 190px;
     }
 
     button:hover {
@@ -110,16 +110,12 @@
     </div>
 
     <div class="buttons" id="scelteButtons">
-      <button onclick="scegli('sinistra')">Accetta</button>
-      <button onclick="scegli('destra')">Rifiuta</button>
-    </div>
-
-    <div class="buttons hidden" id="conseguenzeButtons">
-      <button onclick="subisciConseguenze()">Subisci conseguenze</button>
+      <button id="btnSinistra" onclick="scegli('sinistra')">Accetta</button>
+      <button id="btnDestra" onclick="scegli('destra')">Rifiuta</button>
     </div>
 
     <div class="buttons hidden" id="regnoButtons">
-      <button onclick="proseguiNelRegno()">Prosegui nel regno</button>
+      <button onclick="vaiAlGiornoSuccessivo()">Vai al giorno successivo</button>
     </div>
   </div>
 
@@ -131,7 +127,7 @@
       oro: 50,
       fede: 50,
       sceltaCorrente: null,
-      conseguenzePending: null
+      gameOver: false
     };
 
     const eventi = [
@@ -192,59 +188,53 @@
 
     function mostraSezione(nome) {
       document.getElementById("scelteButtons").classList.add("hidden");
-      document.getElementById("conseguenzeButtons").classList.add("hidden");
       document.getElementById("regnoButtons").classList.add("hidden");
 
       document.getElementById(nome).classList.remove("hidden");
     }
 
     function caricaEvento() {
+      if (game.gameOver) return;
+
       const evento = eventi[Math.floor(Math.random() * eventi.length)];
       game.sceltaCorrente = evento;
 
       document.getElementById("testoCarta").innerText = evento.testo;
-
-      const bottoni = document.querySelectorAll("#scelteButtons button");
-      bottoni[0].innerText = evento.sinistra.etichetta;
-      bottoni[1].innerText = evento.destra.etichetta;
+      document.getElementById("btnSinistra").innerText = evento.sinistra.etichetta;
+      document.getElementById("btnDestra").innerText = evento.destra.etichetta;
 
       mostraSezione("scelteButtons");
     }
 
     function scegli(lato) {
+      if (game.gameOver) return;
+
       const scelta = game.sceltaCorrente[lato];
-      game.conseguenzePending = scelta.effetti;
-
-      document.getElementById("testoCarta").innerText = scelta.testoConseguenza;
-      mostraSezione("conseguenzeButtons");
-    }
-
-    function subisciConseguenze() {
-      const effetti = game.conseguenzePending;
+      const effetti = scelta.effetti;
 
       game.popolo = limitaStat(game.popolo + effetti.popolo);
       game.esercito = limitaStat(game.esercito + effetti.esercito);
       game.oro = limitaStat(game.oro + effetti.oro);
       game.fede = limitaStat(game.fede + effetti.fede);
-
       game.giorno += 1;
 
       aggiornaStatistiche();
 
       if (game.popolo === 0 || game.esercito === 0 || game.oro === 0 || game.fede === 0) {
+        game.gameOver = true;
         document.getElementById("testoCarta").innerText =
-          "Il regno è crollato. Una delle tue risorse è arrivata a zero. Fine della partita.";
-        document.getElementById("conseguenzeButtons").classList.add("hidden");
-        document.getElementById("regnoButtons").classList.add("hidden");
+          scelta.testoConseguenza +
+          " Fine del regno: una delle risorse è arrivata a zero.";
         document.getElementById("scelteButtons").classList.add("hidden");
+        document.getElementById("regnoButtons").classList.add("hidden");
         return;
       }
 
+      document.getElementById("testoCarta").innerText = scelta.testoConseguenza;
       mostraSezione("regnoButtons");
     }
 
-    function proseguiNelRegno() {
-      game.conseguenzePending = null;
+    function vaiAlGiornoSuccessivo() {
       caricaEvento();
     }
 
