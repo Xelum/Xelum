@@ -1,110 +1,255 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Xelum</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xelum</title>
 
-<style>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
 
-body{
-    margin:0;
-    font-family:Arial;
-    background:#111;
-    color:white;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-}
+    .container {
+      width: 100%;
+      max-width: 700px;
+      text-align: center;
+    }
 
-.container{
-    width:90%;
-    max-width:600px;
-    text-align:center;
-}
+    h1 {
+      margin-bottom: 10px;
+    }
 
-.card{
-    background:#1e1e1e;
-    padding:30px;
-    border-radius:10px;
-    margin-bottom:20px;
-}
+    .day {
+      margin-bottom: 20px;
+      font-size: 18px;
+      opacity: 0.9;
+    }
 
-button{
-    padding:15px 20px;
-    margin:10px;
-    border:none;
-    border-radius:8px;
-    background:#3a86ff;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-}
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
 
-button:hover{
-    background:#2a6fd6;
-}
+    .stat-box {
+      background: #1b1b1b;
+      padding: 12px;
+      border-radius: 10px;
+    }
 
-.stats{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:20px;
-}
+    .card {
+      background: #1e1e1e;
+      padding: 30px 20px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.5;
+    }
 
-</style>
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
 
+    button {
+      padding: 14px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #3a86ff;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      min-width: 170px;
+    }
+
+    button:hover {
+      background: #2f6ed1;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (min-width: 700px) {
+      .stats {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="container">
+    <h1>Xelum</h1>
+    <div class="day">Giorno: <span id="giorno">1</span></div>
 
-<div class="container">
+    <div class="stats">
+      <div class="stat-box">👥 Popolo: <span id="popolo">50</span></div>
+      <div class="stat-box">⚔️ Esercito: <span id="esercito">50</span></div>
+      <div class="stat-box">💰 Oro: <span id="oro">50</span></div>
+      <div class="stat-box">⛪ Fede: <span id="fede">50</span></div>
+    </div>
 
-<h1>Xelum</h1>
+    <div class="card" id="testoCarta">
+      Un mercante chiede meno tasse per aiutare il popolo.
+    </div>
 
-<div class="stats">
-<div>👥 Popolo: <span id="popolo">50</span></div>
-<div>⚔️ Esercito: <span id="esercito">50</span></div>
-<div>💰 Oro: <span id="oro">50</span></div>
-<div>⛪ Fede: <span id="fede">50</span></div>
-</div>
+    <div class="buttons" id="scelteButtons">
+      <button onclick="scegli('sinistra')">Accetta</button>
+      <button onclick="scegli('destra')">Rifiuta</button>
+    </div>
 
-<div class="card" id="evento">
-Un mercante chiede meno tasse per aiutare il popolo.
-</div>
+    <div class="buttons hidden" id="conseguenzeButtons">
+      <button onclick="subisciConseguenze()">Subisci conseguenze</button>
+    </div>
 
-<button onclick="sceltaSinistra()">Accetta</button>
-<button onclick="sceltaDestra()">Rifiuta</button>
+    <div class="buttons hidden" id="regnoButtons">
+      <button onclick="proseguiNelRegno()">Prosegui nel regno</button>
+    </div>
+  </div>
 
-</div>
+  <script>
+    let game = {
+      giorno: 1,
+      popolo: 50,
+      esercito: 50,
+      oro: 50,
+      fede: 50,
+      sceltaCorrente: null,
+      conseguenzePending: null
+    };
 
-<script>
+    const eventi = [
+      {
+        testo: "Un mercante chiede meno tasse per aiutare il popolo.",
+        sinistra: {
+          etichetta: "Accetta",
+          testoConseguenza: "Hai abbassato le tasse. Il popolo è soddisfatto, ma le casse del regno si alleggeriscono.",
+          effetti: { popolo: +5, esercito: 0, oro: -5, fede: 0 }
+        },
+        destra: {
+          etichetta: "Rifiuta",
+          testoConseguenza: "Hai mantenuto le tasse. Il tesoro cresce, ma il popolo rumoreggia.",
+          effetti: { popolo: -5, esercito: 0, oro: +5, fede: 0 }
+        }
+      },
+      {
+        testo: "Il comandante chiede nuovi fondi per addestrare l'esercito.",
+        sinistra: {
+          etichetta: "Finanzia",
+          testoConseguenza: "Hai investito nell'esercito. I soldati sono più forti, ma l'oro diminuisce.",
+          effetti: { popolo: 0, esercito: +6, oro: -6, fede: 0 }
+        },
+        destra: {
+          etichetta: "Rifiuta",
+          testoConseguenza: "Hai negato i fondi. Il tesoro regge, ma l'esercito si irrita.",
+          effetti: { popolo: 0, esercito: -6, oro: +2, fede: 0 }
+        }
+      },
+      {
+        testo: "Un vescovo chiede una donazione per restaurare il tempio.",
+        sinistra: {
+          etichetta: "Dona",
+          testoConseguenza: "La Chiesa ti guarda con favore, ma spendi parte del tesoro.",
+          effetti: { popolo: 0, esercito: 0, oro: -4, fede: +7 }
+        },
+        destra: {
+          etichetta: "Rifiuta",
+          testoConseguenza: "Hai negato l'offerta. Risparmi oro, ma la fede del regno si indebolisce.",
+          effetti: { popolo: 0, esercito: 0, oro: +2, fede: -6 }
+        }
+      }
+    ];
 
-let popolo = 50
-let esercito = 50
-let oro = 50
-let fede = 50
+    function limitaStat(valore) {
+      if (valore < 0) return 0;
+      if (valore > 100) return 100;
+      return valore;
+    }
 
-function aggiorna(){
-document.getElementById("popolo").innerText = popolo
-document.getElementById("esercito").innerText = esercito
-document.getElementById("oro").innerText = oro
-document.getElementById("fede").innerText = fede
-}
+    function aggiornaStatistiche() {
+      document.getElementById("giorno").innerText = game.giorno;
+      document.getElementById("popolo").innerText = game.popolo;
+      document.getElementById("esercito").innerText = game.esercito;
+      document.getElementById("oro").innerText = game.oro;
+      document.getElementById("fede").innerText = game.fede;
+    }
 
-function sceltaSinistra(){
-popolo += 5
-oro -= 5
-aggiorna()
-}
+    function mostraSezione(nome) {
+      document.getElementById("scelteButtons").classList.add("hidden");
+      document.getElementById("conseguenzeButtons").classList.add("hidden");
+      document.getElementById("regnoButtons").classList.add("hidden");
 
-function sceltaDestra(){
-popolo -= 5
-oro += 5
-aggiorna()
-}
+      document.getElementById(nome).classList.remove("hidden");
+    }
 
-</script>
+    function caricaEvento() {
+      const evento = eventi[Math.floor(Math.random() * eventi.length)];
+      game.sceltaCorrente = evento;
 
+      document.getElementById("testoCarta").innerText = evento.testo;
+
+      const bottoni = document.querySelectorAll("#scelteButtons button");
+      bottoni[0].innerText = evento.sinistra.etichetta;
+      bottoni[1].innerText = evento.destra.etichetta;
+
+      mostraSezione("scelteButtons");
+    }
+
+    function scegli(lato) {
+      const scelta = game.sceltaCorrente[lato];
+      game.conseguenzePending = scelta.effetti;
+
+      document.getElementById("testoCarta").innerText = scelta.testoConseguenza;
+      mostraSezione("conseguenzeButtons");
+    }
+
+    function subisciConseguenze() {
+      const effetti = game.conseguenzePending;
+
+      game.popolo = limitaStat(game.popolo + effetti.popolo);
+      game.esercito = limitaStat(game.esercito + effetti.esercito);
+      game.oro = limitaStat(game.oro + effetti.oro);
+      game.fede = limitaStat(game.fede + effetti.fede);
+
+      game.giorno += 1;
+
+      aggiornaStatistiche();
+
+      if (game.popolo === 0 || game.esercito === 0 || game.oro === 0 || game.fede === 0) {
+        document.getElementById("testoCarta").innerText =
+          "Il regno è crollato. Una delle tue risorse è arrivata a zero. Fine della partita.";
+        document.getElementById("conseguenzeButtons").classList.add("hidden");
+        document.getElementById("regnoButtons").classList.add("hidden");
+        document.getElementById("scelteButtons").classList.add("hidden");
+        return;
+      }
+
+      mostraSezione("regnoButtons");
+    }
+
+    function proseguiNelRegno() {
+      game.conseguenzePending = null;
+      caricaEvento();
+    }
+
+    aggiornaStatistiche();
+    caricaEvento();
+  </script>
 </body>
 </html>
