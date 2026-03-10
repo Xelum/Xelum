@@ -8,19 +8,21 @@
   <style>
     * {
       box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     body {
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
-      background:
-        radial-gradient(circle at top, #2a1f16 0%, #17120e 35%, #0b0b0d 100%);
+      background: radial-gradient(circle at top, #2a1f16 0%, #17120e 35%, #0b0b0d 100%);
       color: #f3e7d0;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      touch-action: pan-y;
     }
 
     .app {
@@ -45,7 +47,6 @@
     .day {
       font-size: 16px;
       color: #d2b98b;
-      letter-spacing: 0.5px;
     }
 
     .stats-panel {
@@ -75,12 +76,6 @@
       color: #f2e7d3;
     }
 
-    .stat-name {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
     .bar {
       width: 100%;
       height: 14px;
@@ -96,29 +91,51 @@
       transition: width 0.35s ease;
     }
 
-    .fill-popolo {
-      background: linear-gradient(90deg, #6f4fd8, #8f72ff);
+    .fill-popolo { background: linear-gradient(90deg, #6f4fd8, #8f72ff); }
+    .fill-esercito { background: linear-gradient(90deg, #6b6f7a, #a7adba); }
+    .fill-oro { background: linear-gradient(90deg, #b8860b, #ffd15c); }
+    .fill-fede { background: linear-gradient(90deg, #7a5a2b, #d9b26b); }
+
+    .card-area {
+      position: relative;
+      height: 340px;
+      margin-top: 8px;
     }
 
-    .fill-esercito {
-      background: linear-gradient(90deg, #6b6f7a, #a7adba);
+    .choice-hint {
+      position: absolute;
+      top: 18px;
+      width: 130px;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      z-index: 1;
+      pointer-events: none;
     }
 
-    .fill-oro {
-      background: linear-gradient(90deg, #b8860b, #ffd15c);
+    .choice-left {
+      left: 10px;
+      text-align: left;
+      color: #d96a6a;
     }
 
-    .fill-fede {
-      background: linear-gradient(90deg, #7a5a2b, #d9b26b);
+    .choice-right {
+      right: 10px;
+      text-align: right;
+      color: #7ed48a;
     }
 
-    .card-wrap {
-      perspective: 1000px;
+    .choice-hint.visible {
+      opacity: 1;
     }
 
     .card {
-      background:
-        linear-gradient(180deg, rgba(61, 47, 33, 0.97), rgba(33, 26, 21, 0.97));
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(61, 47, 33, 0.97), rgba(33, 26, 21, 0.97));
       border: 1px solid rgba(222, 190, 134, 0.22);
       border-radius: 24px;
       padding: 30px 24px;
@@ -128,19 +145,23 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-      position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
       overflow: hidden;
+      touch-action: none;
+      cursor: grab;
+      transition: transform 0.25s ease;
+    }
+
+    .card.dragging {
+      transition: none;
+      cursor: grabbing;
     }
 
     .card::before {
       content: "";
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(circle at top, rgba(255, 220, 160, 0.08), transparent 40%);
+      background: radial-gradient(circle at top, rgba(255, 220, 160, 0.08), transparent 40%);
       pointer-events: none;
     }
 
@@ -150,6 +171,8 @@
       letter-spacing: 2px;
       color: #c7ab78;
       margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
     }
 
     .card-text {
@@ -163,9 +186,7 @@
 
     .buttons {
       display: flex;
-      gap: 12px;
       justify-content: center;
-      flex-wrap: wrap;
       margin-top: 18px;
     }
 
@@ -173,32 +194,19 @@
       border: none;
       border-radius: 14px;
       padding: 14px 18px;
-      min-width: 180px;
+      min-width: 220px;
       font-size: 16px;
       font-family: inherit;
       cursor: pointer;
-      transition: transform 0.15s ease, opacity 0.15s ease, background 0.2s ease;
+      transition: transform 0.15s ease, background 0.2s ease;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      background: #8b5e34;
+      color: #fff4e2;
+      font-weight: 700;
     }
 
     button:hover {
       transform: translateY(-1px);
-    }
-
-    .choice-btn {
-      background: #e6d1a5;
-      color: #2a2118;
-      font-weight: 700;
-    }
-
-    .choice-btn.secondary {
-      background: #c8b086;
-    }
-
-    .next-btn {
-      background: #8b5e34;
-      color: #fff4e2;
-      font-weight: 700;
     }
 
     .hidden {
@@ -214,8 +222,11 @@
         font-size: 34px;
       }
 
+      .card-area {
+        height: 300px;
+      }
+
       .card {
-        min-height: 250px;
         padding: 24px 18px;
       }
 
@@ -239,48 +250,31 @@
 
     <div class="stats-panel">
       <div class="stat">
-        <div class="stat-head">
-          <div class="stat-name">👥 Popolo</div>
-          <div id="popoloValue">50</div>
-        </div>
-        <div class="bar">
-          <div class="fill fill-popolo" id="popoloBar" style="width: 50%;"></div>
-        </div>
+        <div class="stat-head"><span>👥 Popolo</span><span id="popoloValue">50</span></div>
+        <div class="bar"><div class="fill fill-popolo" id="popoloBar" style="width: 50%;"></div></div>
       </div>
 
       <div class="stat">
-        <div class="stat-head">
-          <div class="stat-name">⚔️ Esercito</div>
-          <div id="esercitoValue">50</div>
-        </div>
-        <div class="bar">
-          <div class="fill fill-esercito" id="esercitoBar" style="width: 50%;"></div>
-        </div>
+        <div class="stat-head"><span>⚔️ Esercito</span><span id="esercitoValue">50</span></div>
+        <div class="bar"><div class="fill fill-esercito" id="esercitoBar" style="width: 50%;"></div></div>
       </div>
 
       <div class="stat">
-        <div class="stat-head">
-          <div class="stat-name">💰 Oro</div>
-          <div id="oroValue">50</div>
-        </div>
-        <div class="bar">
-          <div class="fill fill-oro" id="oroBar" style="width: 50%;"></div>
-        </div>
+        <div class="stat-head"><span>💰 Oro</span><span id="oroValue">50</span></div>
+        <div class="bar"><div class="fill fill-oro" id="oroBar" style="width: 50%;"></div></div>
       </div>
 
       <div class="stat">
-        <div class="stat-head">
-          <div class="stat-name">⛪ Fede</div>
-          <div id="fedeValue">50</div>
-        </div>
-        <div class="bar">
-          <div class="fill fill-fede" id="fedeBar" style="width: 50%;"></div>
-        </div>
+        <div class="stat-head"><span>⛪ Fede</span><span id="fedeValue">50</span></div>
+        <div class="bar"><div class="fill fill-fede" id="fedeBar" style="width: 50%;"></div></div>
       </div>
     </div>
 
-    <div class="card-wrap">
-      <div class="card">
+    <div class="card-area">
+      <div class="choice-hint choice-left" id="leftHint">Sinistra</div>
+      <div class="choice-hint choice-right" id="rightHint">Destra</div>
+
+      <div class="card" id="gameCard">
         <div class="card-label">Consiglio del regno</div>
         <div class="card-text" id="testoCarta">
           Un mercante chiede meno tasse per aiutare il popolo.
@@ -288,13 +282,8 @@
       </div>
     </div>
 
-    <div class="buttons" id="scelteButtons">
-      <button class="choice-btn" id="btnSinistra" onclick="scegli('sinistra')">Accetta</button>
-      <button class="choice-btn secondary" id="btnDestra" onclick="scegli('destra')">Rifiuta</button>
-    </div>
-
     <div class="buttons hidden" id="regnoButtons">
-      <button class="next-btn" onclick="vaiAlGiornoSuccessivo()">Vai al giorno successivo</button>
+      <button onclick="vaiAlGiornoSuccessivo()">Vai al giorno successivo</button>
     </div>
   </div>
 
@@ -306,63 +295,72 @@
       oro: 50,
       fede: 50,
       sceltaCorrente: null,
-      gameOver: false
+      gameOver: false,
+      lockChoice: false
     };
 
     const eventi = [
       {
         testo: "Un mercante chiede meno tasse per aiutare il popolo.",
         sinistra: {
-          etichetta: "Accetta",
-          testoConseguenza: "Hai abbassato le tasse. Il popolo approva, ma le casse del regno si fanno più leggere.",
-          effetti: { popolo: 6, esercito: 0, oro: -6, fede: 0 }
-        },
-        destra: {
           etichetta: "Rifiuta",
           testoConseguenza: "Hai mantenuto le imposte. Il tesoro cresce, ma nelle strade aumenta il malcontento.",
           effetti: { popolo: -6, esercito: 0, oro: 5, fede: 0 }
+        },
+        destra: {
+          etichetta: "Accetta",
+          testoConseguenza: "Hai abbassato le tasse. Il popolo approva, ma le casse del regno si fanno più leggere.",
+          effetti: { popolo: 6, esercito: 0, oro: -6, fede: 0 }
         }
       },
       {
         testo: "Il comandante chiede nuovi fondi per addestrare l'esercito.",
         sinistra: {
-          etichetta: "Finanzia",
-          testoConseguenza: "Hai rinforzato l'addestramento. L'esercito cresce, ma l'oro diminuisce.",
-          effetti: { popolo: 0, esercito: 7, oro: -7, fede: 0 }
-        },
-        destra: {
           etichetta: "Rifiuta",
           testoConseguenza: "Hai negato nuovi fondi. Il tesoro regge, ma i soldati si sentono trascurati.",
           effetti: { popolo: 0, esercito: -7, oro: 3, fede: 0 }
+        },
+        destra: {
+          etichetta: "Finanzia",
+          testoConseguenza: "Hai rinforzato l'addestramento. L'esercito cresce, ma l'oro diminuisce.",
+          effetti: { popolo: 0, esercito: 7, oro: -7, fede: 0 }
         }
       },
       {
         testo: "Un vescovo chiede una donazione per restaurare il tempio.",
         sinistra: {
-          etichetta: "Dona",
-          testoConseguenza: "Il tempio verrà restaurato. La fede si rafforza, ma spendi parte del tesoro.",
-          effetti: { popolo: 0, esercito: 0, oro: -5, fede: 8 }
-        },
-        destra: {
           etichetta: "Rifiuta",
           testoConseguenza: "Hai rifiutato l'offerta. Conservi oro, ma il clero guarda con freddezza il trono.",
           effetti: { popolo: 0, esercito: 0, oro: 2, fede: -7 }
+        },
+        destra: {
+          etichetta: "Dona",
+          testoConseguenza: "Il tempio verrà restaurato. La fede si rafforza, ma spendi parte del tesoro.",
+          effetti: { popolo: 0, esercito: 0, oro: -5, fede: 8 }
         }
       },
       {
         testo: "I contadini chiedono più grano dai magazzini reali.",
         sinistra: {
-          etichetta: "Concedi",
-          testoConseguenza: "Hai aperto i granai. Il popolo ti acclama, ma le riserve del regno si riducono.",
-          effetti: { popolo: 8, esercito: 0, oro: -5, fede: 0 }
-        },
-        destra: {
           etichetta: "Nega",
           testoConseguenza: "Hai protetto le scorte. Il regno conserva risorse, ma il popolo soffre.",
           effetti: { popolo: -8, esercito: 0, oro: 3, fede: 0 }
+        },
+        destra: {
+          etichetta: "Concedi",
+          testoConseguenza: "Hai aperto i granai. Il popolo ti acclama, ma le riserve del regno si riducono.",
+          effetti: { popolo: 8, esercito: 0, oro: -5, fede: 0 }
         }
       }
     ];
+
+    const card = document.getElementById("gameCard");
+    const leftHint = document.getElementById("leftHint");
+    const rightHint = document.getElementById("rightHint");
+
+    let isDragging = false;
+    let startX = 0;
+    let currentX = 0;
 
     function limitaStat(valore) {
       if (valore < 0) return 0;
@@ -372,7 +370,6 @@
 
     function aggiornaStatistiche() {
       document.getElementById("giorno").textContent = game.giorno;
-
       document.getElementById("popoloValue").textContent = game.popolo;
       document.getElementById("esercitoValue").textContent = game.esercito;
       document.getElementById("oroValue").textContent = game.oro;
@@ -384,10 +381,37 @@
       document.getElementById("fedeBar").style.width = game.fede + "%";
     }
 
-    function mostraSezione(nome) {
-      document.getElementById("scelteButtons").classList.add("hidden");
+    function mostraHints(deltaX) {
+      leftHint.classList.remove("visible");
+      rightHint.classList.remove("visible");
+
+      if (deltaX < -30) {
+        leftHint.textContent = game.sceltaCorrente.sinistra.etichetta;
+        leftHint.classList.add("visible");
+      } else if (deltaX > 30) {
+        rightHint.textContent = game.sceltaCorrente.destra.etichetta;
+        rightHint.classList.add("visible");
+      }
+    }
+
+    function resetCard() {
+      card.style.transform = "translateX(0px) rotate(0deg)";
+      leftHint.classList.remove("visible");
+      rightHint.classList.remove("visible");
+    }
+
+    function aggiornaCard(deltaX) {
+      const rotate = deltaX * 0.08;
+      card.style.transform = `translateX(${deltaX}px) rotate(${rotate}deg)`;
+      mostraHints(deltaX);
+    }
+
+    function mostraSezioneRegno() {
+      document.getElementById("regnoButtons").classList.remove("hidden");
+    }
+
+    function nascondiSezioneRegno() {
       document.getElementById("regnoButtons").classList.add("hidden");
-      document.getElementById(nome).classList.remove("hidden");
     }
 
     function caricaEvento() {
@@ -395,19 +419,19 @@
 
       const evento = eventi[Math.floor(Math.random() * eventi.length)];
       game.sceltaCorrente = evento;
+      game.lockChoice = false;
 
       document.getElementById("testoCarta").textContent = evento.testo;
       document.getElementById("testoCarta").classList.remove("gameover");
 
-      document.getElementById("btnSinistra").textContent = evento.sinistra.etichetta;
-      document.getElementById("btnDestra").textContent = evento.destra.etichetta;
-
-      mostraSezione("scelteButtons");
+      nascondiSezioneRegno();
+      resetCard();
     }
 
-    function scegli(lato) {
-      if (game.gameOver) return;
+    function applicaScelta(lato) {
+      if (game.gameOver || game.lockChoice) return;
 
+      game.lockChoice = true;
       const scelta = game.sceltaCorrente[lato];
       const effetti = scelta.effetti;
 
@@ -427,21 +451,50 @@
       ) {
         game.gameOver = true;
         document.getElementById("testoCarta").textContent =
-          scelta.testoConseguenza +
-          " Il tuo regno è crollato: una delle risorse è arrivata a zero.";
+          scelta.testoConseguenza + " Il tuo regno è crollato: una delle risorse è arrivata a zero.";
         document.getElementById("testoCarta").classList.add("gameover");
-        document.getElementById("scelteButtons").classList.add("hidden");
-        document.getElementById("regnoButtons").classList.add("hidden");
+        resetCard();
         return;
       }
 
       document.getElementById("testoCarta").textContent = scelta.testoConseguenza;
-      mostraSezione("regnoButtons");
+      resetCard();
+      mostraSezioneRegno();
     }
 
     function vaiAlGiornoSuccessivo() {
       caricaEvento();
     }
+
+    card.addEventListener("pointerdown", (e) => {
+      if (game.gameOver || game.lockChoice || !document.getElementById("regnoButtons").classList.contains("hidden")) return;
+
+      isDragging = true;
+      startX = e.clientX;
+      currentX = 0;
+      card.classList.add("dragging");
+    });
+
+    window.addEventListener("pointermove", (e) => {
+      if (!isDragging) return;
+      currentX = e.clientX - startX;
+      aggiornaCard(currentX);
+    });
+
+    window.addEventListener("pointerup", () => {
+      if (!isDragging) return;
+
+      isDragging = false;
+      card.classList.remove("dragging");
+
+      if (currentX > 120) {
+        applicaScelta("destra");
+      } else if (currentX < -120) {
+        applicaScelta("sinistra");
+      } else {
+        resetCard();
+      }
+    });
 
     aggiornaStatistiche();
     caricaEvento();
