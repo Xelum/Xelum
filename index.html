@@ -23,11 +23,14 @@
       align-items: center;
       padding: 20px;
       touch-action: pan-y;
+      overflow-x: hidden;
     }
 
     .app {
       width: 100%;
       max-width: 560px;
+      position: relative;
+      z-index: 1;
     }
 
     .topbar {
@@ -98,10 +101,21 @@
       transition: width 0.35s ease;
     }
 
-    .fill-popolo { background: linear-gradient(90deg, #6f4fd8, #8f72ff); }
-    .fill-esercito { background: linear-gradient(90deg, #6b6f7a, #a7adba); }
-    .fill-oro { background: linear-gradient(90deg, #b8860b, #ffd15c); }
-    .fill-fede { background: linear-gradient(90deg, #7a5a2b, #d9b26b); }
+    .fill-popolo {
+      background: linear-gradient(90deg, #2f6b35, #63b36d);
+    }
+
+    .fill-esercito {
+      background: linear-gradient(90deg, #7a1f1f, #cf5b5b);
+    }
+
+    .fill-oro {
+      background: linear-gradient(90deg, #b8860b, #ffd15c);
+    }
+
+    .fill-fede {
+      background: linear-gradient(90deg, #5b3d8b, #a47ae8);
+    }
 
     .card-area {
       position: relative;
@@ -266,10 +280,6 @@
       transform: translateY(-1px);
     }
 
-    .secondary-btn {
-      background: #5f4630;
-    }
-
     .hidden {
       display: none;
     }
@@ -303,40 +313,63 @@
       color: #fff4df;
     }
 
-    .history {
-      margin-top: 18px;
-      background: rgba(25, 20, 16, 0.88);
-      border: 1px solid rgba(210, 185, 139, 0.14);
-      border-radius: 18px;
-      padding: 16px;
+    .page-turn {
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(20, 13, 8, 0.96), rgba(58, 41, 25, 0.98), rgba(20, 13, 8, 0.96));
+      transform: translateX(-100%);
+      z-index: 50;
+      pointer-events: none;
+      box-shadow: inset 20px 0 40px rgba(255, 230, 180, 0.08);
     }
 
-    .history h3 {
-      margin: 0 0 12px;
-      color: #f0dec0;
-      font-size: 20px;
+    .page-turn.animate {
+      animation: turnPage 0.75s ease forwards;
     }
 
-    .history-item {
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+    .page-turn-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f2dec0;
+      font-size: 24px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeText 0.75s ease forwards;
     }
 
-    .history-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
+    @keyframes turnPage {
+      0% {
+        transform: translateX(-100%);
+      }
+      45% {
+        transform: translateX(0%);
+      }
+      55% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
     }
 
-    .history-name {
-      color: #fff1d6;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .history-text {
-      color: #d8c7ab;
-      font-size: 14px;
-      line-height: 1.4;
+    @keyframes fadeText {
+      0% {
+        opacity: 0;
+      }
+      25% {
+        opacity: 1;
+      }
+      75% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
     }
 
     @media (max-width: 640px) {
@@ -364,10 +397,18 @@
         width: 100%;
         min-width: 0;
       }
+
+      .page-turn-text {
+        font-size: 20px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="page-turn hidden" id="pageTurn">
+    <div class="page-turn-text">Giorno successivo</div>
+  </div>
+
   <div class="app">
     <div class="topbar">
       <h1 class="title">Xelum</h1>
@@ -402,8 +443,7 @@
       <div class="choice-hint choice-right" id="rightHint">Destra</div>
 
       <div class="card show" id="gameCard">
-        <div class="scene-image" id="sceneImage">Scena del regno</div>
-        <div class="card-label" id="cardLabel">Consiglio del regno</div>
+        <div class="scene-image" id="sceneImage">Consiglio del regno</div>
         <div class="card-text" id="testoCarta">
           Un mercante chiede meno tasse per aiutare il popolo.
         </div>
@@ -423,13 +463,6 @@
 
       <div class="buttons">
         <button onclick="nuovoRegno()">Inizia un nuovo regno</button>
-      </div>
-    </div>
-
-    <div class="history" id="historyBox">
-      <h3>Annali del regno</h3>
-      <div id="historyList">
-        <div class="history-text">Nessun regno concluso per ora.</div>
       </div>
     </div>
   </div>
@@ -524,15 +557,13 @@
       lockChoice: false
     };
 
-    let cronacaRegni = JSON.parse(localStorage.getItem("xelum_cronaca_regni") || "[]");
-
     const card = document.getElementById("gameCard");
     const leftHint = document.getElementById("leftHint");
     const rightHint = document.getElementById("rightHint");
     const regnoButtons = document.getElementById("regnoButtons");
     const summaryBox = document.getElementById("summaryBox");
     const sceneImage = document.getElementById("sceneImage");
-    const historyList = document.getElementById("historyList");
+    const pageTurn = document.getElementById("pageTurn");
 
     let isDragging = false;
     let startX = 0;
@@ -617,6 +648,21 @@
       });
     }
 
+    function animaCambioGiorno(callback) {
+      pageTurn.classList.remove("hidden", "animate");
+      void pageTurn.offsetWidth;
+      pageTurn.classList.add("animate");
+
+      setTimeout(() => {
+        callback();
+      }, 360);
+
+      setTimeout(() => {
+        pageTurn.classList.remove("animate");
+        pageTurn.classList.add("hidden");
+      }, 760);
+    }
+
     function caricaEvento() {
       if (game.gameOver) return;
 
@@ -624,10 +670,9 @@
       game.sceltaCorrente = evento;
       game.lockChoice = false;
 
-      document.getElementById("cardLabel").textContent = "Consiglio del regno";
       document.getElementById("testoCarta").textContent = evento.testo;
       document.getElementById("testoCarta").classList.remove("gameover");
-      mostraImmagine(evento.image, "Scena del regno");
+      mostraImmagine(evento.image, "Consiglio del regno");
 
       nascondiSezioneRegno();
       resetCard();
@@ -656,46 +701,12 @@
       }
 
       if (game.fede === 0) {
-        if (durata <= 5) return "Gli dèi ti hanno voltato le spalle quasi subito. Il regno è precipitato nell'ombra.";
+        if (durata <= 5) return "Gli dei ti hanno voltato le spalle quasi subito. Il regno è precipitato nell'ombra.";
         if (durata <= 12) return "Templi freddi e altari vuoti hanno segnato il declino della tua dinastia.";
         return "Hai retto per anni, ma quando la fede si è spenta il tuo nome è divenuto presagio di rovina.";
       }
 
       return "Il regno si è concluso nel silenzio del destino.";
-    }
-
-    function salvaStoricoRegno() {
-      const record = {
-        nomeRe: game.nomeRe,
-        durata: game.giorno,
-        popolo: game.popolo,
-        esercito: game.esercito,
-        oro: game.oro,
-        fede: game.fede,
-        finale: finaleRegno()
-      };
-
-      cronacaRegni.unshift(record);
-      cronacaRegni = cronacaRegni.slice(0, 8);
-      localStorage.setItem("xelum_cronaca_regni", JSON.stringify(cronacaRegni));
-      renderStoricoRegni();
-    }
-
-    function renderStoricoRegni() {
-      if (cronacaRegni.length === 0) {
-        historyList.innerHTML = `<div class="history-text">Nessun regno concluso per ora.</div>`;
-        return;
-      }
-
-      historyList.innerHTML = cronacaRegni.map(regno => `
-        <div class="history-item">
-          <div class="history-name">${regno.nomeRe}</div>
-          <div class="history-text">
-            Durata: ${regno.durata} giorni · Popolo ${regno.popolo} · Esercito ${regno.esercito} · Oro ${regno.oro} · Fede ${regno.fede}
-          </div>
-          <div class="history-text">${regno.finale}</div>
-        </div>
-      `).join("");
     }
 
     function mostraRiepilogoFinale() {
@@ -709,7 +720,6 @@
       document.getElementById("summaryFinale").textContent = finale;
 
       summaryBox.classList.remove("hidden");
-      salvaStoricoRegno();
     }
 
     function applicaScelta(lato) {
@@ -732,9 +742,8 @@
         aggiornaStatistiche();
 
         resetCard();
-        document.getElementById("cardLabel").textContent = "Esito della decisione";
         document.getElementById("testoCarta").textContent = scelta.testoConseguenza;
-        mostraImmagine(scelta.image, "Esito della scelta");
+        mostraImmagine(scelta.image, "Consiglio del regno");
 
         if (
           game.popolo === 0 ||
@@ -755,7 +764,9 @@
     }
 
     function vaiAlGiornoSuccessivo() {
-      caricaEvento();
+      animaCambioGiorno(() => {
+        caricaEvento();
+      });
     }
 
     function nuovoRegno() {
@@ -804,7 +815,6 @@
       }
     });
 
-    renderStoricoRegni();
     nuovoRegno();
   </script>
 </body>
