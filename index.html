@@ -1,821 +1,396 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Xelum</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xelum</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      user-select: none;
-      -webkit-user-select: none;
-    }
+<style>
 
-    body {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      background: radial-gradient(circle at top, #2a1f16 0%, #17120e 35%, #0b0b0d 100%);
-      color: #f3e7d0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      touch-action: pan-y;
-      overflow-x: hidden;
-    }
+*{
+box-sizing:border-box;
+user-select:none;
+}
 
-    .app {
-      width: 100%;
-      max-width: 560px;
-      position: relative;
-      z-index: 1;
-    }
+body{
+margin:0;
+font-family:Georgia,serif;
+background:radial-gradient(circle at top,#2a1f16,#0b0b0d);
+color:#f3e7d0;
+display:flex;
+justify-content:center;
+padding:20px;
+}
 
-    .topbar {
-      text-align: center;
-      margin-bottom: 18px;
-    }
+.app{
+width:100%;
+max-width:560px;
+}
 
-    .title {
-      font-size: 42px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin: 0 0 8px;
-      color: #f5e6c8;
-      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
-    }
+.topbar{
+text-align:center;
+margin-bottom:18px;
+}
 
-    .king-name {
-      font-size: 15px;
-      color: #d7c29a;
-      margin-bottom: 6px;
-      letter-spacing: 0.4px;
-    }
+.title{
+font-size:34px;
+font-weight:700;
+color:#f5e6c8;
+margin-bottom:6px;
+}
 
-    .day {
-      font-size: 16px;
-      color: #d2b98b;
-    }
+.king-name{
+font-size:15px;
+color:#d7c29a;
+}
 
-    .stats-panel {
-      background: rgba(25, 20, 16, 0.92);
-      border: 1px solid rgba(210, 185, 139, 0.18);
-      border-radius: 18px;
-      padding: 16px 14px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
-      margin-bottom: 18px;
-      backdrop-filter: blur(3px);
-    }
+.stats-panel{
+background:#191410;
+border-radius:18px;
+padding:16px;
+margin-bottom:18px;
+}
 
-    .stat {
-      margin-bottom: 14px;
-    }
+.stat{
+margin-bottom:14px;
+}
 
-    .stat:last-child {
-      margin-bottom: 0;
-    }
+.stat-head{
+display:flex;
+justify-content:space-between;
+font-size:15px;
+margin-bottom:6px;
+}
 
-    .stat-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 7px;
-      font-size: 15px;
-      color: #f2e7d3;
-    }
+.bar{
+height:14px;
+background:#3a2f26;
+border-radius:999px;
+overflow:hidden;
+}
 
-    .bar {
-      width: 100%;
-      height: 14px;
-      background: #3a2f26;
-      border-radius: 999px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
+.fill{
+height:100%;
+border-radius:999px;
+transition:width .3s;
+}
 
-    .fill {
-      height: 100%;
-      border-radius: 999px;
-      transition: width 0.35s ease;
-    }
+.fill-popolo{
+background:linear-gradient(90deg,#2f6b35,#63b36d);
+}
 
-    .fill-popolo {
-      background: linear-gradient(90deg, #2f6b35, #63b36d);
-    }
+.fill-esercito{
+background:linear-gradient(90deg,#7a1f1f,#cf5b5b);
+}
 
-    .fill-esercito {
-      background: linear-gradient(90deg, #7a1f1f, #cf5b5b);
-    }
+.fill-oro{
+background:linear-gradient(90deg,#b8860b,#ffd15c);
+}
 
-    .fill-oro {
-      background: linear-gradient(90deg, #b8860b, #ffd15c);
-    }
+.fill-fede{
+background:linear-gradient(90deg,#5b3d8b,#a47ae8);
+}
 
-    .fill-fede {
-      background: linear-gradient(90deg, #5b3d8b, #a47ae8);
-    }
+.card-area{
+height:380px;
+position:relative;
+}
 
-    .card-area {
-      position: relative;
-      height: 380px;
-      margin-top: 8px;
-    }
+.card{
+position:absolute;
+inset:0;
+background:#3d2f21;
+border-radius:24px;
+padding:20px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+cursor:grab;
+transition:transform .25s,opacity .25s;
+}
 
-    .choice-hint {
-      position: absolute;
-      top: 18px;
-      width: 130px;
-      font-size: 14px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      opacity: 0;
-      transition: opacity 0.15s ease;
-      z-index: 1;
-      pointer-events: none;
-    }
+.card-text{
+font-size:26px;
+color:#fff5df;
+}
 
-    .choice-left {
-      left: 10px;
-      text-align: left;
-      color: #d96a6a;
-    }
+.scene-image{
+height:110px;
+width:100%;
+margin-bottom:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:14px;
+background:#4a3826;
+color:#d8c29c;
+font-size:13px;
+text-transform:uppercase;
+}
 
-    .choice-right {
-      right: 10px;
-      text-align: right;
-      color: #7ed48a;
-    }
+.choice-hint{
+position:absolute;
+top:16px;
+font-size:14px;
+opacity:0;
+}
 
-    .choice-hint.visible {
-      opacity: 1;
-    }
+.choice-left{
+left:10px;
+color:#d96a6a;
+}
 
-    .card {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(61, 47, 33, 0.97), rgba(33, 26, 21, 0.97));
-      border: 1px solid rgba(222, 190, 134, 0.22);
-      border-radius: 24px;
-      padding: 18px 20px 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-      overflow: hidden;
-      touch-action: none;
-      cursor: grab;
-      transition: transform 0.25s ease, opacity 0.25s ease;
-    }
+.choice-right{
+right:10px;
+color:#7ed48a;
+}
 
-    .card.dragging {
-      transition: none;
-      cursor: grabbing;
-    }
+.choice-hint.visible{
+opacity:1;
+}
 
-    .card.exit-right {
-      transform: translateX(700px) rotate(24deg);
-      opacity: 0;
-      transition: transform 0.35s ease, opacity 0.35s ease;
-    }
+.buttons{
+display:flex;
+justify-content:center;
+margin-top:18px;
+}
 
-    .card.exit-left {
-      transform: translateX(-700px) rotate(-24deg);
-      opacity: 0;
-      transition: transform 0.35s ease, opacity 0.35s ease;
-    }
+button{
+border:none;
+border-radius:14px;
+padding:14px 20px;
+background:#8b5e34;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
 
-    .card.enter {
-      opacity: 0;
-      transform: scale(0.96) translateY(16px);
-    }
+.hidden{
+display:none;
+}
 
-    .card.show {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-      transition: transform 0.25s ease, opacity 0.25s ease;
-    }
+.summary{
+background:#191410;
+border-radius:18px;
+padding:18px;
+margin-top:18px;
+}
 
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(255, 220, 160, 0.08), transparent 40%);
-      pointer-events: none;
-    }
+.page-turn{
+position:fixed;
+inset:0;
+background:#2b1e14;
+transform:translateX(-100%);
+z-index:100;
+}
 
-    .scene-image {
-      width: 100%;
-      height: 120px;
-      border-radius: 16px;
-      margin-bottom: 14px;
-      background: linear-gradient(135deg, rgba(199,171,120,0.18), rgba(90,65,40,0.18));
-      border: 1px solid rgba(222, 190, 134, 0.14);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #d8c29c;
-      font-size: 13px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      position: relative;
-      z-index: 1;
-      overflow: hidden;
-    }
+.page-turn.animate{
+animation:turnPage .8s forwards;
+}
 
-    .scene-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+@keyframes turnPage{
+0%{transform:translateX(-100%)}
+50%{transform:translateX(0)}
+100%{transform:translateX(100%)}
+}
 
-    .card-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #c7ab78;
-      margin-bottom: 14px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .card-text {
-      font-size: 27px;
-      line-height: 1.35;
-      color: #fff5df;
-      max-width: 420px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      margin-top: 18px;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    button {
-      border: none;
-      border-radius: 14px;
-      padding: 14px 18px;
-      min-width: 220px;
-      font-size: 16px;
-      font-family: inherit;
-      cursor: pointer;
-      transition: transform 0.15s ease, background 0.2s ease;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-      background: #8b5e34;
-      color: #fff4e2;
-      font-weight: 700;
-    }
-
-    button:hover {
-      transform: translateY(-1px);
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .gameover {
-      color: #ffcf9d;
-    }
-
-    .summary {
-      margin-top: 18px;
-      background: rgba(25, 20, 16, 0.94);
-      border: 1px solid rgba(210, 185, 139, 0.18);
-      border-radius: 18px;
-      padding: 18px 16px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
-    }
-
-    .summary h2 {
-      margin: 0 0 12px;
-      font-size: 24px;
-      color: #f5e6c8;
-    }
-
-    .summary p {
-      margin: 8px 0;
-      color: #eadac0;
-      line-height: 1.5;
-    }
-
-    .summary strong {
-      color: #fff4df;
-    }
-
-    .page-turn {
-      position: fixed;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(20, 13, 8, 0.96), rgba(58, 41, 25, 0.98), rgba(20, 13, 8, 0.96));
-      transform: translateX(-100%);
-      z-index: 50;
-      pointer-events: none;
-      box-shadow: inset 20px 0 40px rgba(255, 230, 180, 0.08);
-    }
-
-    .page-turn.animate {
-      animation: turnPage 0.75s ease forwards;
-    }
-
-    .page-turn-text {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #f2dec0;
-      font-size: 24px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      opacity: 0;
-      animation: fadeText 0.75s ease forwards;
-    }
-
-    @keyframes turnPage {
-      0% {
-        transform: translateX(-100%);
-      }
-      45% {
-        transform: translateX(0%);
-      }
-      55% {
-        transform: translateX(0%);
-      }
-      100% {
-        transform: translateX(100%);
-      }
-    }
-
-    @keyframes fadeText {
-      0% {
-        opacity: 0;
-      }
-      25% {
-        opacity: 1;
-      }
-      75% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .title {
-        font-size: 34px;
-      }
-
-      .card-area {
-        height: 340px;
-      }
-
-      .card {
-        padding: 16px 16px 20px;
-      }
-
-      .scene-image {
-        height: 96px;
-      }
-
-      .card-text {
-        font-size: 23px;
-      }
-
-      button {
-        width: 100%;
-        min-width: 0;
-      }
-
-      .page-turn-text {
-        font-size: 20px;
-      }
-    }
-  </style>
+</style>
 </head>
+
 <body>
-  <div class="page-turn hidden" id="pageTurn">
-    <div class="page-turn-text">Giorno successivo</div>
-  </div>
 
-  <div class="app">
-    <div class="topbar">
-      <h1 class="title">Xelum</h1>
-      <div class="king-name">Re in carica: <span id="nomeRe">Lucius Aurelius</span></div>
-      <div class="day">Giorno <span id="giorno">1</span> di regno</div>
-    </div>
+<div class="page-turn hidden" id="pageTurn"></div>
 
-    <div class="stats-panel">
-      <div class="stat">
-        <div class="stat-head"><span>👥 Popolo</span><span id="popoloValue">50</span></div>
-        <div class="bar"><div class="fill fill-popolo" id="popoloBar" style="width: 50%;"></div></div>
-      </div>
+<div class="app">
 
-      <div class="stat">
-        <div class="stat-head"><span>⚔️ Esercito</span><span id="esercitoValue">50</span></div>
-        <div class="bar"><div class="fill fill-esercito" id="esercitoBar" style="width: 50%;"></div></div>
-      </div>
+<div class="topbar">
+<h1 class="title">Giorno <span id="giorno">1</span> del regno</h1>
+<div class="king-name">Re in carica: <span id="nomeRe"></span></div>
+</div>
 
-      <div class="stat">
-        <div class="stat-head"><span>💰 Oro</span><span id="oroValue">50</span></div>
-        <div class="bar"><div class="fill fill-oro" id="oroBar" style="width: 50%;"></div></div>
-      </div>
+<div class="stats-panel">
 
-      <div class="stat">
-        <div class="stat-head"><span>⛪ Fede</span><span id="fedeValue">50</span></div>
-        <div class="bar"><div class="fill fill-fede" id="fedeBar" style="width: 50%;"></div></div>
-      </div>
-    </div>
+<div class="stat">
+<div class="stat-head">
+<span>👥 Popolo</span>
+<span id="popoloValue">50</span>
+</div>
+<div class="bar">
+<div class="fill fill-popolo" id="popoloBar" style="width:50%"></div>
+</div>
+</div>
 
-    <div class="card-area">
-      <div class="choice-hint choice-left" id="leftHint">Sinistra</div>
-      <div class="choice-hint choice-right" id="rightHint">Destra</div>
+<div class="stat">
+<div class="stat-head">
+<span>⚔️ Esercito</span>
+<span id="esercitoValue">50</span>
+</div>
+<div class="bar">
+<div class="fill fill-esercito" id="esercitoBar" style="width:50%"></div>
+</div>
+</div>
 
-      <div class="card show" id="gameCard">
-        <div class="scene-image" id="sceneImage">Consiglio del regno</div>
-        <div class="card-text" id="testoCarta">
-          Un mercante chiede meno tasse per aiutare il popolo.
-        </div>
-      </div>
-    </div>
+<div class="stat">
+<div class="stat-head">
+<span>💰 Oro</span>
+<span id="oroValue">50</span>
+</div>
+<div class="bar">
+<div class="fill fill-oro" id="oroBar" style="width:50%"></div>
+</div>
+</div>
 
-    <div class="buttons hidden" id="regnoButtons">
-      <button onclick="vaiAlGiornoSuccessivo()">Vai al giorno successivo</button>
-    </div>
+<div class="stat">
+<div class="stat-head">
+<span>⛪ Fede</span>
+<span id="fedeValue">50</span>
+</div>
+<div class="bar">
+<div class="fill fill-fede" id="fedeBar" style="width:50%"></div>
+</div>
+</div>
 
-    <div class="summary hidden" id="summaryBox">
-      <h2>Fine del regno</h2>
-      <p><strong>Sovrano:</strong> <span id="summaryRe"></span></p>
-      <p><strong>Durata:</strong> <span id="summaryDurata"></span></p>
-      <p><strong>Valori finali:</strong> Popolo <span id="summaryPopolo"></span> · Esercito <span id="summaryEsercito"></span> · Oro <span id="summaryOro"></span> · Fede <span id="summaryFede"></span></p>
-      <p><strong>Destino del regno:</strong> <span id="summaryFinale"></span></p>
+</div>
 
-      <div class="buttons">
-        <button onclick="nuovoRegno()">Inizia un nuovo regno</button>
-      </div>
-    </div>
-  </div>
+<div class="card-area">
 
-  <script>
-    const praenomina = [
-      "Lucius", "Marcus", "Gaius", "Tiberius", "Quintus",
-      "Aulus", "Publius", "Sextus", "Decimus", "Titus"
-    ];
+<div class="choice-hint choice-left" id="leftHint"></div>
+<div class="choice-hint choice-right" id="rightHint"></div>
 
-    const nomina = [
-      "Aurelius", "Severus", "Cassianus", "Valerius", "Octavianus",
-      "Flavianus", "Hadrianus", "Marcellus", "Drusus", "Aelianus"
-    ];
+<div class="card" id="gameCard">
 
-    const eventi = [
-      {
-        testo: "Un mercante chiede meno tasse per aiutare il popolo.",
-        image: "",
-        sinistra: {
-          etichetta: "Rifiuta",
-          testoConseguenza: "Hai mantenuto le imposte. Il tesoro cresce, ma nelle strade aumenta il malcontento.",
-          image: "",
-          effetti: { popolo: -6, esercito: 0, oro: 5, fede: 0 }
-        },
-        destra: {
-          etichetta: "Accetta",
-          testoConseguenza: "Hai abbassato le tasse. Il popolo approva, ma le casse del regno si fanno più leggere.",
-          image: "",
-          effetti: { popolo: 6, esercito: 0, oro: -6, fede: 0 }
-        }
-      },
-      {
-        testo: "Il comandante chiede nuovi fondi per addestrare l'esercito.",
-        image: "",
-        sinistra: {
-          etichetta: "Rifiuta",
-          testoConseguenza: "Hai negato nuovi fondi. Il tesoro regge, ma i soldati si sentono trascurati.",
-          image: "",
-          effetti: { popolo: 0, esercito: -7, oro: 3, fede: 0 }
-        },
-        destra: {
-          etichetta: "Finanzia",
-          testoConseguenza: "Hai rinforzato l'addestramento. L'esercito cresce, ma l'oro diminuisce.",
-          image: "",
-          effetti: { popolo: 0, esercito: 7, oro: -7, fede: 0 }
-        }
-      },
-      {
-        testo: "Un vescovo chiede una donazione per restaurare il tempio.",
-        image: "",
-        sinistra: {
-          etichetta: "Rifiuta",
-          testoConseguenza: "Hai rifiutato l'offerta. Conservi oro, ma il clero guarda con freddezza il trono.",
-          image: "",
-          effetti: { popolo: 0, esercito: 0, oro: 2, fede: -7 }
-        },
-        destra: {
-          etichetta: "Dona",
-          testoConseguenza: "Il tempio verrà restaurato. La fede si rafforza, ma spendi parte del tesoro.",
-          image: "",
-          effetti: { popolo: 0, esercito: 0, oro: -5, fede: 8 }
-        }
-      },
-      {
-        testo: "I contadini chiedono più grano dai magazzini reali.",
-        image: "",
-        sinistra: {
-          etichetta: "Nega",
-          testoConseguenza: "Hai protetto le scorte. Il regno conserva risorse, ma il popolo soffre.",
-          image: "",
-          effetti: { popolo: -8, esercito: 0, oro: 3, fede: 0 }
-        },
-        destra: {
-          etichetta: "Concedi",
-          testoConseguenza: "Hai aperto i granai. Il popolo ti acclama, ma le riserve del regno si riducono.",
-          image: "",
-          effetti: { popolo: 8, esercito: 0, oro: -5, fede: 0 }
-        }
-      }
-    ];
+<div class="scene-image">Consiglio del regno</div>
 
-    const game = {
-      nomeRe: "",
-      giorno: 1,
-      popolo: 50,
-      esercito: 50,
-      oro: 50,
-      fede: 50,
-      sceltaCorrente: null,
-      gameOver: false,
-      lockChoice: false
-    };
+<div class="card-text" id="testoCarta">
+Un mercante chiede meno tasse per aiutare il popolo.
+</div>
 
-    const card = document.getElementById("gameCard");
-    const leftHint = document.getElementById("leftHint");
-    const rightHint = document.getElementById("rightHint");
-    const regnoButtons = document.getElementById("regnoButtons");
-    const summaryBox = document.getElementById("summaryBox");
-    const sceneImage = document.getElementById("sceneImage");
-    const pageTurn = document.getElementById("pageTurn");
+</div>
 
-    let isDragging = false;
-    let startX = 0;
-    let currentX = 0;
+</div>
 
-    function nomeLatinoCasuale() {
-      const praenomen = praenomina[Math.floor(Math.random() * praenomina.length)];
-      const nomen = nomina[Math.floor(Math.random() * nomina.length)];
-      return `${praenomen} ${nomen}`;
-    }
+<div class="buttons hidden" id="regnoButtons">
+<button onclick="vaiAlGiornoSuccessivo()">Vai al giorno successivo</button>
+</div>
 
-    function limitaStat(valore) {
-      if (valore < 0) return 0;
-      if (valore > 100) return 100;
-      return valore;
-    }
+<div class="summary hidden" id="summaryBox">
 
-    function aggiornaStatistiche() {
-      document.getElementById("nomeRe").textContent = game.nomeRe;
-      document.getElementById("giorno").textContent = game.giorno;
-      document.getElementById("popoloValue").textContent = game.popolo;
-      document.getElementById("esercitoValue").textContent = game.esercito;
-      document.getElementById("oroValue").textContent = game.oro;
-      document.getElementById("fedeValue").textContent = game.fede;
+<h2>Fine del regno</h2>
 
-      document.getElementById("popoloBar").style.width = game.popolo + "%";
-      document.getElementById("esercitoBar").style.width = game.esercito + "%";
-      document.getElementById("oroBar").style.width = game.oro + "%";
-      document.getElementById("fedeBar").style.width = game.fede + "%";
-    }
+<p>Sovrano: <span id="summaryRe"></span></p>
+<p>Durata: <span id="summaryDurata"></span></p>
+<p>Popolo <span id="summaryPopolo"></span></p>
+<p>Esercito <span id="summaryEsercito"></span></p>
+<p>Oro <span id="summaryOro"></span></p>
+<p>Fede <span id="summaryFede"></span></p>
 
-    function mostraImmagine(url, fallbackText) {
-      if (url && url.trim() !== "") {
-        sceneImage.innerHTML = `<img src="${url}" alt="Scena">`;
-      } else {
-        sceneImage.textContent = fallbackText;
-      }
-    }
+<button onclick="nuovoRegno()">Nuovo regno</button>
 
-    function mostraHints(deltaX) {
-      leftHint.classList.remove("visible");
-      rightHint.classList.remove("visible");
+</div>
 
-      if (deltaX < -30) {
-        leftHint.textContent = game.sceltaCorrente.sinistra.etichetta;
-        leftHint.classList.add("visible");
-      } else if (deltaX > 30) {
-        rightHint.textContent = game.sceltaCorrente.destra.etichetta;
-        rightHint.classList.add("visible");
-      }
-    }
+</div>
 
-    function resetCard() {
-      card.classList.remove("exit-left", "exit-right", "dragging", "enter");
-      card.style.transform = "translateX(0px) rotate(0deg)";
-      card.style.opacity = "1";
-      leftHint.classList.remove("visible");
-      rightHint.classList.remove("visible");
-    }
+<script>
 
-    function aggiornaCard(deltaX) {
-      const rotate = deltaX * 0.08;
-      card.style.transform = `translateX(${deltaX}px) rotate(${rotate}deg)`;
-      mostraHints(deltaX);
-    }
+const praenomina=["Lucius","Marcus","Gaius","Tiberius","Quintus"];
+const nomina=["Aurelius","Severus","Valerius","Cassianus","Octavianus"];
 
-    function mostraSezioneRegno() {
-      regnoButtons.classList.remove("hidden");
-    }
+const eventi=[
+{
+testo:"Un mercante chiede meno tasse per aiutare il popolo.",
+sinistra:{etichetta:"Rifiuta",effetti:{popolo:-6,oro:5}},
+destra:{etichetta:"Accetta",effetti:{popolo:6,oro:-6}}
+}
+];
 
-    function nascondiSezioneRegno() {
-      regnoButtons.classList.add("hidden");
-    }
+const game={
+giorno:1,
+popolo:50,
+esercito:50,
+oro:50,
+fede:50,
+nomeRe:"",
+sceltaCorrente:null
+};
 
-    function animaIngressoCarta() {
-      card.classList.add("enter");
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          card.classList.add("show");
-          card.classList.remove("enter");
-        });
-      });
-    }
+function nomeLatino(){
+return praenomina[Math.floor(Math.random()*praenomina.length)]+" "+nomina[Math.floor(Math.random()*nomina.length)];
+}
 
-    function animaCambioGiorno(callback) {
-      pageTurn.classList.remove("hidden", "animate");
-      void pageTurn.offsetWidth;
-      pageTurn.classList.add("animate");
+function aggiornaStatistiche(){
 
-      setTimeout(() => {
-        callback();
-      }, 360);
+document.getElementById("giorno").textContent=game.giorno;
 
-      setTimeout(() => {
-        pageTurn.classList.remove("animate");
-        pageTurn.classList.add("hidden");
-      }, 760);
-    }
+document.getElementById("popoloValue").textContent=game.popolo;
+document.getElementById("esercitoValue").textContent=game.esercito;
+document.getElementById("oroValue").textContent=game.oro;
+document.getElementById("fedeValue").textContent=game.fede;
 
-    function caricaEvento() {
-      if (game.gameOver) return;
+document.getElementById("popoloBar").style.width=game.popolo+"%";
+document.getElementById("esercitoBar").style.width=game.esercito+"%";
+document.getElementById("oroBar").style.width=game.oro+"%";
+document.getElementById("fedeBar").style.width=game.fede+"%";
 
-      const evento = eventi[Math.floor(Math.random() * eventi.length)];
-      game.sceltaCorrente = evento;
-      game.lockChoice = false;
+}
 
-      document.getElementById("testoCarta").textContent = evento.testo;
-      document.getElementById("testoCarta").classList.remove("gameover");
-      mostraImmagine(evento.image, "Consiglio del regno");
+function caricaEvento(){
 
-      nascondiSezioneRegno();
-      resetCard();
-      animaIngressoCarta();
-    }
+const evento=eventi[Math.floor(Math.random()*eventi.length)];
+game.sceltaCorrente=evento;
 
-    function finaleRegno() {
-      const durata = game.giorno;
+document.getElementById("testoCarta").textContent=evento.testo;
 
-      if (game.popolo === 0) {
-        if (durata <= 5) return "Il popolo ti ha respinto quasi subito. Il tuo nome è stato cancellato dalle piazze del regno.";
-        if (durata <= 12) return "Dopo anni inquieti, il popolo si è sollevato contro la corona e ha spezzato il tuo dominio.";
-        return "Hai resistito a lungo, ma il popolo ha finito per stancarsi del tuo governo e il trono è crollato tra le rivolte.";
-      }
+}
 
-      if (game.esercito === 0) {
-        if (durata <= 5) return "I soldati hanno perso subito fiducia nel tuo comando. Le mura sono rimaste senza difesa.";
-        if (durata <= 12) return "L'esercito si è disgregato nel tempo e il regno è stato travolto da nemici e tradimenti.";
-        return "Dopo un lungo regno, le tue legioni si sono indebolite fino a lasciare il trono senza protezione.";
-      }
+function animaCambioGiorno(cb){
 
-      if (game.oro === 0) {
-        if (durata <= 5) return "Le casse si sono svuotate troppo presto. Il regno non ha mai davvero preso forma.";
-        if (durata <= 12) return "Il peso delle spese e delle concessioni ha dissanguato la corona fino alla rovina.";
-        return "Hai governato a lungo, ma alla fine il debito ha divorato palazzo, esercito e fedeltà.";
-      }
+const page=document.getElementById("pageTurn");
 
-      if (game.fede === 0) {
-        if (durata <= 5) return "Gli dei ti hanno voltato le spalle quasi subito. Il regno è precipitato nell'ombra.";
-        if (durata <= 12) return "Templi freddi e altari vuoti hanno segnato il declino della tua dinastia.";
-        return "Hai retto per anni, ma quando la fede si è spenta il tuo nome è divenuto presagio di rovina.";
-      }
+page.classList.remove("hidden");
+page.classList.add("animate");
 
-      return "Il regno si è concluso nel silenzio del destino.";
-    }
+setTimeout(()=>{
+cb();
+},400);
 
-    function mostraRiepilogoFinale() {
-      const finale = finaleRegno();
-      document.getElementById("summaryRe").textContent = game.nomeRe;
-      document.getElementById("summaryDurata").textContent = `${game.giorno} giorni`;
-      document.getElementById("summaryPopolo").textContent = game.popolo;
-      document.getElementById("summaryEsercito").textContent = game.esercito;
-      document.getElementById("summaryOro").textContent = game.oro;
-      document.getElementById("summaryFede").textContent = game.fede;
-      document.getElementById("summaryFinale").textContent = finale;
+setTimeout(()=>{
+page.classList.remove("animate");
+page.classList.add("hidden");
+},800);
 
-      summaryBox.classList.remove("hidden");
-    }
+}
 
-    function applicaScelta(lato) {
-      if (game.gameOver || game.lockChoice) return;
+function vaiAlGiornoSuccessivo(){
 
-      game.lockChoice = true;
-      const scelta = game.sceltaCorrente[lato];
-      const effetti = scelta.effetti;
+animaCambioGiorno(()=>{
+game.giorno++;
+caricaEvento();
+aggiornaStatistiche();
+});
 
-      card.classList.remove("dragging");
-      card.classList.add(lato === "destra" ? "exit-right" : "exit-left");
+}
 
-      setTimeout(() => {
-        game.popolo = limitaStat(game.popolo + effetti.popolo);
-        game.esercito = limitaStat(game.esercito + effetti.esercito);
-        game.oro = limitaStat(game.oro + effetti.oro);
-        game.fede = limitaStat(game.fede + effetti.fede);
-        game.giorno += 1;
+function nuovoRegno(){
 
-        aggiornaStatistiche();
+game.nomeRe=nomeLatino();
+game.giorno=1;
+game.popolo=50;
+game.esercito=50;
+game.oro=50;
+game.fede=50;
 
-        resetCard();
-        document.getElementById("testoCarta").textContent = scelta.testoConseguenza;
-        mostraImmagine(scelta.image, "Consiglio del regno");
+document.getElementById("nomeRe").textContent=game.nomeRe;
 
-        if (
-          game.popolo === 0 ||
-          game.esercito === 0 ||
-          game.oro === 0 ||
-          game.fede === 0
-        ) {
-          game.gameOver = true;
-          document.getElementById("testoCarta").textContent =
-            scelta.testoConseguenza + " La tua dinastia si spegne qui.";
-          document.getElementById("testoCarta").classList.add("gameover");
-          mostraRiepilogoFinale();
-          return;
-        }
+aggiornaStatistiche();
+caricaEvento();
 
-        mostraSezioneRegno();
-      }, 320);
-    }
+}
 
-    function vaiAlGiornoSuccessivo() {
-      animaCambioGiorno(() => {
-        caricaEvento();
-      });
-    }
+nuovoRegno();
 
-    function nuovoRegno() {
-      game.nomeRe = nomeLatinoCasuale();
-      game.giorno = 1;
-      game.popolo = 50;
-      game.esercito = 50;
-      game.oro = 50;
-      game.fede = 50;
-      game.sceltaCorrente = null;
-      game.gameOver = false;
-      game.lockChoice = false;
+</script>
 
-      summaryBox.classList.add("hidden");
-      aggiornaStatistiche();
-      caricaEvento();
-    }
-
-    card.addEventListener("pointerdown", (e) => {
-      if (game.gameOver || game.lockChoice || !regnoButtons.classList.contains("hidden")) return;
-
-      isDragging = true;
-      startX = e.clientX;
-      currentX = 0;
-      card.classList.add("dragging");
-    });
-
-    window.addEventListener("pointermove", (e) => {
-      if (!isDragging) return;
-      currentX = e.clientX - startX;
-      aggiornaCard(currentX);
-    });
-
-    window.addEventListener("pointerup", () => {
-      if (!isDragging) return;
-
-      isDragging = false;
-      card.classList.remove("dragging");
-
-      if (currentX > 120) {
-        applicaScelta("destra");
-      } else if (currentX < -120) {
-        applicaScelta("sinistra");
-      } else {
-        resetCard();
-      }
-    });
-
-    nuovoRegno();
-  </script>
 </body>
 </html>
