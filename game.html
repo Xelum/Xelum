@@ -123,36 +123,18 @@
     }
 
     .shape-base {
-      fill: #070707;
+      fill: #e8dcc8;
     }
 
     .shape-gold {
-      fill: #e0b24e;
+      fill: #d4a43e;
       transition: y 0.45s ease, height 0.45s ease;
-    }
-
-    .outline {
-      fill: none;
-      stroke: rgba(255, 248, 236, 0.97);
-      stroke-width: 4;
-      stroke-linejoin: round;
-      stroke-linecap: round;
-      vector-effect: non-scaling-stroke;
-    }
-
-    .detail-outline {
-      fill: none;
-      stroke: rgba(255, 248, 236, 0.97);
-      stroke-width: 3.4;
-      stroke-linejoin: round;
-      stroke-linecap: round;
-      vector-effect: non-scaling-stroke;
     }
 
     .gold-detail {
       fill: none;
-      stroke: rgba(112, 68, 18, 0.75);
-      stroke-width: 2.4;
+      stroke: rgba(110, 69, 18, 0.62);
+      stroke-width: 2.2;
       stroke-linejoin: round;
       stroke-linecap: round;
       vector-effect: non-scaling-stroke;
@@ -165,7 +147,7 @@
       color: #f3debb;
       line-height: 1;
       min-height: 18px;
-      text-shadow: 0 0 10px rgba(255, 214, 130, 0.08);
+      transition: transform 0.18s ease, text-shadow 0.18s ease, color 0.18s ease;
     }
 
     .stat-tooltip {
@@ -203,35 +185,57 @@
       margin-bottom: 2px;
     }
 
+    .stat-icon-card.flash-up,
+    .stat-icon-card.flash-down {
+      animation: statCardFlash 0.8s ease;
+    }
+
     .stat-icon-card.flash-up .icon-shell,
     .stat-icon-card.flash-down .icon-shell {
-      animation: statPulse 0.72s ease;
+      animation: statPulse 0.78s ease;
     }
 
     .stat-icon-card.flash-up .icon-shell {
       filter:
-        drop-shadow(0 0 10px rgba(255, 212, 120, 0.45))
-        drop-shadow(0 0 18px rgba(255, 212, 120, 0.28));
+        drop-shadow(0 0 10px rgba(255, 215, 120, 0.55))
+        drop-shadow(0 0 18px rgba(255, 215, 120, 0.35))
+        drop-shadow(0 0 26px rgba(255, 215, 120, 0.15));
     }
 
     .stat-icon-card.flash-down .icon-shell {
       filter:
-        drop-shadow(0 0 8px rgba(255, 212, 120, 0.28))
-        drop-shadow(0 0 14px rgba(255, 212, 120, 0.16));
+        drop-shadow(0 0 8px rgba(255, 205, 110, 0.35))
+        drop-shadow(0 0 14px rgba(255, 205, 110, 0.20));
     }
 
     .stat-icon-card.flash-up .stat-percent,
     .stat-icon-card.flash-down .stat-percent {
-      color: #fff0c7;
+      color: #fff1c9;
+      transform: scale(1.12);
       text-shadow:
-        0 0 8px rgba(255, 214, 130, 0.55),
-        0 0 16px rgba(255, 214, 130, 0.24);
+        0 0 10px rgba(255, 214, 130, 0.65),
+        0 0 18px rgba(255, 214, 130, 0.28);
     }
 
     @keyframes statPulse {
       0% { transform: scale(1); }
-      35% { transform: scale(1.12); }
+      35% { transform: scale(1.18); }
       100% { transform: scale(1); }
+    }
+
+    @keyframes statCardFlash {
+      0% {
+        box-shadow: 0 0 0 rgba(255, 212, 120, 0);
+      }
+      35% {
+        box-shadow:
+          0 0 0 1px rgba(255, 225, 160, 0.08),
+          0 0 18px rgba(255, 212, 120, 0.18),
+          0 0 34px rgba(255, 212, 120, 0.10);
+      }
+      100% {
+        box-shadow: 0 0 0 rgba(255, 212, 120, 0);
+      }
     }
 
     .card-area {
@@ -579,13 +583,6 @@
               <rect class="shape-base" x="51" y="53" width="8" height="22" rx="4"></rect>
 
               <rect class="shape-gold" id="popoloFill" x="0" y="50" width="100" height="50" clip-path="url(#clip-popolo)"></rect>
-
-              <circle class="outline" cx="50" cy="20" r="9"></circle>
-              <rect class="outline" x="44" y="31" width="12" height="24" rx="5"></rect>
-              <rect class="outline" x="29" y="35" width="16" height="8" rx="4"></rect>
-              <rect class="outline" x="55" y="35" width="16" height="8" rx="4"></rect>
-              <rect class="outline" x="41" y="53" width="8" height="22" rx="4"></rect>
-              <rect class="outline" x="51" y="53" width="8" height="22" rx="4"></rect>
             </svg>
           </div>
           <div class="stat-percent" id="popoloPercent">50%</div>
@@ -612,12 +609,6 @@
               <circle class="shape-base" cx="50" cy="89" r="4"></circle>
 
               <rect class="shape-gold" id="esercitoFill" x="0" y="50" width="100" height="50" clip-path="url(#clip-esercito)"></rect>
-
-              <path class="outline" d="M50 6 L60 18 L60 54 L74 64 L63 70 L57 66 L57 82 L60 88 L50 96 L40 88 L43 82 L43 66 L37 70 L26 64 L40 54 L40 18 Z"></path>
-              <rect class="outline" x="44" y="18" width="12" height="38" rx="2"></rect>
-              <rect class="outline" x="33" y="56" width="34" height="7" rx="2"></rect>
-              <rect class="outline" x="44" y="63" width="12" height="20" rx="3"></rect>
-              <circle class="outline" cx="50" cy="89" r="4"></circle>
             </svg>
           </div>
           <div class="stat-percent" id="esercitoPercent">50%</div>
@@ -629,31 +620,19 @@
             <svg class="icon-svg" viewBox="0 0 100 100" aria-hidden="true">
               <defs>
                 <clipPath id="clip-oro">
-                  <path d="M33 24 Q50 14 67 24 L62 34 Q58 39 58 45 L58 67 Q58 82 50 88 Q42 82 42 67 L42 45 Q42 39 38 34 Z"></path>
-                  <ellipse cx="50" cy="28" rx="16" ry="6"></ellipse>
-                  <circle cx="70" cy="68" r="8"></circle>
-                  <ellipse cx="80" cy="76" rx="7" ry="5"></ellipse>
-                  <ellipse cx="76" cy="65" rx="7" ry="5"></ellipse>
+                  <path d="M32 20 Q40 11 50 11 Q60 11 68 20 Q73 25 73 31 Q73 37 67 41 Q64 43 63 47 Q61 53 61 65 Q61 80 56 88 Q53 92 50 94 Q47 92 44 88 Q39 80 39 65 Q39 53 37 47 Q36 43 33 41 Q27 37 27 31 Q27 25 32 20 Z"></path>
+                  <path d="M32 20 Q50 30 68 20 Q63 36 50 36 Q37 36 32 20 Z"></path>
                 </clipPath>
               </defs>
 
-              <path class="shape-base" d="M33 24 Q50 14 67 24 L62 34 Q58 39 58 45 L58 67 Q58 82 50 88 Q42 82 42 67 L42 45 Q42 39 38 34 Z"></path>
-              <ellipse class="shape-base" cx="50" cy="28" rx="16" ry="6"></ellipse>
-              <circle class="shape-base" cx="70" cy="68" r="8"></circle>
-              <ellipse class="shape-base" cx="80" cy="76" rx="7" ry="5"></ellipse>
-              <ellipse class="shape-base" cx="76" cy="65" rx="7" ry="5"></ellipse>
+              <path class="shape-base" d="M32 20 Q40 11 50 11 Q60 11 68 20 Q73 25 73 31 Q73 37 67 41 Q64 43 63 47 Q61 53 61 65 Q61 80 56 88 Q53 92 50 94 Q47 92 44 88 Q39 80 39 65 Q39 53 37 47 Q36 43 33 41 Q27 37 27 31 Q27 25 32 20 Z"></path>
+              <path class="shape-base" d="M32 20 Q50 30 68 20 Q63 36 50 36 Q37 36 32 20 Z"></path>
 
               <rect class="shape-gold" id="oroFill" x="0" y="50" width="100" height="50" clip-path="url(#clip-oro)"></rect>
 
-              <path class="outline" d="M33 24 Q50 14 67 24 L62 34 Q58 39 58 45 L58 67 Q58 82 50 88 Q42 82 42 67 L42 45 Q42 39 38 34 Z"></path>
-              <ellipse class="outline" cx="50" cy="28" rx="16" ry="6"></ellipse>
-              <circle class="outline" cx="70" cy="68" r="8"></circle>
-              <ellipse class="outline" cx="80" cy="76" rx="7" ry="5"></ellipse>
-              <ellipse class="outline" cx="76" cy="65" rx="7" ry="5"></ellipse>
-
-              <path class="detail-outline" d="M47 44 Q50 41 53 44"></path>
-              <path class="detail-outline" d="M50 36 L50 58"></path>
-              <path class="detail-outline" d="M54 38 Q49 34 46 38"></path>
+              <path class="gold-detail" d="M41 47 Q47 43 53 47"></path>
+              <path class="gold-detail" d="M50 37 L50 68"></path>
+              <path class="gold-detail" d="M56 40 Q49 34 43 40"></path>
             </svg>
           </div>
           <div class="stat-percent" id="oroPercent">50%</div>
@@ -674,9 +653,6 @@
               <rect class="shape-base" x="28" y="30" width="44" height="12" rx="2"></rect>
 
               <rect class="shape-gold" id="fedeFill" x="0" y="50" width="100" height="50" clip-path="url(#clip-fede)"></rect>
-
-              <rect class="outline" x="44" y="14" width="12" height="60" rx="2"></rect>
-              <rect class="outline" x="28" y="30" width="44" height="12" rx="2"></rect>
             </svg>
           </div>
           <div class="stat-percent" id="fedePercent">50%</div>
@@ -882,7 +858,7 @@
 
       setTimeout(() => {
         stat.classList.remove("flash-up", "flash-down");
-      }, 800);
+      }, 900);
     }
 
     function evidenziaVariazioni(prima, dopo) {
