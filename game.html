@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Xelum</title>
+  <title>Xelum - Regno</title>
 
   <style>
     * {
@@ -457,7 +457,7 @@
         },
         destra: {
           etichetta: "Accetta",
-          testoConseguenza: "Hai abbassato le tasse. Il popolo approva, ma le casse del regno si fanno più leggere.",
+          testoConseguenza: "Hai abbassato le tasse. Il popolo approva, ma le casse del regno si fanno piu leggere.",
           image: "",
           effetti: { popolo: 6, esercito: 0, oro: -6, fede: 0 }
         }
@@ -489,13 +489,13 @@
         },
         destra: {
           etichetta: "Dona",
-          testoConseguenza: "Il tempio verrà restaurato. La fede si rafforza, ma spendi parte del tesoro.",
+          testoConseguenza: "Il tempio verra restaurato. La fede si rafforza, ma spendi parte del tesoro.",
           image: "",
           effetti: { popolo: 0, esercito: 0, oro: -5, fede: 8 }
         }
       },
       {
-        testo: "I contadini chiedono più grano dai magazzini reali.",
+        testo: "I contadini chiedono piu grano dai magazzini reali.",
         image: "",
         sinistra: {
           etichetta: "Nega",
@@ -511,6 +511,9 @@
         }
       }
     ];
+
+    const STORAGE_SAVE_KEY = "xelum-save";
+    const STORAGE_HISTORY_KEY = "xelum-history";
 
     const game = {
       nomeRe: "",
@@ -574,6 +577,8 @@
       leftHint.classList.remove("visible");
       rightHint.classList.remove("visible");
 
+      if (!game.sceltaCorrente) return;
+
       if (deltaX < -30) {
         leftHint.textContent = game.sceltaCorrente.sinistra.etichetta;
         leftHint.classList.add("visible");
@@ -630,10 +635,14 @@
       }, 760);
     }
 
+    function getRandomEvento() {
+      return eventi[Math.floor(Math.random() * eventi.length)];
+    }
+
     function caricaEvento() {
       if (game.gameOver) return;
 
-      const evento = eventi[Math.floor(Math.random() * eventi.length)];
+      const evento = getRandomEvento();
       game.sceltaCorrente = evento;
       game.lockChoice = false;
 
@@ -644,36 +653,37 @@
       nascondiSezioneRegno();
       resetCard();
       animaIngressoCarta();
+      salvaPartitaCorrente();
     }
 
     function finaleRegno() {
       const durata = game.giorno;
 
       if (game.popolo === 0) {
-        if (durata <= 5) return "Il popolo ti ha respinto quasi subito. Il tuo nome è stato cancellato dalle piazze del regno.";
-        if (durata <= 12) return "Dopo anni inquieti, il popolo si è sollevato contro la corona e ha spezzato il tuo dominio.";
-        return "Hai resistito a lungo, ma il popolo ha finito per stancarsi del tuo governo e il trono è crollato tra le rivolte.";
+        if (durata <= 5) return "Il popolo ti ha respinto quasi subito. Il tuo nome e stato cancellato dalle piazze del regno.";
+        if (durata <= 12) return "Dopo anni inquieti, il popolo si e sollevato contro la corona e ha spezzato il tuo dominio.";
+        return "Hai resistito a lungo, ma il popolo ha finito per stancarsi del tuo governo e il trono e crollato tra le rivolte.";
       }
 
       if (game.esercito === 0) {
         if (durata <= 5) return "I soldati hanno perso subito fiducia nel tuo comando. Le mura sono rimaste senza difesa.";
-        if (durata <= 12) return "L'esercito si è disgregato nel tempo e il regno è stato travolto da nemici e tradimenti.";
+        if (durata <= 12) return "L'esercito si e disgregato nel tempo e il regno e stato travolto da nemici e tradimenti.";
         return "Dopo un lungo regno, le tue legioni si sono indebolite fino a lasciare il trono senza protezione.";
       }
 
       if (game.oro === 0) {
         if (durata <= 5) return "Le casse si sono svuotate troppo presto. Il regno non ha mai davvero preso forma.";
         if (durata <= 12) return "Il peso delle spese e delle concessioni ha dissanguato la corona fino alla rovina.";
-        return "Hai governato a lungo, ma alla fine il debito ha divorato palazzo, esercito e fedeltà.";
+        return "Hai governato a lungo, ma alla fine il debito ha divorato palazzo, esercito e fedelta.";
       }
 
       if (game.fede === 0) {
-        if (durata <= 5) return "Gli dei ti hanno voltato le spalle quasi subito. Il regno è precipitato nell'ombra.";
+        if (durata <= 5) return "Gli dei ti hanno voltato le spalle quasi subito. Il regno e precipitato nell'ombra.";
         if (durata <= 12) return "Templi freddi e altari vuoti hanno segnato il declino della tua dinastia.";
-        return "Hai retto per anni, ma quando la fede si è spenta il tuo nome è divenuto presagio di rovina.";
+        return "Hai retto per anni, ma quando la fede si e spenta il tuo nome e divenuto presagio di rovina.";
       }
 
-      return "Il regno si è concluso nel silenzio del destino.";
+      return "Il regno si e concluso nel silenzio del destino.";
     }
 
     function mostraRiepilogoFinale() {
@@ -689,8 +699,94 @@
       summaryBox.classList.remove("hidden");
     }
 
+    function salvaStoricoRegno() {
+      const record = {
+        nomeRe: game.nomeRe,
+        durata: game.giorno,
+        popolo: game.popolo,
+        esercito: game.esercito,
+        oro: game.oro,
+        fede: game.fede,
+        motivo: finaleRegno(),
+        timestamp: Date.now()
+      };
+
+      let storico = [];
+
+      try {
+        storico = JSON.parse(localStorage.getItem(STORAGE_HISTORY_KEY)) || [];
+        if (!Array.isArray(storico)) storico = [];
+      } catch (error) {
+        storico = [];
+      }
+
+      storico.push(record);
+
+      if (storico.length > 50) {
+        storico = storico.slice(storico.length - 50);
+      }
+
+      localStorage.setItem(STORAGE_HISTORY_KEY, JSON.stringify(storico));
+    }
+
+    function salvaPartitaCorrente() {
+      if (game.gameOver) return;
+
+      const payload = {
+        nomeRe: game.nomeRe,
+        giorno: game.giorno,
+        popolo: game.popolo,
+        esercito: game.esercito,
+        oro: game.oro,
+        fede: game.fede,
+        sceltaCorrente: game.sceltaCorrente,
+        gameOver: game.gameOver,
+        lockChoice: game.lockChoice
+      };
+
+      localStorage.setItem(STORAGE_SAVE_KEY, JSON.stringify(payload));
+    }
+
+    function cancellaPartitaCorrente() {
+      localStorage.removeItem(STORAGE_SAVE_KEY);
+    }
+
+    function caricaPartitaSalvata() {
+      try {
+        const raw = localStorage.getItem(STORAGE_SAVE_KEY);
+        if (!raw) return false;
+
+        const save = JSON.parse(raw);
+        if (!save || typeof save !== "object") return false;
+
+        game.nomeRe = save.nomeRe || nomeLatinoCasuale();
+        game.giorno = Number.isFinite(save.giorno) ? save.giorno : 1;
+        game.popolo = Number.isFinite(save.popolo) ? save.popolo : 50;
+        game.esercito = Number.isFinite(save.esercito) ? save.esercito : 50;
+        game.oro = Number.isFinite(save.oro) ? save.oro : 50;
+        game.fede = Number.isFinite(save.fede) ? save.fede : 50;
+        game.sceltaCorrente = save.sceltaCorrente || getRandomEvento();
+        game.gameOver = false;
+        game.lockChoice = false;
+
+        aggiornaStatistiche();
+        summaryBox.classList.add("hidden");
+        nascondiSezioneRegno();
+        resetCard();
+
+        document.getElementById("testoCarta").textContent = game.sceltaCorrente.testo;
+        document.getElementById("testoCarta").classList.remove("gameover");
+        mostraImmagine(game.sceltaCorrente.image, "Consiglio del regno");
+        animaIngressoCarta();
+
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
+
     function applicaScelta(lato) {
-      if (game.gameOver || game.lockChoice) return;
+      if (game.gameOver || game.lockChoice || !game.sceltaCorrente) return;
 
       game.lockChoice = true;
       const scelta = game.sceltaCorrente[lato];
@@ -722,10 +818,14 @@
           document.getElementById("testoCarta").textContent =
             scelta.testoConseguenza + " La tua dinastia si spegne qui.";
           document.getElementById("testoCarta").classList.add("gameover");
+
+          salvaStoricoRegno();
+          cancellaPartitaCorrente();
           mostraRiepilogoFinale();
           return;
         }
 
+        salvaPartitaCorrente();
         mostraSezioneRegno();
       }, 320);
     }
@@ -750,6 +850,16 @@
       summaryBox.classList.add("hidden");
       aggiornaStatistiche();
       caricaEvento();
+    }
+
+    function inizializzaGioco() {
+      const params = new URLSearchParams(window.location.search);
+      const wantsContinue = params.get("continue") === "1";
+      const loaded = wantsContinue ? caricaPartitaSalvata() : false;
+
+      if (!loaded) {
+        nuovoRegno();
+      }
     }
 
     card.addEventListener("pointerdown", (e) => {
@@ -782,7 +892,7 @@
       }
     });
 
-    nuovoRegno();
+    inizializzaGioco();
   </script>
 </body>
 </html>
