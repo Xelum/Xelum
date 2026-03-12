@@ -8,45 +8,26 @@
   <style>
     * {
       box-sizing: border-box;
-      user-select: none;
-      -webkit-user-select: none;
       -webkit-tap-highlight-color: transparent;
-    }
-
-    :root {
-      --bg-1: #2a1f16;
-      --bg-2: #17120e;
-      --bg-3: #0b0b0d;
-      --panel: rgba(25, 20, 16, 0.92);
-      --panel-border: rgba(210, 185, 139, 0.18);
-      --text-main: #f3e7d0;
-      --text-soft: #d7c29a;
-      --gold-1: #f8e7bf;
-      --gold-2: #d7a64e;
-      --gold-3: #8b5e34;
-      --green: #63b36d;
-      --red: #cf5b5b;
-      --gold: #ffd15c;
-      --violet: #a47ae8;
     }
 
     body {
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
-      background: radial-gradient(circle at top, var(--bg-1) 0%, var(--bg-2) 35%, var(--bg-3) 100%);
-      color: var(--text-main);
+      background: radial-gradient(circle at top, #2a1f16 0%, #17120e 35%, #0b0b0d 100%);
+      color: #f3e7d0;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
-      touch-action: pan-y;
       overflow-x: hidden;
+      touch-action: pan-y;
     }
 
     .app {
       width: 100%;
-      max-width: 620px;
+      max-width: 640px;
       position: relative;
       z-index: 1;
     }
@@ -67,196 +48,152 @@
 
     .king-name {
       font-size: 15px;
-      color: var(--text-soft);
+      color: #d7c29a;
       letter-spacing: 0.4px;
     }
 
     .stats-panel {
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: 22px;
-      padding: 16px 14px 18px;
+      background: rgba(25, 20, 16, 0.92);
+      border: 1px solid rgba(210, 185, 139, 0.18);
+      border-radius: 24px;
+      padding: 14px;
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
       margin-bottom: 18px;
       backdrop-filter: blur(3px);
     }
 
-    .stats-icons {
+    .stats-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      align-items: end;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
     }
 
-    .stat-icon-box {
+    .stat-icon-card {
       position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 88px;
+      min-height: 92px;
       border-radius: 18px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-      border: 1px solid rgba(255,255,255,0.03);
+      background: linear-gradient(180deg, rgba(28, 22, 18, 0.96), rgba(20, 16, 13, 0.96));
+      border: 1px solid rgba(210, 185, 139, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.22s ease, background 0.22s ease;
-      outline: none;
+      overflow: visible;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      user-select: none;
     }
 
-    .stat-icon-box:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+    .stat-icon-card:hover {
+      transform: translateY(-1px);
+      border-color: rgba(240, 215, 160, 0.16);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
     }
 
-    .stat-symbol {
+    .stat-icon-card.active {
+      border-color: rgba(245, 220, 165, 0.22);
+      box-shadow: 0 0 0 1px rgba(245, 220, 165, 0.08), 0 12px 26px rgba(0, 0, 0, 0.24);
+    }
+
+    .icon-shell {
       position: relative;
-      width: 56px;
-      height: 56px;
-      display: inline-block;
-      --fill-level: 50%;
-      --glow-color: rgba(255, 220, 120, 0.9);
+      width: 54px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
     }
 
-    .stat-symbol svg {
+    .icon-svg,
+    .icon-fill-wrap {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      display: block;
     }
 
-    .symbol-base {
-      color: rgba(0, 0, 0, 0.88);
-      filter: drop-shadow(0 2px 0 rgba(255,255,255,0.04));
+    .icon-svg {
+      filter: drop-shadow(0 1px 0 rgba(255,255,255,0.04));
     }
 
-    .symbol-fill-wrap {
-      position: absolute;
-      inset: 0;
+    .icon-base .shape {
+      fill: #050505;
+      stroke: rgba(255, 248, 236, 0.88);
+      stroke-width: 6;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      paint-order: stroke fill;
+    }
+
+    .icon-fill-wrap {
       overflow: hidden;
-      clip-path: inset(calc(100% - var(--fill-level)) 0 0 0);
-      transition: clip-path 0.45s ease, filter 0.25s ease;
+      height: var(--fill-height, 50%);
+      top: auto;
+      bottom: 0;
+      transition: height 0.45s ease;
+      filter: drop-shadow(0 0 10px rgba(255, 205, 110, 0.18));
     }
 
-    .symbol-fill {
-      color: var(--gold-2);
-      filter: drop-shadow(0 0 3px rgba(255, 220, 120, 0.15));
+    .icon-fill .shape {
+      fill: #e0b24e;
+      stroke: rgba(255, 239, 196, 0.95);
+      stroke-width: 6;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      paint-order: stroke fill;
     }
 
-    .symbol-shine {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.22), transparent 38%),
-        linear-gradient(90deg, transparent, rgba(255,255,255,0.16), transparent);
-      mix-blend-mode: screen;
-      opacity: 0.22;
-      clip-path: inset(calc(100% - var(--fill-level)) 0 0 0);
-      pointer-events: none;
-      transition: clip-path 0.45s ease, opacity 0.25s ease;
+    .stat-icon-card.flash-up .icon-fill-wrap,
+    .stat-icon-card.flash-down .icon-fill-wrap {
+      filter: drop-shadow(0 0 12px rgba(255, 212, 120, 0.5)) drop-shadow(0 0 20px rgba(255, 212, 120, 0.28));
+    }
+
+    .stat-icon-card.flash-up {
+      box-shadow: 0 0 0 1px rgba(255, 226, 155, 0.08), 0 0 16px rgba(255, 212, 120, 0.16);
+    }
+
+    .stat-icon-card.flash-down {
+      box-shadow: 0 0 0 1px rgba(255, 226, 155, 0.05), 0 0 12px rgba(255, 212, 120, 0.1);
     }
 
     .stat-tooltip {
       position: absolute;
       left: 50%;
-      bottom: calc(100% + 8px);
+      bottom: -48px;
       transform: translateX(-50%) translateY(6px);
-      min-width: 112px;
       padding: 8px 10px;
-      border-radius: 12px;
-      background: rgba(18, 14, 10, 0.96);
-      border: 1px solid rgba(215, 166, 78, 0.22);
-      color: #f6e6c3;
-      font-size: 13px;
+      min-width: 112px;
       text-align: center;
+      font-size: 13px;
+      line-height: 1.25;
+      color: #f8ecd5;
+      background: rgba(20, 15, 11, 0.96);
+      border: 1px solid rgba(214, 185, 137, 0.18);
+      border-radius: 12px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.18s ease, transform 0.18s ease;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.32);
-      z-index: 4;
-      line-height: 1.35;
+      z-index: 10;
+      white-space: nowrap;
+    }
+
+    .stat-icon-card:hover .stat-tooltip,
+    .stat-icon-card.active .stat-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     .stat-tooltip strong {
       display: block;
       font-size: 13px;
-      font-weight: 700;
+      color: #fff4df;
       margin-bottom: 2px;
-    }
-
-    .stat-icon-box:hover .stat-tooltip,
-    .stat-icon-box.show-tooltip .stat-tooltip,
-    .stat-icon-box:focus-visible .stat-tooltip {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .stat-popolo.flash-up .symbol-fill-wrap,
-    .stat-popolo.flash-down .symbol-fill-wrap {
-      filter: drop-shadow(0 0 8px rgba(99, 179, 109, 0.9)) drop-shadow(0 0 16px rgba(99, 179, 109, 0.5));
-    }
-
-    .stat-esercito.flash-up .symbol-fill-wrap,
-    .stat-esercito.flash-down .symbol-fill-wrap {
-      filter: drop-shadow(0 0 8px rgba(207, 91, 91, 0.92)) drop-shadow(0 0 16px rgba(207, 91, 91, 0.5));
-    }
-
-    .stat-oro.flash-up .symbol-fill-wrap,
-    .stat-oro.flash-down .symbol-fill-wrap {
-      filter: drop-shadow(0 0 8px rgba(255, 209, 92, 0.95)) drop-shadow(0 0 16px rgba(255, 209, 92, 0.55));
-    }
-
-    .stat-fede.flash-up .symbol-fill-wrap,
-    .stat-fede.flash-down .symbol-fill-wrap {
-      filter: drop-shadow(0 0 8px rgba(164, 122, 232, 0.95)) drop-shadow(0 0 16px rgba(164, 122, 232, 0.52));
-    }
-
-    .stat-popolo.flash-up .symbol-fill,
-    .stat-popolo.flash-down .symbol-fill {
-      color: var(--green);
-    }
-
-    .stat-esercito.flash-up .symbol-fill,
-    .stat-esercito.flash-down .symbol-fill {
-      color: var(--red);
-    }
-
-    .stat-oro.flash-up .symbol-fill,
-    .stat-oro.flash-down .symbol-fill {
-      color: var(--gold);
-    }
-
-    .stat-fede.flash-up .symbol-fill,
-    .stat-fede.flash-down .symbol-fill {
-      color: var(--violet);
-    }
-
-    .stat-popolo.flash-up .symbol-shine,
-    .stat-popolo.flash-down .symbol-shine,
-    .stat-esercito.flash-up .symbol-shine,
-    .stat-esercito.flash-down .symbol-shine,
-    .stat-oro.flash-up .symbol-shine,
-    .stat-oro.flash-down .symbol-shine,
-    .stat-fede.flash-up .symbol-shine,
-    .stat-fede.flash-down .symbol-shine {
-      opacity: 0.42;
-    }
-
-    .stat-popolo.flash-up,
-    .stat-popolo.flash-down,
-    .stat-esercito.flash-up,
-    .stat-esercito.flash-down,
-    .stat-oro.flash-up,
-    .stat-oro.flash-down,
-    .stat-fede.flash-up,
-    .stat-fede.flash-down {
-      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.05));
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 0 16px rgba(255,255,255,0.04);
-      transform: translateY(-1px) scale(1.02);
     }
 
     .card-area {
       position: relative;
-      height: 420px;
+      height: 430px;
       margin-top: 8px;
     }
 
@@ -295,8 +232,8 @@
       inset: 0;
       background: linear-gradient(180deg, rgba(61, 47, 33, 0.97), rgba(33, 26, 21, 0.97));
       border: 1px solid rgba(222, 190, 134, 0.22);
-      border-radius: 24px;
-      padding: 18px 20px 24px;
+      border-radius: 28px;
+      padding: 20px 20px 26px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -304,8 +241,8 @@
       text-align: center;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
       overflow: hidden;
-      touch-action: none;
       cursor: grab;
+      touch-action: none;
       transition: transform 0.25s ease, opacity 0.25s ease;
     }
 
@@ -348,8 +285,8 @@
     .scene-image {
       width: 100%;
       height: 170px;
-      border-radius: 16px;
-      margin-bottom: 14px;
+      border-radius: 18px;
+      margin-bottom: 16px;
       background: linear-gradient(135deg, rgba(199,171,120,0.18), rgba(90,65,40,0.18));
       border: 1px solid rgba(222, 190, 134, 0.14);
       display: flex;
@@ -372,10 +309,10 @@
     }
 
     .card-text {
-      font-size: 27px;
+      font-size: 28px;
       line-height: 1.35;
       color: #fff5df;
-      max-width: 440px;
+      max-width: 470px;
       position: relative;
       z-index: 1;
     }
@@ -444,7 +381,7 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(circle at center, rgba(255, 220, 160, 0.09), transparent 34%),
+        radial-gradient(circle at center, rgba(255, 220, 160, 0.08), transparent 36%),
         linear-gradient(90deg, rgba(20, 13, 8, 0.96), rgba(58, 41, 25, 0.98), rgba(20, 13, 8, 0.96));
       transform: translateX(-100%);
       z-index: 50;
@@ -464,8 +401,7 @@
       justify-content: center;
       color: #f7e7c8;
       font-size: 24px;
-      letter-spacing: 0.4px;
-      text-transform: none;
+      letter-spacing: 0.5px;
       opacity: 0;
       text-align: center;
       padding: 28px;
@@ -475,13 +411,16 @@
         0 0 24px rgba(255, 210, 120, 0.12),
         0 4px 18px rgba(0, 0, 0, 0.55);
       transform: scale(0.92);
+    }
+
+    .page-turn.animate .page-turn-text {
       animation: epicFadeText 3s ease forwards;
     }
 
     @keyframes turnPage {
-      0%   { transform: translateX(-100%); }
-      32%  { transform: translateX(0%); }
-      76%  { transform: translateX(0%); }
+      0% { transform: translateX(-100%); }
+      30% { transform: translateX(0%); }
+      78% { transform: translateX(0%); }
       100% { transform: translateX(100%); }
     }
 
@@ -491,14 +430,14 @@
         transform: scale(0.9) translateY(8px);
         filter: blur(4px);
       }
-      20% {
+      18% {
         opacity: 1;
         transform: scale(1) translateY(0);
         filter: blur(0);
       }
-      76% {
+      78% {
         opacity: 1;
-        transform: scale(1.035) translateY(-1px);
+        transform: scale(1.04) translateY(-2px);
         filter: blur(0);
       }
       100% {
@@ -513,23 +452,17 @@
         font-size: 28px;
       }
 
-      .stats-icons {
-        gap: 8px;
+      .stats-grid {
+        gap: 10px;
       }
 
-      .stat-icon-box {
-        height: 76px;
-        border-radius: 16px;
+      .stat-icon-card {
+        min-height: 84px;
       }
 
-      .stat-symbol {
-        width: 48px;
-        height: 48px;
-      }
-
-      .stat-tooltip {
-        min-width: 96px;
-        font-size: 12px;
+      .icon-shell {
+        width: 46px;
+        height: 46px;
       }
 
       .card-area {
@@ -537,11 +470,11 @@
       }
 
       .card {
-        padding: 16px 16px 20px;
+        padding: 16px 16px 22px;
       }
 
       .scene-image {
-        height: 135px;
+        height: 130px;
       }
 
       .card-text {
@@ -558,6 +491,12 @@
         padding: 22px;
         line-height: 1.5;
       }
+
+      .stat-tooltip {
+        bottom: -44px;
+        min-width: 100px;
+        font-size: 12px;
+      }
     }
   </style>
 </head>
@@ -573,85 +512,79 @@
     </div>
 
     <div class="stats-panel">
-      <div class="stats-icons">
-        <div class="stat-icon-box stat-popolo" id="popoloStat" tabindex="0" data-stat="popolo">
-          <div class="stat-tooltip" id="popoloTooltip"><strong>Popolo</strong><span id="popoloValue">50%</span></div>
-          <div class="stat-symbol" id="popoloSymbol">
-            <svg class="symbol-base" viewBox="0 0 64 64" aria-hidden="true">
-              <circle cx="20" cy="16" r="6" fill="currentColor"></circle>
-              <circle cx="44" cy="16" r="6" fill="currentColor"></circle>
-              <circle cx="32" cy="12" r="7" fill="currentColor"></circle>
-              <path d="M13 30c0-4 3-7 7-7s7 3 7 7v16H13z" fill="currentColor"></path>
-              <path d="M37 30c0-4 3-7 7-7s7 3 7 7v16H37z" fill="currentColor"></path>
-              <path d="M23 28c0-5 4-9 9-9s9 4 9 9v18H23z" fill="currentColor"></path>
+      <div class="stats-grid">
+        <div class="stat-icon-card" id="popoloStat" data-stat="popolo">
+          <div class="icon-shell" id="popoloIcon" style="--fill-height: 50%;">
+            <svg class="icon-svg icon-base" viewBox="0 0 100 100" aria-hidden="true">
+              <g class="shape">
+                <circle class="shape" cx="50" cy="26" r="10"></circle>
+                <circle class="shape" cx="28" cy="34" r="8"></circle>
+                <circle class="shape" cx="72" cy="34" r="8"></circle>
+                <circle class="shape" cx="38" cy="48" r="8"></circle>
+                <circle class="shape" cx="62" cy="48" r="8"></circle>
+                <rect class="shape" x="20" y="56" width="60" height="18" rx="4"></rect>
+              </g>
             </svg>
-            <div class="symbol-fill-wrap">
-              <svg class="symbol-fill" viewBox="0 0 64 64" aria-hidden="true">
-                <circle cx="20" cy="16" r="6" fill="currentColor"></circle>
-                <circle cx="44" cy="16" r="6" fill="currentColor"></circle>
-                <circle cx="32" cy="12" r="7" fill="currentColor"></circle>
-                <path d="M13 30c0-4 3-7 7-7s7 3 7 7v16H13z" fill="currentColor"></path>
-                <path d="M37 30c0-4 3-7 7-7s7 3 7 7v16H37z" fill="currentColor"></path>
-                <path d="M23 28c0-5 4-9 9-9s9 4 9 9v18H23z" fill="currentColor"></path>
+            <div class="icon-fill-wrap" id="popoloFillWrap">
+              <svg class="icon-svg icon-fill" viewBox="0 0 100 100" aria-hidden="true">
+                <g class="shape">
+                  <circle class="shape" cx="50" cy="26" r="10"></circle>
+                  <circle class="shape" cx="28" cy="34" r="8"></circle>
+                  <circle class="shape" cx="72" cy="34" r="8"></circle>
+                  <circle class="shape" cx="38" cy="48" r="8"></circle>
+                  <circle class="shape" cx="62" cy="48" r="8"></circle>
+                  <rect class="shape" x="20" y="56" width="60" height="18" rx="4"></rect>
+                </g>
               </svg>
             </div>
-            <div class="symbol-shine"></div>
           </div>
+          <div class="stat-tooltip" id="popoloTooltip"><strong>Popolo</strong><span>50%</span></div>
         </div>
 
-        <div class="stat-icon-box stat-esercito" id="esercitoStat" tabindex="0" data-stat="esercito">
-          <div class="stat-tooltip" id="esercitoTooltip"><strong>Esercito</strong><span id="esercitoValue">50%</span></div>
-          <div class="stat-symbol" id="esercitoSymbol">
-            <svg class="symbol-base" viewBox="0 0 64 64" aria-hidden="true">
-              <path d="M38 6l8 8-4 4 4 4-6 6-4-4-17 17H12v-7l17-17-4-4 6-6 4 4 4-4z" fill="currentColor"></path>
-              <rect x="10" y="40" width="14" height="8" rx="2" transform="rotate(-45 17 44)" fill="currentColor"></rect>
-              <path d="M43 9l12 12-3 3-12-12z" fill="currentColor"></path>
+        <div class="stat-icon-card" id="esercitoStat" data-stat="esercito">
+          <div class="icon-shell" id="esercitoIcon" style="--fill-height: 50%;">
+            <svg class="icon-svg icon-base" viewBox="0 0 100 100" aria-hidden="true">
+              <path class="shape" d="M70 16 L84 30 L78 36 L84 42 L74 52 L68 46 L46 68 L50 80 L40 90 L30 70 L12 52 L22 42 L34 46 L56 24 L50 18 L60 8 L66 14 Z"></path>
             </svg>
-            <div class="symbol-fill-wrap">
-              <svg class="symbol-fill" viewBox="0 0 64 64" aria-hidden="true">
-                <path d="M38 6l8 8-4 4 4 4-6 6-4-4-17 17H12v-7l17-17-4-4 6-6 4 4 4-4z" fill="currentColor"></path>
-                <rect x="10" y="40" width="14" height="8" rx="2" transform="rotate(-45 17 44)" fill="currentColor"></rect>
-                <path d="M43 9l12 12-3 3-12-12z" fill="currentColor"></path>
+            <div class="icon-fill-wrap" id="esercitoFillWrap">
+              <svg class="icon-svg icon-fill" viewBox="0 0 100 100" aria-hidden="true">
+                <path class="shape" d="M70 16 L84 30 L78 36 L84 42 L74 52 L68 46 L46 68 L50 80 L40 90 L30 70 L12 52 L22 42 L34 46 L56 24 L50 18 L60 8 L66 14 Z"></path>
               </svg>
             </div>
-            <div class="symbol-shine"></div>
           </div>
+          <div class="stat-tooltip" id="esercitoTooltip"><strong>Esercito</strong><span>50%</span></div>
         </div>
 
-        <div class="stat-icon-box stat-oro" id="oroStat" tabindex="0" data-stat="oro">
-          <div class="stat-tooltip" id="oroTooltip"><strong>Oro</strong><span id="oroValue">50%</span></div>
-          <div class="stat-symbol" id="oroSymbol">
-            <svg class="symbol-base" viewBox="0 0 64 64" aria-hidden="true">
-              <circle cx="32" cy="32" r="18" fill="currentColor"></circle>
-              <circle cx="32" cy="32" r="10" fill="#17120e"></circle>
-              <path d="M31 20h2v24h-2z" fill="currentColor"></path>
-              <path d="M25 24c2-2 4-3 7-3 4 0 7 2 7 6 0 3-2 5-6 6l-3 1c-2 1-3 2-3 4 0 2 2 4 5 4 3 0 5-1 7-3l2 3c-2 3-5 4-9 4-5 0-9-3-9-8 0-4 2-6 7-8l3-1c2-1 3-2 3-4s-2-3-4-3c-2 0-4 1-5 2z" fill="currentColor"></path>
+        <div class="stat-icon-card" id="oroStat" data-stat="oro">
+          <div class="icon-shell" id="oroIcon" style="--fill-height: 50%;">
+            <svg class="icon-svg icon-base" viewBox="0 0 100 100" aria-hidden="true">
+              <circle class="shape" cx="50" cy="50" r="22"></circle>
+              <circle class="shape" cx="50" cy="50" r="10"></circle>
             </svg>
-            <div class="symbol-fill-wrap">
-              <svg class="symbol-fill" viewBox="0 0 64 64" aria-hidden="true">
-                <circle cx="32" cy="32" r="18" fill="currentColor"></circle>
-                <circle cx="32" cy="32" r="10" fill="#17120e"></circle>
-                <path d="M31 20h2v24h-2z" fill="currentColor"></path>
-                <path d="M25 24c2-2 4-3 7-3 4 0 7 2 7 6 0 3-2 5-6 6l-3 1c-2 1-3 2-3 4 0 2 2 4 5 4 3 0 5-1 7-3l2 3c-2 3-5 4-9 4-5 0-9-3-9-8 0-4 2-6 7-8l3-1c2-1 3-2 3-4s-2-3-4-3c-2 0-4 1-5 2z" fill="currentColor"></path>
+            <div class="icon-fill-wrap" id="oroFillWrap">
+              <svg class="icon-svg icon-fill" viewBox="0 0 100 100" aria-hidden="true">
+                <circle class="shape" cx="50" cy="50" r="22"></circle>
+                <circle class="shape" cx="50" cy="50" r="10"></circle>
               </svg>
             </div>
-            <div class="symbol-shine"></div>
           </div>
+          <div class="stat-tooltip" id="oroTooltip"><strong>Oro</strong><span>50%</span></div>
         </div>
 
-        <div class="stat-icon-box stat-fede" id="fedeStat" tabindex="0" data-stat="fede">
-          <div class="stat-tooltip" id="fedeTooltip"><strong>Fede</strong><span id="fedeValue">50%</span></div>
-          <div class="stat-symbol" id="fedeSymbol">
-            <svg class="symbol-base" viewBox="0 0 64 64" aria-hidden="true">
-              <path d="M28 8h8v10h10v8H36v28h-8V26H18v-8h10z" fill="currentColor"></path>
+        <div class="stat-icon-card" id="fedeStat" data-stat="fede">
+          <div class="icon-shell" id="fedeIcon" style="--fill-height: 50%;">
+            <svg class="icon-svg icon-base" viewBox="0 0 100 100" aria-hidden="true">
+              <rect class="shape" x="44" y="16" width="12" height="58" rx="2"></rect>
+              <rect class="shape" x="28" y="32" width="44" height="12" rx="2"></rect>
             </svg>
-            <div class="symbol-fill-wrap">
-              <svg class="symbol-fill" viewBox="0 0 64 64" aria-hidden="true">
-                <path d="M28 8h8v10h10v8H36v28h-8V26H18v-8h10z" fill="currentColor"></path>
+            <div class="icon-fill-wrap" id="fedeFillWrap">
+              <svg class="icon-svg icon-fill" viewBox="0 0 100 100" aria-hidden="true">
+                <rect class="shape" x="44" y="16" width="12" height="58" rx="2"></rect>
+                <rect class="shape" x="28" y="32" width="44" height="12" rx="2"></rect>
               </svg>
             </div>
-            <div class="symbol-shine"></div>
           </div>
+          <div class="stat-tooltip" id="fedeTooltip"><strong>Fede</strong><span>50%</span></div>
         </div>
       </div>
     </div>
@@ -803,28 +736,38 @@
       return valore;
     }
 
+    function updateStatIcon(nome, valore) {
+      const wrap = document.getElementById(nome + "FillWrap");
+      const tooltip = document.getElementById(nome + "Tooltip");
+      const titleMap = {
+        popolo: "Popolo",
+        esercito: "Esercito",
+        oro: "Oro",
+        fede: "Fede"
+      };
+
+      if (wrap) {
+        wrap.style.height = `${valore}%`;
+      }
+
+      if (tooltip) {
+        tooltip.innerHTML = `<strong>${titleMap[nome]}</strong><span>${valore}%</span>`;
+      }
+    }
+
     function aggiornaStatistiche() {
       document.getElementById("nomeRe").textContent = game.nomeRe;
       document.getElementById("giorno").textContent = game.giorno;
 
-      aggiornaStatIcon("popolo", game.popolo);
-      aggiornaStatIcon("esercito", game.esercito);
-      aggiornaStatIcon("oro", game.oro);
-      aggiornaStatIcon("fede", game.fede);
-    }
-
-    function aggiornaStatIcon(nome, valore) {
-      const symbol = document.getElementById(nome + "Symbol");
-      const value = document.getElementById(nome + "Value");
-      if (!symbol || !value) return;
-
-      symbol.style.setProperty("--fill-level", `${valore}%`);
-      value.textContent = `${valore}%`;
+      updateStatIcon("popolo", game.popolo);
+      updateStatIcon("esercito", game.esercito);
+      updateStatIcon("oro", game.oro);
+      updateStatIcon("fede", game.fede);
     }
 
     function evidenziaStatistica(nome, tipo) {
       const stat = document.getElementById(nome + "Stat");
-      if (!stat || !tipo) return;
+      if (!stat) return;
 
       stat.classList.remove("flash-up", "flash-down");
       void stat.offsetWidth;
@@ -832,13 +775,11 @@
 
       setTimeout(() => {
         stat.classList.remove("flash-up", "flash-down");
-      }, 1000);
+      }, 900);
     }
 
     function evidenziaVariazioni(prima, dopo) {
-      const mapping = ["popolo", "esercito", "oro", "fede"];
-
-      mapping.forEach((chiave) => {
+      ["popolo", "esercito", "oro", "fede"].forEach((chiave) => {
         if (dopo[chiave] > prima[chiave]) {
           evidenziaStatistica(chiave, "flash-up");
         } else if (dopo[chiave] < prima[chiave]) {
@@ -906,11 +847,8 @@
       pageTurnText.textContent = `Stai per affrontare la prossima scelta del tuo regno, Giorno ${game.giorno}`;
 
       pageTurn.classList.remove("hidden", "animate");
-      pageTurnText.style.animation = "none";
       void pageTurn.offsetWidth;
-      void pageTurnText.offsetWidth;
       pageTurn.classList.add("animate");
-      pageTurnText.style.animation = "epicFadeText 3s ease forwards";
 
       setTimeout(() => {
         callback();
@@ -1166,30 +1104,23 @@
     }
 
     function setupStatInteractions() {
-      const boxes = document.querySelectorAll(".stat-icon-box");
+      const cards = document.querySelectorAll(".stat-icon-card");
 
-      boxes.forEach((box) => {
-        box.addEventListener("click", (event) => {
-          event.stopPropagation();
-          const isOpen = box.classList.contains("show-tooltip");
+      cards.forEach((cardEl) => {
+        cardEl.addEventListener("click", (e) => {
+          e.stopPropagation();
 
-          boxes.forEach((other) => other.classList.remove("show-tooltip"));
+          const isActive = cardEl.classList.contains("active");
+          cards.forEach((c) => c.classList.remove("active"));
 
-          if (!isOpen) {
-            box.classList.add("show-tooltip");
-          }
-        });
-
-        box.addEventListener("keydown", (event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            box.click();
+          if (!isActive) {
+            cardEl.classList.add("active");
           }
         });
       });
 
       document.addEventListener("click", () => {
-        boxes.forEach((box) => box.classList.remove("show-tooltip"));
+        cards.forEach((c) => c.classList.remove("active"));
       });
     }
 
@@ -1200,8 +1131,41 @@
       startX = e.clientX;
       currentX = 0;
       card.classList.add("dragging");
+      card.setPointerCapture?.(e.pointerId);
     });
 
     window.addEventListener("pointermove", (e) => {
       if (!isDragging) return;
-      currentX = e.clientX -
+      currentX = e.clientX - startX;
+      aggiornaCard(currentX);
+    });
+
+    function endDrag(e) {
+      if (!isDragging) return;
+
+      isDragging = false;
+      card.classList.remove("dragging");
+
+      if (e && card.hasPointerCapture?.(e.pointerId)) {
+        try {
+          card.releasePointerCapture(e.pointerId);
+        } catch (_) {}
+      }
+
+      if (currentX > 120) {
+        applicaScelta("destra");
+      } else if (currentX < -120) {
+        applicaScelta("sinistra");
+      } else {
+        resetCard();
+      }
+    }
+
+    window.addEventListener("pointerup", endDrag);
+    window.addEventListener("pointercancel", endDrag);
+
+    setupStatInteractions();
+    inizializzaGioco();
+  </script>
+</body>
+</html>
