@@ -82,7 +82,7 @@
 
     .stat-label,
     .stat-value {
-      transition: color 0.2s ease, text-shadow 0.2s ease, transform 0.2s ease;
+      transition: color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
     }
 
     .bar {
@@ -98,7 +98,7 @@
     .fill {
       height: 100%;
       border-radius: 999px;
-      transition: width 0.35s ease, box-shadow 0.25s ease, filter 0.25s ease;
+      transition: width 0.35s ease, box-shadow 0.28s ease, filter 0.28s ease, transform 0.28s ease;
       position: relative;
     }
 
@@ -177,11 +177,13 @@
     .fill.flash-up {
       filter: brightness(1.22) saturate(1.15);
       box-shadow: 0 0 8px rgba(255, 255, 255, 0.18), 0 0 18px currentColor;
+      transform: scaleY(1.08);
     }
 
     .fill.flash-down {
       filter: brightness(1.1) saturate(1.05);
       box-shadow: 0 0 8px rgba(255, 255, 255, 0.12), 0 0 14px currentColor;
+      transform: scaleY(1.05);
     }
 
     .fill-popolo.flash-up,
@@ -394,6 +396,7 @@
       position: fixed;
       inset: 0;
       background:
+        radial-gradient(circle at center, rgba(255, 220, 160, 0.08), transparent 36%),
         linear-gradient(90deg, rgba(20, 13, 8, 0.96), rgba(58, 41, 25, 0.98), rgba(20, 13, 8, 0.96));
       transform: translateX(-100%);
       z-index: 50;
@@ -402,7 +405,7 @@
     }
 
     .page-turn.animate {
-      animation: turnPage 1.45s ease forwards;
+      animation: turnPage 3s ease forwards;
     }
 
     .page-turn-text {
@@ -411,30 +414,51 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #f2dec0;
-      font-size: 22px;
-      letter-spacing: 1px;
+      color: #f7e7c8;
+      font-size: 24px;
+      letter-spacing: 0.5px;
       text-transform: none;
       opacity: 0;
       text-align: center;
-      padding: 24px;
-      line-height: 1.45;
-      animation: fadeText 1.45s ease forwards;
+      padding: 28px;
+      line-height: 1.55;
+      text-shadow:
+        0 0 10px rgba(255, 220, 160, 0.20),
+        0 0 24px rgba(255, 210, 120, 0.12),
+        0 4px 18px rgba(0, 0, 0, 0.55);
+      transform: scale(0.92);
+      animation: epicFadeText 3s ease forwards;
     }
 
     @keyframes turnPage {
       0% { transform: translateX(-100%); }
-      30% { transform: translateX(-10%); }
-      42% { transform: translateX(0%); }
-      68% { transform: translateX(0%); }
+      22% { transform: translateX(-25%); }
+      36% { transform: translateX(0%); }
+      78% { transform: translateX(0%); }
       100% { transform: translateX(100%); }
     }
 
-    @keyframes fadeText {
-      0% { opacity: 0; }
-      16% { opacity: 0.9; }
-      75% { opacity: 1; }
-      100% { opacity: 0; }
+    @keyframes epicFadeText {
+      0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(8px);
+        filter: blur(4px);
+      }
+      18% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+      }
+      78% {
+        opacity: 1;
+        transform: scale(1.04) translateY(-2px);
+        filter: blur(0);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.08) translateY(-4px);
+        filter: blur(2px);
+      }
     }
 
     @media (max-width: 640px) {
@@ -466,6 +490,7 @@
       .page-turn-text {
         font-size: 18px;
         padding: 22px;
+        line-height: 1.5;
       }
     }
   </style>
@@ -701,7 +726,7 @@
       setTimeout(() => {
         stat.classList.remove("flash-up", "flash-down");
         bar.classList.remove("flash-up", "flash-down");
-      }, 950);
+      }, 1000);
     }
 
     function evidenziaVariazioni(prima, dopo) {
@@ -775,17 +800,20 @@
       pageTurnText.textContent = `Stai per affrontare la prossima scelta del tuo regno, Giorno ${game.giorno}`;
 
       pageTurn.classList.remove("hidden", "animate");
+      pageTurnText.style.animation = "none";
       void pageTurn.offsetWidth;
+      void pageTurnText.offsetWidth;
       pageTurn.classList.add("animate");
+      pageTurnText.style.animation = "epicFadeText 3s ease forwards";
 
       setTimeout(() => {
         callback();
-      }, 830);
+      }, 1650);
 
       setTimeout(() => {
         pageTurn.classList.remove("animate");
         pageTurn.classList.add("hidden");
-      }, 1500);
+      }, 3050);
     }
 
     function getRandomEvento() {
