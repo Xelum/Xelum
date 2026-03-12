@@ -27,7 +27,7 @@
 
     .app {
       width: 100%;
-      max-width: 640px;
+      max-width: 660px;
       position: relative;
       z-index: 1;
     }
@@ -58,29 +58,37 @@
       border-radius: 24px;
       padding: 14px;
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
-      margin-bottom: 18px;
+      margin-bottom: 22px;
       backdrop-filter: blur(3px);
+      overflow: visible;
+      position: relative;
+      z-index: 5;
     }
 
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 12px;
+      overflow: visible;
     }
 
     .stat-icon-card {
       position: relative;
-      min-height: 92px;
+      min-height: 118px;
       border-radius: 18px;
       background: linear-gradient(180deg, rgba(28, 22, 18, 0.96), rgba(20, 16, 13, 0.96));
       border: 1px solid rgba(210, 185, 139, 0.08);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 8px;
       cursor: pointer;
       overflow: visible;
       transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
       user-select: none;
+      padding: 10px 8px 12px;
+      z-index: 1;
     }
 
     .stat-icon-card:hover {
@@ -92,89 +100,95 @@
     .stat-icon-card.active {
       border-color: rgba(245, 220, 165, 0.22);
       box-shadow: 0 0 0 1px rgba(245, 220, 165, 0.08), 0 12px 26px rgba(0, 0, 0, 0.24);
+      z-index: 20;
     }
 
     .icon-shell {
       position: relative;
-      width: 54px;
-      height: 54px;
+      width: 58px;
+      height: 58px;
       display: flex;
       align-items: center;
       justify-content: center;
       pointer-events: none;
+      transform-origin: center;
     }
 
-    .icon-svg,
-    .icon-fill-wrap {
+    .icon-svg {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-    }
-
-    .icon-svg {
-      filter: drop-shadow(0 1px 0 rgba(255,255,255,0.04));
+      display: block;
     }
 
     .icon-base .shape {
-      fill: #050505;
-      stroke: rgba(255, 248, 236, 0.88);
-      stroke-width: 6;
+      fill: #080808;
+      stroke: rgba(255, 248, 236, 0.96);
+      stroke-width: 4.2;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      paint-order: stroke fill;
+    }
+
+    .icon-base .detail {
+      fill: none;
+      stroke: rgba(255, 248, 236, 0.96);
+      stroke-width: 4;
       stroke-linejoin: round;
       stroke-linecap: round;
       paint-order: stroke fill;
     }
 
     .icon-fill-wrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
       overflow: hidden;
       height: var(--fill-height, 50%);
-      top: auto;
-      bottom: 0;
       transition: height 0.45s ease;
-      filter: drop-shadow(0 0 10px rgba(255, 205, 110, 0.18));
+      filter: drop-shadow(0 0 8px rgba(234, 186, 83, 0.15));
     }
 
     .icon-fill .shape {
       fill: #e0b24e;
-      stroke: rgba(255, 239, 196, 0.95);
-      stroke-width: 6;
-      stroke-linejoin: round;
-      stroke-linecap: round;
-      paint-order: stroke fill;
+      stroke: none;
     }
 
-    .stat-icon-card.flash-up .icon-fill-wrap,
-    .stat-icon-card.flash-down .icon-fill-wrap {
-      filter: drop-shadow(0 0 12px rgba(255, 212, 120, 0.5)) drop-shadow(0 0 20px rgba(255, 212, 120, 0.28));
+    .icon-fill .detail {
+      fill: none;
+      stroke: none;
     }
 
-    .stat-icon-card.flash-up {
-      box-shadow: 0 0 0 1px rgba(255, 226, 155, 0.08), 0 0 16px rgba(255, 212, 120, 0.16);
-    }
-
-    .stat-icon-card.flash-down {
-      box-shadow: 0 0 0 1px rgba(255, 226, 155, 0.05), 0 0 12px rgba(255, 212, 120, 0.1);
+    .stat-percent {
+      font-size: 15px;
+      font-weight: 700;
+      color: #f3debb;
+      line-height: 1;
+      min-height: 18px;
+      text-shadow: 0 0 10px rgba(255, 214, 130, 0.08);
     }
 
     .stat-tooltip {
       position: absolute;
       left: 50%;
-      bottom: -48px;
+      bottom: calc(100% + 8px);
       transform: translateX(-50%) translateY(6px);
       padding: 8px 10px;
-      min-width: 112px;
+      min-width: 110px;
       text-align: center;
       font-size: 13px;
       line-height: 1.25;
       color: #f8ecd5;
-      background: rgba(20, 15, 11, 0.96);
+      background: rgba(20, 15, 11, 0.98);
       border: 1px solid rgba(214, 185, 137, 0.18);
       border-radius: 12px;
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.18s ease, transform 0.18s ease;
-      z-index: 10;
+      z-index: 30;
       white-space: nowrap;
     }
 
@@ -189,6 +203,50 @@
       font-size: 13px;
       color: #fff4df;
       margin-bottom: 2px;
+    }
+
+    .stat-icon-card.flash-up .icon-shell,
+    .stat-icon-card.flash-down .icon-shell {
+      animation: statPulse 0.7s ease;
+    }
+
+    .stat-icon-card.flash-up .icon-fill-wrap,
+    .stat-icon-card.flash-down .icon-fill-wrap {
+      filter:
+        drop-shadow(0 0 10px rgba(255, 212, 120, 0.55))
+        drop-shadow(0 0 18px rgba(255, 212, 120, 0.35));
+    }
+
+    .stat-icon-card.flash-up .stat-percent,
+    .stat-icon-card.flash-down .stat-percent {
+      color: #fff0c7;
+      text-shadow:
+        0 0 8px rgba(255, 214, 130, 0.55),
+        0 0 16px rgba(255, 214, 130, 0.24);
+    }
+
+    .stat-icon-card.flash-up {
+      box-shadow:
+        0 0 0 1px rgba(255, 226, 155, 0.08),
+        0 0 18px rgba(255, 212, 120, 0.18);
+    }
+
+    .stat-icon-card.flash-down {
+      box-shadow:
+        0 0 0 1px rgba(255, 226, 155, 0.05),
+        0 0 12px rgba(255, 212, 120, 0.10);
+    }
+
+    @keyframes statPulse {
+      0% {
+        transform: scale(1);
+      }
+      35% {
+        transform: scale(1.12);
+      }
+      100% {
+        transform: scale(1);
+      }
     }
 
     .card-area {
@@ -244,6 +302,7 @@
       cursor: grab;
       touch-action: none;
       transition: transform 0.25s ease, opacity 0.25s ease;
+      z-index: 1;
     }
 
     .card.dragging {
@@ -457,12 +516,12 @@
       }
 
       .stat-icon-card {
-        min-height: 84px;
+        min-height: 108px;
       }
 
       .icon-shell {
-        width: 46px;
-        height: 46px;
+        width: 48px;
+        height: 48px;
       }
 
       .card-area {
@@ -493,7 +552,6 @@
       }
 
       .stat-tooltip {
-        bottom: -44px;
         min-width: 100px;
         font-size: 12px;
       }
@@ -514,77 +572,87 @@
     <div class="stats-panel">
       <div class="stats-grid">
         <div class="stat-icon-card" id="popoloStat" data-stat="popolo">
-          <div class="icon-shell" id="popoloIcon" style="--fill-height: 50%;">
+          <div class="stat-tooltip" id="popoloTooltip"><strong>Popolo</strong><span>50%</span></div>
+          <div class="icon-shell">
             <svg class="icon-svg icon-base" viewBox="0 0 100 100" aria-hidden="true">
-              <g class="shape">
-                <circle class="shape" cx="50" cy="26" r="10"></circle>
-                <circle class="shape" cx="28" cy="34" r="8"></circle>
-                <circle class="shape" cx="72" cy="34" r="8"></circle>
-                <circle class="shape" cx="38" cy="48" r="8"></circle>
-                <circle class="shape" cx="62" cy="48" r="8"></circle>
-                <rect class="shape" x="20" y="56" width="60" height="18" rx="4"></rect>
-              </g>
+              <circle class="shape" cx="50" cy="20" r="9"></circle>
+              <rect class="shape" x="44" y="31" width="12" height="24" rx="5"></rect>
+              <rect class="shape" x="29" y="35" width="16" height="8" rx="4"></rect>
+              <rect class="shape" x="55" y="35" width="16" height="8" rx="4"></rect>
+              <rect class="shape" x="41" y="53" width="8" height="22" rx="4"></rect>
+              <rect class="shape" x="51" y="53" width="8" height="22" rx="4"></rect>
             </svg>
-            <div class="icon-fill-wrap" id="popoloFillWrap">
+            <div class="icon-fill-wrap" id="popoloFillWrap" style="height: 50%;">
               <svg class="icon-svg icon-fill" viewBox="0 0 100 100" aria-hidden="true">
-                <g class="shape">
-                  <circle class="shape" cx="50" cy="26" r="10"></circle>
-                  <circle class="shape" cx="28" cy="34" r="8"></circle>
-                  <circle class="shape" cx="72" cy="34" r="8"></circle>
-                  <circle class="shape" cx="38" cy="48" r="8"></circle>
-                  <circle class="shape" cx="62" cy="48" r="8"></circle>
-                  <rect class="shape" x="20" y="56" width="60" height="18" rx="4"></rect>
-                </g>
+                <circle class="shape" cx="50" cy="20" r="9"></circle>
+                <rect class="shape" x="44" y="31" width="12" height="24" rx="5"></rect>
+                <rect class="shape" x="29" y="35" width="16" height="8" rx="4"></rect>
+                <rect class="shape" x="55" y="35" width="16" height="8" rx="4"></rect>
+                <rect class="shape" x="41" y="53" width="8" height="22" rx="4"></rect>
+                <rect class="shape" x="51" y="53" width="8" height="22" rx="4"></rect>
               </svg>
             </div>
           </div>
-          <div class="stat-tooltip" id="popoloTooltip"><strong>Popolo</strong><span>50%</span></div>
+          <div class="stat-percent" id="popoloPercent">50%</div>
         </div>
 
         <div class="stat-icon-card" id="esercitoStat" data-stat="esercito">
-          <div class="icon-shell" id="esercitoIcon" style="--fill-height: 50%;">
+          <div class="stat-tooltip" id="esercitoTooltip"><strong>Esercito</strong><span>50%</span></div>
+          <div class="icon-shell">
             <svg class="icon-svg icon-base" viewBox="0 0 100 100" aria-hidden="true">
-              <path class="shape" d="M70 16 L84 30 L78 36 L84 42 L74 52 L68 46 L46 68 L50 80 L40 90 L30 70 L12 52 L22 42 L34 46 L56 24 L50 18 L60 8 L66 14 Z"></path>
+              <rect class="shape" x="45" y="10" width="10" height="52" rx="2"></rect>
+              <rect class="shape" x="34" y="16" width="32" height="8" rx="2"></rect>
+              <rect class="shape" x="38" y="61" width="24" height="9" rx="3"></rect>
+              <path class="shape" d="M43 70 L57 70 L53 89 L47 89 Z"></path>
             </svg>
-            <div class="icon-fill-wrap" id="esercitoFillWrap">
+            <div class="icon-fill-wrap" id="esercitoFillWrap" style="height: 50%;">
               <svg class="icon-svg icon-fill" viewBox="0 0 100 100" aria-hidden="true">
-                <path class="shape" d="M70 16 L84 30 L78 36 L84 42 L74 52 L68 46 L46 68 L50 80 L40 90 L30 70 L12 52 L22 42 L34 46 L56 24 L50 18 L60 8 L66 14 Z"></path>
+                <rect class="shape" x="45" y="10" width="10" height="52" rx="2"></rect>
+                <rect class="shape" x="34" y="16" width="32" height="8" rx="2"></rect>
+                <rect class="shape" x="38" y="61" width="24" height="9" rx="3"></rect>
+                <path class="shape" d="M43 70 L57 70 L53 89 L47 89 Z"></path>
               </svg>
             </div>
           </div>
-          <div class="stat-tooltip" id="esercitoTooltip"><strong>Esercito</strong><span>50%</span></div>
+          <div class="stat-percent" id="esercitoPercent">50%</div>
         </div>
 
         <div class="stat-icon-card" id="oroStat" data-stat="oro">
-          <div class="icon-shell" id="oroIcon" style="--fill-height: 50%;">
+          <div class="stat-tooltip" id="oroTooltip"><strong>Oro</strong><span>50%</span></div>
+          <div class="icon-shell">
             <svg class="icon-svg icon-base" viewBox="0 0 100 100" aria-hidden="true">
-              <circle class="shape" cx="50" cy="50" r="22"></circle>
-              <circle class="shape" cx="50" cy="50" r="10"></circle>
+              <path class="shape" d="M35 26 Q50 16 65 26 L61 34 Q57 38 57 46 L57 66 Q57 80 50 86 Q43 80 43 66 L43 46 Q43 38 39 34 Z"></path>
+              <path class="shape" d="M36 27 L64 27"></path>
+              <path class="detail" d="M46 54 Q50 50 54 54"></path>
+              <path class="detail" d="M50 46 L50 64"></path>
+              <path class="detail" d="M54 48 Q49 44 46 48"></path>
+              <circle class="shape" cx="68" cy="70" r="8"></circle>
             </svg>
-            <div class="icon-fill-wrap" id="oroFillWrap">
+            <div class="icon-fill-wrap" id="oroFillWrap" style="height: 50%;">
               <svg class="icon-svg icon-fill" viewBox="0 0 100 100" aria-hidden="true">
-                <circle class="shape" cx="50" cy="50" r="22"></circle>
-                <circle class="shape" cx="50" cy="50" r="10"></circle>
+                <path class="shape" d="M35 26 Q50 16 65 26 L61 34 Q57 38 57 46 L57 66 Q57 80 50 86 Q43 80 43 66 L43 46 Q43 38 39 34 Z"></path>
+                <circle class="shape" cx="68" cy="70" r="8"></circle>
               </svg>
             </div>
           </div>
-          <div class="stat-tooltip" id="oroTooltip"><strong>Oro</strong><span>50%</span></div>
+          <div class="stat-percent" id="oroPercent">50%</div>
         </div>
 
         <div class="stat-icon-card" id="fedeStat" data-stat="fede">
-          <div class="icon-shell" id="fedeIcon" style="--fill-height: 50%;">
+          <div class="stat-tooltip" id="fedeTooltip"><strong>Fede</strong><span>50%</span></div>
+          <div class="icon-shell">
             <svg class="icon-svg icon-base" viewBox="0 0 100 100" aria-hidden="true">
-              <rect class="shape" x="44" y="16" width="12" height="58" rx="2"></rect>
-              <rect class="shape" x="28" y="32" width="44" height="12" rx="2"></rect>
+              <rect class="shape" x="44" y="14" width="12" height="60" rx="2"></rect>
+              <rect class="shape" x="28" y="30" width="44" height="12" rx="2"></rect>
             </svg>
-            <div class="icon-fill-wrap" id="fedeFillWrap">
+            <div class="icon-fill-wrap" id="fedeFillWrap" style="height: 50%;">
               <svg class="icon-svg icon-fill" viewBox="0 0 100 100" aria-hidden="true">
-                <rect class="shape" x="44" y="16" width="12" height="58" rx="2"></rect>
-                <rect class="shape" x="28" y="32" width="44" height="12" rx="2"></rect>
+                <rect class="shape" x="44" y="14" width="12" height="60" rx="2"></rect>
+                <rect class="shape" x="28" y="30" width="44" height="12" rx="2"></rect>
               </svg>
             </div>
           </div>
-          <div class="stat-tooltip" id="fedeTooltip"><strong>Fede</strong><span>50%</span></div>
+          <div class="stat-percent" id="fedePercent">50%</div>
         </div>
       </div>
     </div>
@@ -739,6 +807,8 @@
     function updateStatIcon(nome, valore) {
       const wrap = document.getElementById(nome + "FillWrap");
       const tooltip = document.getElementById(nome + "Tooltip");
+      const percent = document.getElementById(nome + "Percent");
+
       const titleMap = {
         popolo: "Popolo",
         esercito: "Esercito",
@@ -752,6 +822,10 @@
 
       if (tooltip) {
         tooltip.innerHTML = `<strong>${titleMap[nome]}</strong><span>${valore}%</span>`;
+      }
+
+      if (percent) {
+        percent.textContent = `${valore}%`;
       }
     }
 
@@ -775,7 +849,7 @@
 
       setTimeout(() => {
         stat.classList.remove("flash-up", "flash-down");
-      }, 900);
+      }, 800);
     }
 
     function evidenziaVariazioni(prima, dopo) {
