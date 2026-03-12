@@ -613,29 +613,32 @@
           <div class="stat-percent" id="esercitoPercent">50%</div>
         </div>
 
-        <div class="stat-icon-card" id="oroStat" data-stat="oro">
-          <div class="stat-tooltip" id="oroTooltip"><strong>Oro</strong><span>50%</span></div>
-          <div class="icon-shell">
-            <svg class="icon-svg" viewBox="0 0 100 100" aria-hidden="true">
-              <defs>
-                <clipPath id="clip-oro">
-                  <path d="M35 25 Q50 10 65 25 L70 30 Q75 40 70 50 L65 85 Q63 92 50 95 Q37 92 35 85 L30 50 Q25 40 30 30 Z"></path>
-                  <rect x="40" y="28" width="20" height="6" rx="2"></rect>
-                  <circle cx="72" cy="78" r="8"></circle>
-                  <circle cx="60" cy="85" r="7"></circle>
-                </clipPath>
-              </defs>
+       <div class="stat-icon-card" id="oroStat" data-stat="oro">
+  <div class="stat-tooltip" id="oroTooltip"><strong>Oro</strong><span>50%</span></div>
+  <div class="icon-shell">
+    <svg class="icon-svg" viewBox="0 0 100 100" aria-hidden="true">
+      <defs>
+        <clipPath id="clip-oro">
+          <circle cx="50" cy="50" r="26"></circle>
+          <path d="M46 28 H54 V36 H60 V44 H54 V58 Q61 57 65 61 Q69 65 69 71 Q69 78 64 82 Q59 86 54 86 V92 H46 V86 H39 V78 H46 V72 H39 V64 H46 V42 Q39 43 35 39 Q31 35 31 29 Q31 22 36 18 Q41 14 46 14 Z"></path>
+        </clipPath>
+      </defs>
 
-              <path class="shape-base" d="M35 25 Q50 10 65 25 L70 30 Q75 40 70 50 L65 85 Q63 92 50 95 Q37 92 35 85 L30 50 Q25 40 30 30 Z"></path>
-              <rect class="shape-base" x="40" y="28" width="20" height="6" rx="2"></rect>
-              <circle class="shape-base" cx="72" cy="78" r="8"></circle>
-              <circle class="shape-base" cx="60" cy="85" r="7"></circle>
+      <!-- base moneta -->
+      <circle class="shape-base" cx="50" cy="50" r="26"></circle>
 
-              <rect class="shape-gold" id="oroFill" x="0" y="50" width="100" height="50" clip-path="url(#clip-oro)"></rect>
-            </svg>
-          </div>
-          <div class="stat-percent" id="oroPercent">50%</div>
-        </div>
+      <!-- simbolo $ centrale -->
+      <path class="shape-base" d="M46 28 H54 V36 H60 V44 H54 V58 Q61 57 65 61 Q69 65 69 71 Q69 78 64 82 Q59 86 54 86 V92 H46 V86 H39 V78 H46 V72 H39 V64 H46 V42 Q39 43 35 39 Q31 35 31 29 Q31 22 36 18 Q41 14 46 14 Z"></path>
+
+      <!-- riempimento oro -->
+      <rect class="shape-gold" id="oroFill" x="0" y="50" width="100" height="50" clip-path="url(#clip-oro)"></rect>
+
+      <!-- piccolo bordo interno della moneta -->
+      <circle class="gold-detail" cx="50" cy="50" r="19"></circle>
+    </svg>
+  </div>
+  <div class="stat-percent" id="oroPercent">50%</div>
+</div>
 
         <div class="stat-icon-card" id="fedeStat" data-stat="fede">
           <div class="stat-tooltip" id="fedeTooltip"><strong>Fede</strong><span>50%</span></div>
