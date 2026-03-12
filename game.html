@@ -80,19 +80,26 @@
       color: #f2e7d3;
     }
 
+    .stat-label,
+    .stat-value {
+      transition: color 0.2s ease, text-shadow 0.2s ease, transform 0.2s ease;
+    }
+
     .bar {
       width: 100%;
       height: 14px;
       background: #3a2f26;
       border-radius: 999px;
-      overflow: hidden;
+      overflow: visible;
       border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
     }
 
     .fill {
       height: 100%;
       border-radius: 999px;
-      transition: width 0.35s ease;
+      transition: width 0.35s ease, box-shadow 0.25s ease, filter 0.25s ease;
+      position: relative;
     }
 
     .fill-popolo {
@@ -109,6 +116,92 @@
 
     .fill-fede {
       background: linear-gradient(90deg, #5b3d8b, #a47ae8);
+    }
+
+    .stat-popolo.flash-up .stat-label,
+    .stat-popolo.flash-up .stat-value {
+      color: #bff0c5;
+      text-shadow: 0 0 10px rgba(99, 179, 109, 0.9), 0 0 18px rgba(99, 179, 109, 0.45);
+      transform: scale(1.03);
+    }
+
+    .stat-popolo.flash-down .stat-label,
+    .stat-popolo.flash-down .stat-value {
+      color: #d5f0d9;
+      text-shadow: 0 0 10px rgba(47, 107, 53, 0.85), 0 0 18px rgba(47, 107, 53, 0.35);
+      transform: scale(1.03);
+    }
+
+    .stat-esercito.flash-up .stat-label,
+    .stat-esercito.flash-up .stat-value {
+      color: #ffd0d0;
+      text-shadow: 0 0 10px rgba(207, 91, 91, 0.9), 0 0 18px rgba(207, 91, 91, 0.45);
+      transform: scale(1.03);
+    }
+
+    .stat-esercito.flash-down .stat-label,
+    .stat-esercito.flash-down .stat-value {
+      color: #ffd9d9;
+      text-shadow: 0 0 10px rgba(122, 31, 31, 0.85), 0 0 18px rgba(122, 31, 31, 0.35);
+      transform: scale(1.03);
+    }
+
+    .stat-oro.flash-up .stat-label,
+    .stat-oro.flash-up .stat-value {
+      color: #fff2b8;
+      text-shadow: 0 0 10px rgba(255, 209, 92, 0.95), 0 0 20px rgba(255, 209, 92, 0.55);
+      transform: scale(1.03);
+    }
+
+    .stat-oro.flash-down .stat-label,
+    .stat-oro.flash-down .stat-value {
+      color: #fff0cc;
+      text-shadow: 0 0 10px rgba(184, 134, 11, 0.9), 0 0 18px rgba(184, 134, 11, 0.4);
+      transform: scale(1.03);
+    }
+
+    .stat-fede.flash-up .stat-label,
+    .stat-fede.flash-up .stat-value {
+      color: #ead8ff;
+      text-shadow: 0 0 10px rgba(164, 122, 232, 0.95), 0 0 20px rgba(164, 122, 232, 0.5);
+      transform: scale(1.03);
+    }
+
+    .stat-fede.flash-down .stat-label,
+    .stat-fede.flash-down .stat-value {
+      color: #efe3ff;
+      text-shadow: 0 0 10px rgba(91, 61, 139, 0.9), 0 0 18px rgba(91, 61, 139, 0.4);
+      transform: scale(1.03);
+    }
+
+    .fill.flash-up {
+      filter: brightness(1.22) saturate(1.15);
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.18), 0 0 18px currentColor;
+    }
+
+    .fill.flash-down {
+      filter: brightness(1.1) saturate(1.05);
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.12), 0 0 14px currentColor;
+    }
+
+    .fill-popolo.flash-up,
+    .fill-popolo.flash-down {
+      color: rgba(99, 179, 109, 0.95);
+    }
+
+    .fill-esercito.flash-up,
+    .fill-esercito.flash-down {
+      color: rgba(207, 91, 91, 0.95);
+    }
+
+    .fill-oro.flash-up,
+    .fill-oro.flash-down {
+      color: rgba(255, 209, 92, 0.98);
+    }
+
+    .fill-fede.flash-up,
+    .fill-fede.flash-down {
+      color: rgba(164, 122, 232, 0.98);
     }
 
     .card-area {
@@ -309,7 +402,7 @@
     }
 
     .page-turn.animate {
-      animation: turnPage 0.75s ease forwards;
+      animation: turnPage 1.45s ease forwards;
     }
 
     .page-turn-text {
@@ -319,23 +412,27 @@
       align-items: center;
       justify-content: center;
       color: #f2dec0;
-      font-size: 24px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      font-size: 22px;
+      letter-spacing: 1px;
+      text-transform: none;
       opacity: 0;
-      animation: fadeText 0.75s ease forwards;
+      text-align: center;
+      padding: 24px;
+      line-height: 1.45;
+      animation: fadeText 1.45s ease forwards;
     }
 
     @keyframes turnPage {
       0% { transform: translateX(-100%); }
-      45% { transform: translateX(0%); }
-      55% { transform: translateX(0%); }
+      30% { transform: translateX(-10%); }
+      42% { transform: translateX(0%); }
+      68% { transform: translateX(0%); }
       100% { transform: translateX(100%); }
     }
 
     @keyframes fadeText {
       0% { opacity: 0; }
-      25% { opacity: 1; }
+      16% { opacity: 0.9; }
       75% { opacity: 1; }
       100% { opacity: 0; }
     }
@@ -367,14 +464,15 @@
       }
 
       .page-turn-text {
-        font-size: 20px;
+        font-size: 18px;
+        padding: 22px;
       }
     }
   </style>
 </head>
 <body>
   <div class="page-turn hidden" id="pageTurn">
-    <div class="page-turn-text">Giorno successivo</div>
+    <div class="page-turn-text" id="pageTurnText">Stai per affrontare la prossima scelta del tuo regno, Giorno 2</div>
   </div>
 
   <div class="app">
@@ -384,24 +482,44 @@
     </div>
 
     <div class="stats-panel">
-      <div class="stat">
-        <div class="stat-head"><span>👥 Popolo</span><span id="popoloValue">50</span></div>
-        <div class="bar"><div class="fill fill-popolo" id="popoloBar" style="width: 50%;"></div></div>
+      <div class="stat stat-popolo" id="popoloStat">
+        <div class="stat-head">
+          <span class="stat-label" id="popoloLabel">👥 Popolo</span>
+          <span class="stat-value" id="popoloValue">50</span>
+        </div>
+        <div class="bar">
+          <div class="fill fill-popolo" id="popoloBar" style="width: 50%;"></div>
+        </div>
       </div>
 
-      <div class="stat">
-        <div class="stat-head"><span>⚔️ Esercito</span><span id="esercitoValue">50</span></div>
-        <div class="bar"><div class="fill fill-esercito" id="esercitoBar" style="width: 50%;"></div></div>
+      <div class="stat stat-esercito" id="esercitoStat">
+        <div class="stat-head">
+          <span class="stat-label" id="esercitoLabel">⚔️ Esercito</span>
+          <span class="stat-value" id="esercitoValue">50</span>
+        </div>
+        <div class="bar">
+          <div class="fill fill-esercito" id="esercitoBar" style="width: 50%;"></div>
+        </div>
       </div>
 
-      <div class="stat">
-        <div class="stat-head"><span>💰 Oro</span><span id="oroValue">50</span></div>
-        <div class="bar"><div class="fill fill-oro" id="oroBar" style="width: 50%;"></div></div>
+      <div class="stat stat-oro" id="oroStat">
+        <div class="stat-head">
+          <span class="stat-label" id="oroLabel">💰 Oro</span>
+          <span class="stat-value" id="oroValue">50</span>
+        </div>
+        <div class="bar">
+          <div class="fill fill-oro" id="oroBar" style="width: 50%;"></div>
+        </div>
       </div>
 
-      <div class="stat">
-        <div class="stat-head"><span>⛪ Fede</span><span id="fedeValue">50</span></div>
-        <div class="bar"><div class="fill fill-fede" id="fedeBar" style="width: 50%;"></div></div>
+      <div class="stat stat-fede" id="fedeStat">
+        <div class="stat-head">
+          <span class="stat-label" id="fedeLabel">⛪ Fede</span>
+          <span class="stat-value" id="fedeValue">50</span>
+        </div>
+        <div class="bar">
+          <div class="fill fill-fede" id="fedeBar" style="width: 50%;"></div>
+        </div>
       </div>
     </div>
 
@@ -534,6 +652,7 @@
     const summaryBox = document.getElementById("summaryBox");
     const sceneImage = document.getElementById("sceneImage");
     const pageTurn = document.getElementById("pageTurn");
+    const pageTurnText = document.getElementById("pageTurnText");
 
     let isDragging = false;
     let startX = 0;
@@ -563,6 +682,38 @@
       document.getElementById("esercitoBar").style.width = game.esercito + "%";
       document.getElementById("oroBar").style.width = game.oro + "%";
       document.getElementById("fedeBar").style.width = game.fede + "%";
+    }
+
+    function evidenziaStatistica(nome, tipo) {
+      const stat = document.getElementById(nome + "Stat");
+      const bar = document.getElementById(nome + "Bar");
+
+      if (!stat || !bar || !tipo) return;
+
+      stat.classList.remove("flash-up", "flash-down");
+      bar.classList.remove("flash-up", "flash-down");
+
+      void stat.offsetWidth;
+
+      stat.classList.add(tipo);
+      bar.classList.add(tipo);
+
+      setTimeout(() => {
+        stat.classList.remove("flash-up", "flash-down");
+        bar.classList.remove("flash-up", "flash-down");
+      }, 950);
+    }
+
+    function evidenziaVariazioni(prima, dopo) {
+      const mapping = ["popolo", "esercito", "oro", "fede"];
+
+      mapping.forEach((chiave) => {
+        if (dopo[chiave] > prima[chiave]) {
+          evidenziaStatistica(chiave, "flash-up");
+        } else if (dopo[chiave] < prima[chiave]) {
+          evidenziaStatistica(chiave, "flash-down");
+        }
+      });
     }
 
     function mostraImmagine(url, fallbackText) {
@@ -621,18 +772,20 @@
     }
 
     function animaCambioGiorno(callback) {
+      pageTurnText.textContent = `Stai per affrontare la prossima scelta del tuo regno, Giorno ${game.giorno}`;
+
       pageTurn.classList.remove("hidden", "animate");
       void pageTurn.offsetWidth;
       pageTurn.classList.add("animate");
 
       setTimeout(() => {
         callback();
-      }, 360);
+      }, 830);
 
       setTimeout(() => {
         pageTurn.classList.remove("animate");
         pageTurn.classList.add("hidden");
-      }, 760);
+      }, 1500);
     }
 
     function getRandomEvento() {
@@ -796,6 +949,13 @@
       card.classList.add(lato === "destra" ? "exit-right" : "exit-left");
 
       setTimeout(() => {
+        const valoriPrima = {
+          popolo: game.popolo,
+          esercito: game.esercito,
+          oro: game.oro,
+          fede: game.fede
+        };
+
         game.popolo = limitaStat(game.popolo + effetti.popolo);
         game.esercito = limitaStat(game.esercito + effetti.esercito);
         game.oro = limitaStat(game.oro + effetti.oro);
@@ -803,6 +963,15 @@
         game.giorno += 1;
 
         aggiornaStatistiche();
+
+        const valoriDopo = {
+          popolo: game.popolo,
+          esercito: game.esercito,
+          oro: game.oro,
+          fede: game.fede
+        };
+
+        evidenziaVariazioni(valoriPrima, valoriDopo);
 
         resetCard();
         document.getElementById("testoCarta").textContent = scelta.testoConseguenza;
