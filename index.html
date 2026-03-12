@@ -166,23 +166,30 @@
     }
 
     .crest {
-      width: 110px;
-      height: 110px;
+      width: 132px;
+      height: 132px;
       margin: 0 auto 18px;
       border-radius: 50%;
-      border: 1px solid rgba(216, 176, 106, 0.35);
+      border: 1px solid rgba(216, 176, 106, 0.28);
       background:
-        radial-gradient(circle at 35% 30%, rgba(255, 235, 190, 0.28), transparent 35%),
-        linear-gradient(180deg, rgba(90, 60, 30, 0.9), rgba(35, 25, 18, 0.95));
+        radial-gradient(circle at 35% 30%, rgba(255, 235, 190, 0.18), transparent 35%),
+        linear-gradient(180deg, rgba(90, 60, 30, 0.70), rgba(20, 14, 10, 0.88));
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 44px;
       box-shadow:
         0 0 0 8px rgba(255, 220, 150, 0.03),
         0 18px 40px rgba(0, 0, 0, 0.4),
         inset 0 1px 0 rgba(255,255,255,0.05);
       animation: crestPulse 3.4s ease-in-out infinite;
+      overflow: hidden;
+    }
+
+    .crest-crown {
+      width: 96px;
+      height: 96px;
+      display: block;
+      filter: drop-shadow(0 0 10px rgba(240, 196, 107, 0.12));
     }
 
     @keyframes crestPulse {
@@ -386,10 +393,14 @@
 
     @media (max-width: 640px) {
       .crest {
-        width: 92px;
-        height: 92px;
-        font-size: 36px;
+        width: 108px;
+        height: 108px;
         margin-bottom: 16px;
+      }
+
+      .crest-crown {
+        width: 76px;
+        height: 76px;
       }
 
       .logo {
@@ -430,7 +441,100 @@
 
   <main class="page">
     <section class="home-box">
-      <div class="crest">👑</div>
+      <div class="crest">
+        <svg class="crest-crown" viewBox="0 0 256 256" aria-hidden="true">
+          <defs>
+            <linearGradient id="goldMain" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fff1b8"></stop>
+              <stop offset="18%" stop-color="#f7d778"></stop>
+              <stop offset="45%" stop-color="#d9a63e"></stop>
+              <stop offset="72%" stop-color="#b9781f"></stop>
+              <stop offset="100%" stop-color="#8b5718"></stop>
+            </linearGradient>
+
+            <linearGradient id="goldDark" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#c98b2c"></stop>
+              <stop offset="100%" stop-color="#6f4515"></stop>
+            </linearGradient>
+
+            <radialGradient id="gemRed" cx="50%" cy="35%" r="70%">
+              <stop offset="0%" stop-color="#ffb0b0"></stop>
+              <stop offset="45%" stop-color="#d63b3b"></stop>
+              <stop offset="100%" stop-color="#7e1414"></stop>
+            </radialGradient>
+
+            <radialGradient id="gemBlue" cx="50%" cy="35%" r="70%">
+              <stop offset="0%" stop-color="#b9dcff"></stop>
+              <stop offset="45%" stop-color="#3f86e8"></stop>
+              <stop offset="100%" stop-color="#173f86"></stop>
+            </radialGradient>
+
+            <filter id="crownGlow" x="-40%" y="-40%" width="180%" height="180%">
+              <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#f0c46b" flood-opacity="0.35"></feDropShadow>
+            </filter>
+
+            <filter id="crownShadow" x="-40%" y="-40%" width="180%" height="180%">
+              <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000000" flood-opacity="0.35"></feDropShadow>
+            </filter>
+          </defs>
+
+          <g filter="url(#crownShadow)">
+            <ellipse cx="128" cy="198" rx="66" ry="16" fill="rgba(0,0,0,0.22)"></ellipse>
+
+            <path
+              d="M60 84
+                 L92 122
+                 L128 62
+                 L164 122
+                 L196 84
+                 L212 160
+                 Q212 172 202 180
+                 Q190 190 174 190
+                 L82 190
+                 Q66 190 54 180
+                 Q44 172 44 160
+                 Z"
+              fill="url(#goldMain)"
+              stroke="#f8df9a"
+              stroke-width="6"
+              stroke-linejoin="round"
+              filter="url(#crownGlow)">
+            </path>
+
+            <path
+              d="M58 152
+                 Q128 174 198 152
+                 L198 170
+                 Q128 194 58 170
+                 Z"
+              fill="url(#goldDark)"
+              opacity="0.95">
+            </path>
+
+            <rect x="56" y="176" width="144" height="18" rx="9" fill="url(#goldDark)" stroke="#f0cf84" stroke-width="4"></rect>
+
+            <circle cx="60" cy="84" r="10" fill="#f6d26d" stroke="#fff2ba" stroke-width="3"></circle>
+            <circle cx="92" cy="122" r="8" fill="#f6d26d" stroke="#fff2ba" stroke-width="3"></circle>
+            <circle cx="128" cy="62" r="12" fill="#f6d26d" stroke="#fff2ba" stroke-width="3"></circle>
+            <circle cx="164" cy="122" r="8" fill="#f6d26d" stroke="#fff2ba" stroke-width="3"></circle>
+            <circle cx="196" cy="84" r="10" fill="#f6d26d" stroke="#fff2ba" stroke-width="3"></circle>
+
+            <circle cx="98" cy="162" r="11" fill="url(#gemBlue)" stroke="#d9eeff" stroke-width="3"></circle>
+            <circle cx="128" cy="168" r="14" fill="url(#gemRed)" stroke="#ffd0d0" stroke-width="3"></circle>
+            <circle cx="158" cy="162" r="11" fill="url(#gemBlue)" stroke="#d9eeff" stroke-width="3"></circle>
+
+            <path
+              d="M70 144
+                 Q128 158 186 144"
+              fill="none"
+              stroke="#fff0b5"
+              stroke-width="4"
+              opacity="0.55">
+            </path>
+          </g>
+        </svg>
+      </div>
+
       <h1 class="logo">XELUM</h1>
       <p class="subtitle">Il destino del regno e nelle tue mani</p>
 
