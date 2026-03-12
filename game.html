@@ -621,27 +621,82 @@
           <div class="stat-percent" id="esercitoPercent">50%</div>
         </div>
 
-        <div class="stat-icon-card" id="oroStat" data-stat="oro">
-        <div class="stat-icon-card" id="fedeStat" data-stat="fede">
-          <div class="stat-tooltip" id="fedeTooltip"><strong>Fede</strong><span>50%</span></div>
-          <div class="icon-shell">
-            <svg class="icon-svg" viewBox="0 0 100 100" aria-hidden="true">
-              <defs>
-                <clipPath id="clip-fede">
-                  <rect x="44" y="14" width="12" height="60" rx="2"></rect>
-                  <rect x="28" y="30" width="44" height="12" rx="2"></rect>
-                </clipPath>
-              </defs>
+<div class="stat-icon-card" id="oroStat" data-stat="oro">
 
-              <rect class="shape-base" x="44" y="14" width="12" height="60" rx="2"></rect>
-              <rect class="shape-base" x="28" y="30" width="44" height="12" rx="2"></rect>
-              <rect class="shape-gold" id="fedeFill" x="0" y="50" width="100" height="50" clip-path="url(#clip-fede)"></rect>
-            </svg>
-          </div>
-          <div class="stat-percent" id="fedePercent">50%</div>
-        </div>
-      </div>
-    </div>
+  <div class="stat-tooltip" id="oroTooltip">
+    <strong>Oro</strong><span>50%</span>
+  </div>
+
+  <div class="icon-shell">
+
+    <svg class="icon-svg" viewBox="0 0 100 100">
+
+      <defs>
+
+        <clipPath id="clip-oro">
+
+          <!-- SACCHETTO -->
+          <path d="
+            M35 25
+            Q50 10 65 25
+            L70 30
+            Q75 40 70 50
+            L65 85
+            Q63 92 50 95
+            Q37 92 35 85
+            L30 50
+            Q25 40 30 30
+            Z
+          "/>
+
+          <!-- MONETE -->
+          <circle cx="72" cy="78" r="8"/>
+          <circle cx="60" cy="85" r="7"/>
+
+        </clipPath>
+
+      </defs>
+
+      <!-- BASE SACCHETTO -->
+      <path class="shape-base"
+        d="
+          M35 25
+          Q50 10 65 25
+          L70 30
+          Q75 40 70 50
+          L65 85
+          Q63 92 50 95
+          Q37 92 35 85
+          L30 50
+          Q25 40 30 30
+          Z
+        "/>
+
+      <!-- NODO SACCHETTO -->
+      <rect class="shape-base" x="40" y="28" width="20" height="6" rx="2"/>
+
+      <!-- MONETE -->
+      <circle class="shape-base" cx="72" cy="78" r="8"/>
+      <circle class="shape-base" cx="60" cy="85" r="7"/>
+
+      <!-- RIEMPIMENTO ORO -->
+      <rect
+        class="shape-gold"
+        id="oroFill"
+        x="0"
+        y="50"
+        width="100"
+        height="50"
+        clip-path="url(#clip-oro)"
+      />
+
+    </svg>
+
+  </div>
+
+  <div class="stat-percent" id="oroPercent">50%</div>
+
+</div>
 
     <div class="card-area">
       <div class="choice-hint choice-left" id="leftHint">Sinistra</div>
