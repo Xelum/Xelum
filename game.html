@@ -10,13 +10,31 @@
       box-sizing: border-box;
       user-select: none;
       -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --bg-1: #2a1f16;
+      --bg-2: #17120e;
+      --bg-3: #0b0b0d;
+      --panel: rgba(25, 20, 16, 0.92);
+      --panel-border: rgba(210, 185, 139, 0.18);
+      --text-main: #f3e7d0;
+      --text-soft: #d7c29a;
+      --gold-1: #f8e7bf;
+      --gold-2: #d7a64e;
+      --gold-3: #8b5e34;
+      --green: #63b36d;
+      --red: #cf5b5b;
+      --gold: #ffd15c;
+      --violet: #a47ae8;
     }
 
     body {
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
-      background: radial-gradient(circle at top, #2a1f16 0%, #17120e 35%, #0b0b0d 100%);
-      color: #f3e7d0;
+      background: radial-gradient(circle at top, var(--bg-1) 0%, var(--bg-2) 35%, var(--bg-3) 100%);
+      color: var(--text-main);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -28,7 +46,7 @@
 
     .app {
       width: 100%;
-      max-width: 560px;
+      max-width: 620px;
       position: relative;
       z-index: 1;
     }
@@ -49,166 +67,196 @@
 
     .king-name {
       font-size: 15px;
-      color: #d7c29a;
+      color: var(--text-soft);
       letter-spacing: 0.4px;
     }
 
     .stats-panel {
-      background: rgba(25, 20, 16, 0.92);
-      border: 1px solid rgba(210, 185, 139, 0.18);
-      border-radius: 18px;
-      padding: 16px 14px;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 22px;
+      padding: 16px 14px 18px;
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
       margin-bottom: 18px;
       backdrop-filter: blur(3px);
     }
 
-    .stat {
-      margin-bottom: 14px;
+    .stats-icons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      align-items: end;
     }
 
-    .stat:last-child {
-      margin-bottom: 0;
-    }
-
-    .stat-head {
+    .stat-icon-box {
+      position: relative;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      margin-bottom: 7px;
-      font-size: 15px;
-      color: #f2e7d3;
+      height: 88px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      border: 1px solid rgba(255,255,255,0.03);
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.22s ease, background 0.22s ease;
+      outline: none;
     }
 
-    .stat-label,
-    .stat-value {
-      transition: color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
+    .stat-icon-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
     }
 
-    .bar {
+    .stat-symbol {
+      position: relative;
+      width: 56px;
+      height: 56px;
+      display: inline-block;
+      --fill-level: 50%;
+      --glow-color: rgba(255, 220, 120, 0.9);
+    }
+
+    .stat-symbol svg {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      height: 14px;
-      background: #3a2f26;
-      border-radius: 999px;
-      overflow: visible;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      position: relative;
-    }
-
-    .fill {
       height: 100%;
-      border-radius: 999px;
-      transition: width 0.35s ease, box-shadow 0.28s ease, filter 0.28s ease, transform 0.28s ease;
-      position: relative;
+      display: block;
     }
 
-    .fill-popolo {
-      background: linear-gradient(90deg, #2f6b35, #63b36d);
+    .symbol-base {
+      color: rgba(0, 0, 0, 0.88);
+      filter: drop-shadow(0 2px 0 rgba(255,255,255,0.04));
     }
 
-    .fill-esercito {
-      background: linear-gradient(90deg, #7a1f1f, #cf5b5b);
+    .symbol-fill-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      clip-path: inset(calc(100% - var(--fill-level)) 0 0 0);
+      transition: clip-path 0.45s ease, filter 0.25s ease;
     }
 
-    .fill-oro {
-      background: linear-gradient(90deg, #b8860b, #ffd15c);
+    .symbol-fill {
+      color: var(--gold-2);
+      filter: drop-shadow(0 0 3px rgba(255, 220, 120, 0.15));
     }
 
-    .fill-fede {
-      background: linear-gradient(90deg, #5b3d8b, #a47ae8);
+    .symbol-shine {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.22), transparent 38%),
+        linear-gradient(90deg, transparent, rgba(255,255,255,0.16), transparent);
+      mix-blend-mode: screen;
+      opacity: 0.22;
+      clip-path: inset(calc(100% - var(--fill-level)) 0 0 0);
+      pointer-events: none;
+      transition: clip-path 0.45s ease, opacity 0.25s ease;
     }
 
-    .stat-popolo.flash-up .stat-label,
-    .stat-popolo.flash-up .stat-value {
-      color: #bff0c5;
-      text-shadow: 0 0 10px rgba(99, 179, 109, 0.9), 0 0 18px rgba(99, 179, 109, 0.45);
-      transform: scale(1.03);
+    .stat-tooltip {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 8px);
+      transform: translateX(-50%) translateY(6px);
+      min-width: 112px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(18, 14, 10, 0.96);
+      border: 1px solid rgba(215, 166, 78, 0.22);
+      color: #f6e6c3;
+      font-size: 13px;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.32);
+      z-index: 4;
+      line-height: 1.35;
     }
 
-    .stat-popolo.flash-down .stat-label,
-    .stat-popolo.flash-down .stat-value {
-      color: #d5f0d9;
-      text-shadow: 0 0 10px rgba(47, 107, 53, 0.85), 0 0 18px rgba(47, 107, 53, 0.35);
-      transform: scale(1.03);
+    .stat-tooltip strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 2px;
     }
 
-    .stat-esercito.flash-up .stat-label,
-    .stat-esercito.flash-up .stat-value {
-      color: #ffd0d0;
-      text-shadow: 0 0 10px rgba(207, 91, 91, 0.9), 0 0 18px rgba(207, 91, 91, 0.45);
-      transform: scale(1.03);
+    .stat-icon-box:hover .stat-tooltip,
+    .stat-icon-box.show-tooltip .stat-tooltip,
+    .stat-icon-box:focus-visible .stat-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
-    .stat-esercito.flash-down .stat-label,
-    .stat-esercito.flash-down .stat-value {
-      color: #ffd9d9;
-      text-shadow: 0 0 10px rgba(122, 31, 31, 0.85), 0 0 18px rgba(122, 31, 31, 0.35);
-      transform: scale(1.03);
+    .stat-popolo.flash-up .symbol-fill-wrap,
+    .stat-popolo.flash-down .symbol-fill-wrap {
+      filter: drop-shadow(0 0 8px rgba(99, 179, 109, 0.9)) drop-shadow(0 0 16px rgba(99, 179, 109, 0.5));
     }
 
-    .stat-oro.flash-up .stat-label,
-    .stat-oro.flash-up .stat-value {
-      color: #fff2b8;
-      text-shadow: 0 0 10px rgba(255, 209, 92, 0.95), 0 0 20px rgba(255, 209, 92, 0.55);
-      transform: scale(1.03);
+    .stat-esercito.flash-up .symbol-fill-wrap,
+    .stat-esercito.flash-down .symbol-fill-wrap {
+      filter: drop-shadow(0 0 8px rgba(207, 91, 91, 0.92)) drop-shadow(0 0 16px rgba(207, 91, 91, 0.5));
     }
 
-    .stat-oro.flash-down .stat-label,
-    .stat-oro.flash-down .stat-value {
-      color: #fff0cc;
-      text-shadow: 0 0 10px rgba(184, 134, 11, 0.9), 0 0 18px rgba(184, 134, 11, 0.4);
-      transform: scale(1.03);
+    .stat-oro.flash-up .symbol-fill-wrap,
+    .stat-oro.flash-down .symbol-fill-wrap {
+      filter: drop-shadow(0 0 8px rgba(255, 209, 92, 0.95)) drop-shadow(0 0 16px rgba(255, 209, 92, 0.55));
     }
 
-    .stat-fede.flash-up .stat-label,
-    .stat-fede.flash-up .stat-value {
-      color: #ead8ff;
-      text-shadow: 0 0 10px rgba(164, 122, 232, 0.95), 0 0 20px rgba(164, 122, 232, 0.5);
-      transform: scale(1.03);
+    .stat-fede.flash-up .symbol-fill-wrap,
+    .stat-fede.flash-down .symbol-fill-wrap {
+      filter: drop-shadow(0 0 8px rgba(164, 122, 232, 0.95)) drop-shadow(0 0 16px rgba(164, 122, 232, 0.52));
     }
 
-    .stat-fede.flash-down .stat-label,
-    .stat-fede.flash-down .stat-value {
-      color: #efe3ff;
-      text-shadow: 0 0 10px rgba(91, 61, 139, 0.9), 0 0 18px rgba(91, 61, 139, 0.4);
-      transform: scale(1.03);
+    .stat-popolo.flash-up .symbol-fill,
+    .stat-popolo.flash-down .symbol-fill {
+      color: var(--green);
     }
 
-    .fill.flash-up {
-      filter: brightness(1.22) saturate(1.15);
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.18), 0 0 18px currentColor;
-      transform: scaleY(1.08);
+    .stat-esercito.flash-up .symbol-fill,
+    .stat-esercito.flash-down .symbol-fill {
+      color: var(--red);
     }
 
-    .fill.flash-down {
-      filter: brightness(1.1) saturate(1.05);
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.12), 0 0 14px currentColor;
-      transform: scaleY(1.05);
+    .stat-oro.flash-up .symbol-fill,
+    .stat-oro.flash-down .symbol-fill {
+      color: var(--gold);
     }
 
-    .fill-popolo.flash-up,
-    .fill-popolo.flash-down {
-      color: rgba(99, 179, 109, 0.95);
+    .stat-fede.flash-up .symbol-fill,
+    .stat-fede.flash-down .symbol-fill {
+      color: var(--violet);
     }
 
-    .fill-esercito.flash-up,
-    .fill-esercito.flash-down {
-      color: rgba(207, 91, 91, 0.95);
+    .stat-popolo.flash-up .symbol-shine,
+    .stat-popolo.flash-down .symbol-shine,
+    .stat-esercito.flash-up .symbol-shine,
+    .stat-esercito.flash-down .symbol-shine,
+    .stat-oro.flash-up .symbol-shine,
+    .stat-oro.flash-down .symbol-shine,
+    .stat-fede.flash-up .symbol-shine,
+    .stat-fede.flash-down .symbol-shine {
+      opacity: 0.42;
     }
 
-    .fill-oro.flash-up,
-    .fill-oro.flash-down {
-      color: rgba(255, 209, 92, 0.98);
-    }
-
-    .fill-fede.flash-up,
-    .fill-fede.flash-down {
-      color: rgba(164, 122, 232, 0.98);
+    .stat-popolo.flash-up,
+    .stat-popolo.flash-down,
+    .stat-esercito.flash-up,
+    .stat-esercito.flash-down,
+    .stat-oro.flash-up,
+    .stat-oro.flash-down,
+    .stat-fede.flash-up,
+    .stat-fede.flash-down {
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.05));
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 0 16px rgba(255,255,255,0.04);
+      transform: translateY(-1px) scale(1.02);
     }
 
     .card-area {
       position: relative;
-      height: 380px;
+      height: 420px;
       margin-top: 8px;
     }
 
@@ -299,7 +347,7 @@
 
     .scene-image {
       width: 100%;
-      height: 120px;
+      height: 170px;
       border-radius: 16px;
       margin-bottom: 14px;
       background: linear-gradient(135deg, rgba(199,171,120,0.18), rgba(90,65,40,0.18));
@@ -327,7 +375,7 @@
       font-size: 27px;
       line-height: 1.35;
       color: #fff5df;
-      max-width: 420px;
+      max-width: 440px;
       position: relative;
       z-index: 1;
     }
@@ -396,7 +444,7 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(circle at center, rgba(255, 220, 160, 0.08), transparent 36%),
+        radial-gradient(circle at center, rgba(255, 220, 160, 0.09), transparent 34%),
         linear-gradient(90deg, rgba(20, 13, 8, 0.96), rgba(58, 41, 25, 0.98), rgba(20, 13, 8, 0.96));
       transform: translateX(-100%);
       z-index: 50;
@@ -416,7 +464,7 @@
       justify-content: center;
       color: #f7e7c8;
       font-size: 24px;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
       text-transform: none;
       opacity: 0;
       text-align: center;
@@ -431,10 +479,9 @@
     }
 
     @keyframes turnPage {
-      0% { transform: translateX(-100%); }
-      22% { transform: translateX(-25%); }
-      36% { transform: translateX(0%); }
-      78% { transform: translateX(0%); }
+      0%   { transform: translateX(-100%); }
+      32%  { transform: translateX(0%); }
+      76%  { transform: translateX(0%); }
       100% { transform: translateX(100%); }
     }
 
@@ -444,14 +491,14 @@
         transform: scale(0.9) translateY(8px);
         filter: blur(4px);
       }
-      18% {
+      20% {
         opacity: 1;
         transform: scale(1) translateY(0);
         filter: blur(0);
       }
-      78% {
+      76% {
         opacity: 1;
-        transform: scale(1.04) translateY(-2px);
+        transform: scale(1.035) translateY(-1px);
         filter: blur(0);
       }
       100% {
@@ -466,8 +513,27 @@
         font-size: 28px;
       }
 
+      .stats-icons {
+        gap: 8px;
+      }
+
+      .stat-icon-box {
+        height: 76px;
+        border-radius: 16px;
+      }
+
+      .stat-symbol {
+        width: 48px;
+        height: 48px;
+      }
+
+      .stat-tooltip {
+        min-width: 96px;
+        font-size: 12px;
+      }
+
       .card-area {
-        height: 340px;
+        height: 390px;
       }
 
       .card {
@@ -475,7 +541,7 @@
       }
 
       .scene-image {
-        height: 96px;
+        height: 135px;
       }
 
       .card-text {
@@ -507,43 +573,85 @@
     </div>
 
     <div class="stats-panel">
-      <div class="stat stat-popolo" id="popoloStat">
-        <div class="stat-head">
-          <span class="stat-label" id="popoloLabel">👥 Popolo</span>
-          <span class="stat-value" id="popoloValue">50</span>
+      <div class="stats-icons">
+        <div class="stat-icon-box stat-popolo" id="popoloStat" tabindex="0" data-stat="popolo">
+          <div class="stat-tooltip" id="popoloTooltip"><strong>Popolo</strong><span id="popoloValue">50%</span></div>
+          <div class="stat-symbol" id="popoloSymbol">
+            <svg class="symbol-base" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="20" cy="16" r="6" fill="currentColor"></circle>
+              <circle cx="44" cy="16" r="6" fill="currentColor"></circle>
+              <circle cx="32" cy="12" r="7" fill="currentColor"></circle>
+              <path d="M13 30c0-4 3-7 7-7s7 3 7 7v16H13z" fill="currentColor"></path>
+              <path d="M37 30c0-4 3-7 7-7s7 3 7 7v16H37z" fill="currentColor"></path>
+              <path d="M23 28c0-5 4-9 9-9s9 4 9 9v18H23z" fill="currentColor"></path>
+            </svg>
+            <div class="symbol-fill-wrap">
+              <svg class="symbol-fill" viewBox="0 0 64 64" aria-hidden="true">
+                <circle cx="20" cy="16" r="6" fill="currentColor"></circle>
+                <circle cx="44" cy="16" r="6" fill="currentColor"></circle>
+                <circle cx="32" cy="12" r="7" fill="currentColor"></circle>
+                <path d="M13 30c0-4 3-7 7-7s7 3 7 7v16H13z" fill="currentColor"></path>
+                <path d="M37 30c0-4 3-7 7-7s7 3 7 7v16H37z" fill="currentColor"></path>
+                <path d="M23 28c0-5 4-9 9-9s9 4 9 9v18H23z" fill="currentColor"></path>
+              </svg>
+            </div>
+            <div class="symbol-shine"></div>
+          </div>
         </div>
-        <div class="bar">
-          <div class="fill fill-popolo" id="popoloBar" style="width: 50%;"></div>
-        </div>
-      </div>
 
-      <div class="stat stat-esercito" id="esercitoStat">
-        <div class="stat-head">
-          <span class="stat-label" id="esercitoLabel">⚔️ Esercito</span>
-          <span class="stat-value" id="esercitoValue">50</span>
+        <div class="stat-icon-box stat-esercito" id="esercitoStat" tabindex="0" data-stat="esercito">
+          <div class="stat-tooltip" id="esercitoTooltip"><strong>Esercito</strong><span id="esercitoValue">50%</span></div>
+          <div class="stat-symbol" id="esercitoSymbol">
+            <svg class="symbol-base" viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M38 6l8 8-4 4 4 4-6 6-4-4-17 17H12v-7l17-17-4-4 6-6 4 4 4-4z" fill="currentColor"></path>
+              <rect x="10" y="40" width="14" height="8" rx="2" transform="rotate(-45 17 44)" fill="currentColor"></rect>
+              <path d="M43 9l12 12-3 3-12-12z" fill="currentColor"></path>
+            </svg>
+            <div class="symbol-fill-wrap">
+              <svg class="symbol-fill" viewBox="0 0 64 64" aria-hidden="true">
+                <path d="M38 6l8 8-4 4 4 4-6 6-4-4-17 17H12v-7l17-17-4-4 6-6 4 4 4-4z" fill="currentColor"></path>
+                <rect x="10" y="40" width="14" height="8" rx="2" transform="rotate(-45 17 44)" fill="currentColor"></rect>
+                <path d="M43 9l12 12-3 3-12-12z" fill="currentColor"></path>
+              </svg>
+            </div>
+            <div class="symbol-shine"></div>
+          </div>
         </div>
-        <div class="bar">
-          <div class="fill fill-esercito" id="esercitoBar" style="width: 50%;"></div>
-        </div>
-      </div>
 
-      <div class="stat stat-oro" id="oroStat">
-        <div class="stat-head">
-          <span class="stat-label" id="oroLabel">💰 Oro</span>
-          <span class="stat-value" id="oroValue">50</span>
+        <div class="stat-icon-box stat-oro" id="oroStat" tabindex="0" data-stat="oro">
+          <div class="stat-tooltip" id="oroTooltip"><strong>Oro</strong><span id="oroValue">50%</span></div>
+          <div class="stat-symbol" id="oroSymbol">
+            <svg class="symbol-base" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="18" fill="currentColor"></circle>
+              <circle cx="32" cy="32" r="10" fill="#17120e"></circle>
+              <path d="M31 20h2v24h-2z" fill="currentColor"></path>
+              <path d="M25 24c2-2 4-3 7-3 4 0 7 2 7 6 0 3-2 5-6 6l-3 1c-2 1-3 2-3 4 0 2 2 4 5 4 3 0 5-1 7-3l2 3c-2 3-5 4-9 4-5 0-9-3-9-8 0-4 2-6 7-8l3-1c2-1 3-2 3-4s-2-3-4-3c-2 0-4 1-5 2z" fill="currentColor"></path>
+            </svg>
+            <div class="symbol-fill-wrap">
+              <svg class="symbol-fill" viewBox="0 0 64 64" aria-hidden="true">
+                <circle cx="32" cy="32" r="18" fill="currentColor"></circle>
+                <circle cx="32" cy="32" r="10" fill="#17120e"></circle>
+                <path d="M31 20h2v24h-2z" fill="currentColor"></path>
+                <path d="M25 24c2-2 4-3 7-3 4 0 7 2 7 6 0 3-2 5-6 6l-3 1c-2 1-3 2-3 4 0 2 2 4 5 4 3 0 5-1 7-3l2 3c-2 3-5 4-9 4-5 0-9-3-9-8 0-4 2-6 7-8l3-1c2-1 3-2 3-4s-2-3-4-3c-2 0-4 1-5 2z" fill="currentColor"></path>
+              </svg>
+            </div>
+            <div class="symbol-shine"></div>
+          </div>
         </div>
-        <div class="bar">
-          <div class="fill fill-oro" id="oroBar" style="width: 50%;"></div>
-        </div>
-      </div>
 
-      <div class="stat stat-fede" id="fedeStat">
-        <div class="stat-head">
-          <span class="stat-label" id="fedeLabel">⛪ Fede</span>
-          <span class="stat-value" id="fedeValue">50</span>
-        </div>
-        <div class="bar">
-          <div class="fill fill-fede" id="fedeBar" style="width: 50%;"></div>
+        <div class="stat-icon-box stat-fede" id="fedeStat" tabindex="0" data-stat="fede">
+          <div class="stat-tooltip" id="fedeTooltip"><strong>Fede</strong><span id="fedeValue">50%</span></div>
+          <div class="stat-symbol" id="fedeSymbol">
+            <svg class="symbol-base" viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M28 8h8v10h10v8H36v28h-8V26H18v-8h10z" fill="currentColor"></path>
+            </svg>
+            <div class="symbol-fill-wrap">
+              <svg class="symbol-fill" viewBox="0 0 64 64" aria-hidden="true">
+                <path d="M28 8h8v10h10v8H36v28h-8V26H18v-8h10z" fill="currentColor"></path>
+              </svg>
+            </div>
+            <div class="symbol-shine"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -698,34 +806,32 @@
     function aggiornaStatistiche() {
       document.getElementById("nomeRe").textContent = game.nomeRe;
       document.getElementById("giorno").textContent = game.giorno;
-      document.getElementById("popoloValue").textContent = game.popolo;
-      document.getElementById("esercitoValue").textContent = game.esercito;
-      document.getElementById("oroValue").textContent = game.oro;
-      document.getElementById("fedeValue").textContent = game.fede;
 
-      document.getElementById("popoloBar").style.width = game.popolo + "%";
-      document.getElementById("esercitoBar").style.width = game.esercito + "%";
-      document.getElementById("oroBar").style.width = game.oro + "%";
-      document.getElementById("fedeBar").style.width = game.fede + "%";
+      aggiornaStatIcon("popolo", game.popolo);
+      aggiornaStatIcon("esercito", game.esercito);
+      aggiornaStatIcon("oro", game.oro);
+      aggiornaStatIcon("fede", game.fede);
+    }
+
+    function aggiornaStatIcon(nome, valore) {
+      const symbol = document.getElementById(nome + "Symbol");
+      const value = document.getElementById(nome + "Value");
+      if (!symbol || !value) return;
+
+      symbol.style.setProperty("--fill-level", `${valore}%`);
+      value.textContent = `${valore}%`;
     }
 
     function evidenziaStatistica(nome, tipo) {
       const stat = document.getElementById(nome + "Stat");
-      const bar = document.getElementById(nome + "Bar");
-
-      if (!stat || !bar || !tipo) return;
+      if (!stat || !tipo) return;
 
       stat.classList.remove("flash-up", "flash-down");
-      bar.classList.remove("flash-up", "flash-down");
-
       void stat.offsetWidth;
-
       stat.classList.add(tipo);
-      bar.classList.add(tipo);
 
       setTimeout(() => {
         stat.classList.remove("flash-up", "flash-down");
-        bar.classList.remove("flash-up", "flash-down");
       }, 1000);
     }
 
@@ -1059,6 +1165,34 @@
       }
     }
 
+    function setupStatInteractions() {
+      const boxes = document.querySelectorAll(".stat-icon-box");
+
+      boxes.forEach((box) => {
+        box.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const isOpen = box.classList.contains("show-tooltip");
+
+          boxes.forEach((other) => other.classList.remove("show-tooltip"));
+
+          if (!isOpen) {
+            box.classList.add("show-tooltip");
+          }
+        });
+
+        box.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            box.click();
+          }
+        });
+      });
+
+      document.addEventListener("click", () => {
+        boxes.forEach((box) => box.classList.remove("show-tooltip"));
+      });
+    }
+
     card.addEventListener("pointerdown", (e) => {
       if (game.gameOver || game.lockChoice || !regnoButtons.classList.contains("hidden")) return;
 
@@ -1070,26 +1204,4 @@
 
     window.addEventListener("pointermove", (e) => {
       if (!isDragging) return;
-      currentX = e.clientX - startX;
-      aggiornaCard(currentX);
-    });
-
-    window.addEventListener("pointerup", () => {
-      if (!isDragging) return;
-
-      isDragging = false;
-      card.classList.remove("dragging");
-
-      if (currentX > 120) {
-        applicaScelta("destra");
-      } else if (currentX < -120) {
-        applicaScelta("sinistra");
-      } else {
-        resetCard();
-      }
-    });
-
-    inizializzaGioco();
-  </script>
-</body>
-</html>
+      currentX = e.clientX -
