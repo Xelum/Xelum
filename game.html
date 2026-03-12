@@ -105,60 +105,58 @@
 
     .icon-shell {
       position: relative;
-      width: 58px;
-      height: 58px;
+      width: 62px;
+      height: 62px;
       display: flex;
       align-items: center;
       justify-content: center;
       pointer-events: none;
       transform-origin: center;
+      filter: drop-shadow(0 1px 0 rgba(255,255,255,0.03));
     }
 
     .icon-svg {
-      position: absolute;
-      inset: 0;
       width: 100%;
       height: 100%;
       display: block;
+      overflow: visible;
     }
 
-    .icon-base .shape {
-      fill: #080808;
-      stroke: rgba(255, 248, 236, 0.96);
-      stroke-width: 4.2;
-      stroke-linejoin: round;
-      stroke-linecap: round;
-      paint-order: stroke fill;
+    .shape-base {
+      fill: #070707;
     }
 
-    .icon-base .detail {
+    .shape-gold {
+      fill: #e0b24e;
+      transition: y 0.45s ease, height 0.45s ease;
+    }
+
+    .outline {
       fill: none;
-      stroke: rgba(255, 248, 236, 0.96);
+      stroke: rgba(255, 248, 236, 0.97);
       stroke-width: 4;
       stroke-linejoin: round;
       stroke-linecap: round;
-      paint-order: stroke fill;
+      vector-effect: non-scaling-stroke;
     }
 
-    .icon-fill-wrap {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      overflow: hidden;
-      height: var(--fill-height, 50%);
-      transition: height 0.45s ease;
-      filter: drop-shadow(0 0 8px rgba(234, 186, 83, 0.15));
-    }
-
-    .icon-fill .shape {
-      fill: #e0b24e;
-      stroke: none;
-    }
-
-    .icon-fill .detail {
+    .detail-outline {
       fill: none;
-      stroke: none;
+      stroke: rgba(255, 248, 236, 0.97);
+      stroke-width: 3.4;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .gold-detail {
+      fill: none;
+      stroke: rgba(112, 68, 18, 0.75);
+      stroke-width: 2.4;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      vector-effect: non-scaling-stroke;
+      pointer-events: none;
     }
 
     .stat-percent {
@@ -207,14 +205,19 @@
 
     .stat-icon-card.flash-up .icon-shell,
     .stat-icon-card.flash-down .icon-shell {
-      animation: statPulse 0.7s ease;
+      animation: statPulse 0.72s ease;
     }
 
-    .stat-icon-card.flash-up .icon-fill-wrap,
-    .stat-icon-card.flash-down .icon-fill-wrap {
+    .stat-icon-card.flash-up .icon-shell {
       filter:
-        drop-shadow(0 0 10px rgba(255, 212, 120, 0.55))
-        drop-shadow(0 0 18px rgba(255, 212, 120, 0.35));
+        drop-shadow(0 0 10px rgba(255, 212, 120, 0.45))
+        drop-shadow(0 0 18px rgba(255, 212, 120, 0.28));
+    }
+
+    .stat-icon-card.flash-down .icon-shell {
+      filter:
+        drop-shadow(0 0 8px rgba(255, 212, 120, 0.28))
+        drop-shadow(0 0 14px rgba(255, 212, 120, 0.16));
     }
 
     .stat-icon-card.flash-up .stat-percent,
@@ -225,28 +228,10 @@
         0 0 16px rgba(255, 214, 130, 0.24);
     }
 
-    .stat-icon-card.flash-up {
-      box-shadow:
-        0 0 0 1px rgba(255, 226, 155, 0.08),
-        0 0 18px rgba(255, 212, 120, 0.18);
-    }
-
-    .stat-icon-card.flash-down {
-      box-shadow:
-        0 0 0 1px rgba(255, 226, 155, 0.05),
-        0 0 12px rgba(255, 212, 120, 0.10);
-    }
-
     @keyframes statPulse {
-      0% {
-        transform: scale(1);
-      }
-      35% {
-        transform: scale(1.12);
-      }
-      100% {
-        transform: scale(1);
-      }
+      0% { transform: scale(1); }
+      35% { transform: scale(1.12); }
+      100% { transform: scale(1); }
     }
 
     .card-area {
@@ -520,8 +505,8 @@
       }
 
       .icon-shell {
-        width: 48px;
-        height: 48px;
+        width: 50px;
+        height: 50px;
       }
 
       .card-area {
@@ -574,24 +559,34 @@
         <div class="stat-icon-card" id="popoloStat" data-stat="popolo">
           <div class="stat-tooltip" id="popoloTooltip"><strong>Popolo</strong><span>50%</span></div>
           <div class="icon-shell">
-            <svg class="icon-svg icon-base" viewBox="0 0 100 100" aria-hidden="true">
-              <circle class="shape" cx="50" cy="20" r="9"></circle>
-              <rect class="shape" x="44" y="31" width="12" height="24" rx="5"></rect>
-              <rect class="shape" x="29" y="35" width="16" height="8" rx="4"></rect>
-              <rect class="shape" x="55" y="35" width="16" height="8" rx="4"></rect>
-              <rect class="shape" x="41" y="53" width="8" height="22" rx="4"></rect>
-              <rect class="shape" x="51" y="53" width="8" height="22" rx="4"></rect>
+            <svg class="icon-svg" viewBox="0 0 100 100" aria-hidden="true">
+              <defs>
+                <clipPath id="clip-popolo">
+                  <circle cx="50" cy="20" r="9"></circle>
+                  <rect x="44" y="31" width="12" height="24" rx="5"></rect>
+                  <rect x="29" y="35" width="16" height="8" rx="4"></rect>
+                  <rect x="55" y="35" width="16" height="8" rx="4"></rect>
+                  <rect x="41" y="53" width="8" height="22" rx="4"></rect>
+                  <rect x="51" y="53" width="8" height="22" rx="4"></rect>
+                </clipPath>
+              </defs>
+
+              <circle class="shape-base" cx="50" cy="20" r="9"></circle>
+              <rect class="shape-base" x="44" y="31" width="12" height="24" rx="5"></rect>
+              <rect class="shape-base" x="29" y="35" width="16" height="8" rx="4"></rect>
+              <rect class="shape-base" x="55" y="35" width="16" height="8" rx="4"></rect>
+              <rect class="shape-base" x="41" y="53" width="8" height="22" rx="4"></rect>
+              <rect class="shape-base" x="51" y="53" width="8" height="22" rx="4"></rect>
+
+              <rect class="shape-gold" id="popoloFill" x="0" y="50" width="100" height="50" clip-path="url(#clip-popolo)"></rect>
+
+              <circle class="outline" cx="50" cy="20" r="9"></circle>
+              <rect class="outline" x="44" y="31" width="12" height="24" rx="5"></rect>
+              <rect class="outline" x="29" y="35" width="16" height="8" rx="4"></rect>
+              <rect class="outline" x="55" y="35" width="16" height="8" rx="4"></rect>
+              <rect class="outline" x="41" y="53" width="8" height="22" rx="4"></rect>
+              <rect class="outline" x="51" y="53" width="8" height="22" rx="4"></rect>
             </svg>
-            <div class="icon-fill-wrap" id="popoloFillWrap" style="height: 50%;">
-              <svg class="icon-svg icon-fill" viewBox="0 0 100 100" aria-hidden="true">
-                <circle class="shape" cx="50" cy="20" r="9"></circle>
-                <rect class="shape" x="44" y="31" width="12" height="24" rx="5"></rect>
-                <rect class="shape" x="29" y="35" width="16" height="8" rx="4"></rect>
-                <rect class="shape" x="55" y="35" width="16" height="8" rx="4"></rect>
-                <rect class="shape" x="41" y="53" width="8" height="22" rx="4"></rect>
-                <rect class="shape" x="51" y="53" width="8" height="22" rx="4"></rect>
-              </svg>
-            </div>
           </div>
           <div class="stat-percent" id="popoloPercent">50%</div>
         </div>
@@ -599,20 +594,31 @@
         <div class="stat-icon-card" id="esercitoStat" data-stat="esercito">
           <div class="stat-tooltip" id="esercitoTooltip"><strong>Esercito</strong><span>50%</span></div>
           <div class="icon-shell">
-            <svg class="icon-svg icon-base" viewBox="0 0 100 100" aria-hidden="true">
-              <rect class="shape" x="45" y="10" width="10" height="52" rx="2"></rect>
-              <rect class="shape" x="34" y="16" width="32" height="8" rx="2"></rect>
-              <rect class="shape" x="38" y="61" width="24" height="9" rx="3"></rect>
-              <path class="shape" d="M43 70 L57 70 L53 89 L47 89 Z"></path>
+            <svg class="icon-svg" viewBox="0 0 100 100" aria-hidden="true">
+              <defs>
+                <clipPath id="clip-esercito">
+                  <path d="M50 6 L60 18 L60 54 L74 64 L63 70 L57 66 L57 82 L60 88 L50 96 L40 88 L43 82 L43 66 L37 70 L26 64 L40 54 L40 18 Z"></path>
+                  <rect x="44" y="18" width="12" height="38" rx="2"></rect>
+                  <rect x="33" y="56" width="34" height="7" rx="2"></rect>
+                  <rect x="44" y="63" width="12" height="20" rx="3"></rect>
+                  <circle cx="50" cy="89" r="4"></circle>
+                </clipPath>
+              </defs>
+
+              <path class="shape-base" d="M50 6 L60 18 L60 54 L74 64 L63 70 L57 66 L57 82 L60 88 L50 96 L40 88 L43 82 L43 66 L37 70 L26 64 L40 54 L40 18 Z"></path>
+              <rect class="shape-base" x="44" y="18" width="12" height="38" rx="2"></rect>
+              <rect class="shape-base" x="33" y="56" width="34" height="7" rx="2"></rect>
+              <rect class="shape-base" x="44" y="63" width="12" height="20" rx="3"></rect>
+              <circle class="shape-base" cx="50" cy="89" r="4"></circle>
+
+              <rect class="shape-gold" id="esercitoFill" x="0" y="50" width="100" height="50" clip-path="url(#clip-esercito)"></rect>
+
+              <path class="outline" d="M50 6 L60 18 L60 54 L74 64 L63 70 L57 66 L57 82 L60 88 L50 96 L40 88 L43 82 L43 66 L37 70 L26 64 L40 54 L40 18 Z"></path>
+              <rect class="outline" x="44" y="18" width="12" height="38" rx="2"></rect>
+              <rect class="outline" x="33" y="56" width="34" height="7" rx="2"></rect>
+              <rect class="outline" x="44" y="63" width="12" height="20" rx="3"></rect>
+              <circle class="outline" cx="50" cy="89" r="4"></circle>
             </svg>
-            <div class="icon-fill-wrap" id="esercitoFillWrap" style="height: 50%;">
-              <svg class="icon-svg icon-fill" viewBox="0 0 100 100" aria-hidden="true">
-                <rect class="shape" x="45" y="10" width="10" height="52" rx="2"></rect>
-                <rect class="shape" x="34" y="16" width="32" height="8" rx="2"></rect>
-                <rect class="shape" x="38" y="61" width="24" height="9" rx="3"></rect>
-                <path class="shape" d="M43 70 L57 70 L53 89 L47 89 Z"></path>
-              </svg>
-            </div>
           </div>
           <div class="stat-percent" id="esercitoPercent">50%</div>
         </div>
@@ -620,20 +626,35 @@
         <div class="stat-icon-card" id="oroStat" data-stat="oro">
           <div class="stat-tooltip" id="oroTooltip"><strong>Oro</strong><span>50%</span></div>
           <div class="icon-shell">
-            <svg class="icon-svg icon-base" viewBox="0 0 100 100" aria-hidden="true">
-              <path class="shape" d="M35 26 Q50 16 65 26 L61 34 Q57 38 57 46 L57 66 Q57 80 50 86 Q43 80 43 66 L43 46 Q43 38 39 34 Z"></path>
-              <path class="shape" d="M36 27 L64 27"></path>
-              <path class="detail" d="M46 54 Q50 50 54 54"></path>
-              <path class="detail" d="M50 46 L50 64"></path>
-              <path class="detail" d="M54 48 Q49 44 46 48"></path>
-              <circle class="shape" cx="68" cy="70" r="8"></circle>
+            <svg class="icon-svg" viewBox="0 0 100 100" aria-hidden="true">
+              <defs>
+                <clipPath id="clip-oro">
+                  <path d="M33 24 Q50 14 67 24 L62 34 Q58 39 58 45 L58 67 Q58 82 50 88 Q42 82 42 67 L42 45 Q42 39 38 34 Z"></path>
+                  <ellipse cx="50" cy="28" rx="16" ry="6"></ellipse>
+                  <circle cx="70" cy="68" r="8"></circle>
+                  <ellipse cx="80" cy="76" rx="7" ry="5"></ellipse>
+                  <ellipse cx="76" cy="65" rx="7" ry="5"></ellipse>
+                </clipPath>
+              </defs>
+
+              <path class="shape-base" d="M33 24 Q50 14 67 24 L62 34 Q58 39 58 45 L58 67 Q58 82 50 88 Q42 82 42 67 L42 45 Q42 39 38 34 Z"></path>
+              <ellipse class="shape-base" cx="50" cy="28" rx="16" ry="6"></ellipse>
+              <circle class="shape-base" cx="70" cy="68" r="8"></circle>
+              <ellipse class="shape-base" cx="80" cy="76" rx="7" ry="5"></ellipse>
+              <ellipse class="shape-base" cx="76" cy="65" rx="7" ry="5"></ellipse>
+
+              <rect class="shape-gold" id="oroFill" x="0" y="50" width="100" height="50" clip-path="url(#clip-oro)"></rect>
+
+              <path class="outline" d="M33 24 Q50 14 67 24 L62 34 Q58 39 58 45 L58 67 Q58 82 50 88 Q42 82 42 67 L42 45 Q42 39 38 34 Z"></path>
+              <ellipse class="outline" cx="50" cy="28" rx="16" ry="6"></ellipse>
+              <circle class="outline" cx="70" cy="68" r="8"></circle>
+              <ellipse class="outline" cx="80" cy="76" rx="7" ry="5"></ellipse>
+              <ellipse class="outline" cx="76" cy="65" rx="7" ry="5"></ellipse>
+
+              <path class="detail-outline" d="M47 44 Q50 41 53 44"></path>
+              <path class="detail-outline" d="M50 36 L50 58"></path>
+              <path class="detail-outline" d="M54 38 Q49 34 46 38"></path>
             </svg>
-            <div class="icon-fill-wrap" id="oroFillWrap" style="height: 50%;">
-              <svg class="icon-svg icon-fill" viewBox="0 0 100 100" aria-hidden="true">
-                <path class="shape" d="M35 26 Q50 16 65 26 L61 34 Q57 38 57 46 L57 66 Q57 80 50 86 Q43 80 43 66 L43 46 Q43 38 39 34 Z"></path>
-                <circle class="shape" cx="68" cy="70" r="8"></circle>
-              </svg>
-            </div>
           </div>
           <div class="stat-percent" id="oroPercent">50%</div>
         </div>
@@ -641,16 +662,22 @@
         <div class="stat-icon-card" id="fedeStat" data-stat="fede">
           <div class="stat-tooltip" id="fedeTooltip"><strong>Fede</strong><span>50%</span></div>
           <div class="icon-shell">
-            <svg class="icon-svg icon-base" viewBox="0 0 100 100" aria-hidden="true">
-              <rect class="shape" x="44" y="14" width="12" height="60" rx="2"></rect>
-              <rect class="shape" x="28" y="30" width="44" height="12" rx="2"></rect>
+            <svg class="icon-svg" viewBox="0 0 100 100" aria-hidden="true">
+              <defs>
+                <clipPath id="clip-fede">
+                  <rect x="44" y="14" width="12" height="60" rx="2"></rect>
+                  <rect x="28" y="30" width="44" height="12" rx="2"></rect>
+                </clipPath>
+              </defs>
+
+              <rect class="shape-base" x="44" y="14" width="12" height="60" rx="2"></rect>
+              <rect class="shape-base" x="28" y="30" width="44" height="12" rx="2"></rect>
+
+              <rect class="shape-gold" id="fedeFill" x="0" y="50" width="100" height="50" clip-path="url(#clip-fede)"></rect>
+
+              <rect class="outline" x="44" y="14" width="12" height="60" rx="2"></rect>
+              <rect class="outline" x="28" y="30" width="44" height="12" rx="2"></rect>
             </svg>
-            <div class="icon-fill-wrap" id="fedeFillWrap" style="height: 50%;">
-              <svg class="icon-svg icon-fill" viewBox="0 0 100 100" aria-hidden="true">
-                <rect class="shape" x="44" y="14" width="12" height="60" rx="2"></rect>
-                <rect class="shape" x="28" y="30" width="44" height="12" rx="2"></rect>
-              </svg>
-            </div>
           </div>
           <div class="stat-percent" id="fedePercent">50%</div>
         </div>
@@ -804,8 +831,16 @@
       return valore;
     }
 
+    function updateFillRect(id, valore) {
+      const rect = document.getElementById(id);
+      if (!rect) return;
+      const clamped = limitaStat(valore);
+      const y = 100 - clamped;
+      rect.setAttribute("y", y);
+      rect.setAttribute("height", clamped);
+    }
+
     function updateStatIcon(nome, valore) {
-      const wrap = document.getElementById(nome + "FillWrap");
       const tooltip = document.getElementById(nome + "Tooltip");
       const percent = document.getElementById(nome + "Percent");
 
@@ -816,9 +851,7 @@
         fede: "Fede"
       };
 
-      if (wrap) {
-        wrap.style.height = `${valore}%`;
-      }
+      updateFillRect(nome + "Fill", valore);
 
       if (tooltip) {
         tooltip.innerHTML = `<strong>${titleMap[nome]}</strong><span>${valore}%</span>`;
