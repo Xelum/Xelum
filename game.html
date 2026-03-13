@@ -788,7 +788,8 @@
       fede: 50,
       sceltaCorrente: null,
       gameOver: false,
-      lockChoice: false
+      lockChoice: false,
+      eventiUsati: []
     };
 
     const card = document.getElementById("gameCard");
@@ -953,8 +954,23 @@
     }
 
     function getRandomEvento() {
-      return eventi[Math.floor(Math.random() * eventi.length)];
-    }
+
+  // eventi non ancora usciti
+  let disponibili = eventi.filter(e => !game.eventiUsati.includes(e.id));
+
+  // se sono finiti, resettiamo
+  if (disponibili.length === 0) {
+    game.eventiUsati = [];
+    disponibili = eventi;
+  }
+
+  const evento = disponibili[Math.floor(Math.random() * disponibili.length)];
+
+  // segna come usato
+  game.eventiUsati.push(evento.id);
+
+  return evento;
+}
 
     function caricaEvento() {
       if (game.gameOver) return;
@@ -1169,21 +1185,23 @@
       });
     }
 
-    function nuovoRegno() {
-      game.nomeRe = nomeLatinoCasuale();
-      game.giorno = 1;
-      game.popolo = 50;
-      game.esercito = 50;
-      game.oro = 50;
-      game.fede = 50;
-      game.sceltaCorrente = null;
-      game.gameOver = false;
-      game.lockChoice = false;
+function nuovoRegno() {
+  game.nomeRe = nomeLatinoCasuale();
+  game.giorno = 1;
+  game.popolo = 50;
+  game.esercito = 50;
+  game.oro = 50;
+  game.fede = 50;
+  game.sceltaCorrente = null;
+  game.gameOver = false;
+  game.lockChoice = false;
 
-      summaryBox.classList.add("hidden");
-      aggiornaStatistiche();
-      caricaEvento();
-    }
+  game.eventiUsati = [];
+
+  summaryBox.classList.add("hidden");
+  aggiornaStatistiche();
+  caricaEvento();
+}
 
     function inizializzaGioco() {
       const params = new URLSearchParams(window.location.search);
