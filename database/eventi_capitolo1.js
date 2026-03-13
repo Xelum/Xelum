@@ -248,5 +248,101 @@ image: "villaggio_riparato.jpg",
 effetti: { popolo: 6, esercito: 0, oro: -4, fede: 0 }
 }
 
-}  
+},
+  {
+id: "cap1_guerra_002",
+capitolo: 1,
+categoria: "guerra",
+titoloInterno: "Torre di guardia al confine",
+
+testo: "Le sentinelle chiedono di costruire una nuova torre di guardia lungo il confine orientale, dove sono stati avvistati movimenti sospetti.",
+image: "confine_torre_guardia.jpg",
+
+sinistra: {
+etichetta: "Rinuncia",
+testoConseguenza: "La torre non verra costruita. Il tesoro evita la spesa, ma i soldati si sentono esposti.",
+image: "confine_scoperto.jpg",
+effetti: { popolo: 0, esercito: -6, oro: 3, fede: 0 }
+},
+
+destra: {
+etichetta: "Costruiscila",
+testoConseguenza: "La torre svetta sul confine e le pattuglie si sentono piu sicure. I lavori, pero, costano cari.",
+image: "torre_costruita.jpg",
+effetti: { popolo: 0, esercito: 5, oro: -4, fede: 0 }
+}
+
+},
+  {
+id: "cap1_carestia_002",
+capitolo: 1,
+categoria: "carestia",
+titoloInterno: "Semi per la prossima stagione",
+
+testo: "Dopo un raccolto debole, i contadini chiedono semi e attrezzi dal tesoro reale per salvare la prossima stagione.",
+image: "contadini_semi.jpg",
+
+sinistra: {
+etichetta: "Nega aiuto",
+testoConseguenza: "Il regno conserva le sue risorse, ma i campi rischiano di restare poveri anche il prossimo anno.",
+image: "campi_spenti.jpg",
+effetti: { popolo: -6, esercito: 0, oro: 2, fede: 0 }
+},
+
+destra: {
+etichetta: "Sostienili",
+testoConseguenza: "I contadini ricevono semi e attrezzi. La speranza torna nei campi, ma le casse reali si alleggeriscono.",
+image: "campi_rinascita.jpg",
+effetti: { popolo: 5, esercito: 0, oro: -4, fede: 1 }
+}
+
+},
+  {
+id: "cap1_intrighi_002",
+capitolo: 1,
+categoria: "intrighi",
+titoloInterno: "Lettera intercettata",
+
+testo: "Una guardia di palazzo consegna una lettera intercettata: sembra contenere accuse contro un consigliere molto vicino al trono.",
+image: "lettera_intercettata.jpg",
+
+sinistra: {
+etichetta: "Bruciala",
+testoConseguenza: "Decidi di distruggere la lettera per evitare scandali. La corte resta calma, ma il sospetto continua a serpeggiare.",
+image: "lettera_bruciata.jpg",
+effetti: { popolo: 0, esercito: -1, oro: 0, fede: 0 }
+},
+
+destra: {
+etichetta: "Mostrala",
+testoConseguenza: "La lettera viene esaminata davanti alla corte. Alcuni nobili si irrigidiscono, ma il trono dimostra fermezza.",
+image: "corte_sconvolta.jpg",
+effetti: { popolo: 0, esercito: 1, oro: -1, fede: 0 }
+}
+
+},
+  {
+id: "cap1_diplomazia_002",
+capitolo: 1,
+categoria: "diplomazia",
+titoloInterno: "Dono all'ambasciata",
+
+testo: "Un emissario straniero attende un gesto di cortesia: un dono prezioso potrebbe aprire nuove intese tra i due regni.",
+image: "emissario_dono.jpg",
+
+sinistra: {
+etichetta: "Nessun dono",
+testoConseguenza: "L'emissario riceve solo parole formali. I rapporti restano freddi e l'occasione diplomatica si affievolisce.",
+image: "emissario_freddo.jpg",
+effetti: { popolo: 0, esercito: -1, oro: 2, fede: 0 }
+},
+
+destra: {
+etichetta: "Invia dono",
+testoConseguenza: "Il dono viene accolto con favore. L'ambasciata si apre a nuovi dialoghi e il prestigio del regno cresce.",
+image: "dono_ambasciata.jpg",
+effetti: { popolo: 1, esercito: 1, oro: -3, fede: 0 }
+}
+
+}
 ];
