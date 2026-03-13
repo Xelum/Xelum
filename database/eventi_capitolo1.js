@@ -48,6 +48,55 @@ image: "festa_popolare.jpg",
 effetti: { popolo: 6, esercito: 0, oro: -4, fede: 1 }
 }
 
+}, 
+
+{
+id: "cap1_religione_001",
+capitolo: 1,
+categoria: "religione",
+titoloInterno: "Restauro del tempio",
+
+testo: "Un vescovo chiede fondi per restaurare un antico tempio nel cuore della città.",
+image: "vescovo_tempio.jpg",
+
+sinistra: {
+etichetta: "Rifiuta",
+testoConseguenza: "Il tempio resta in rovina. Il clero non dimenticherà facilmente questo rifiuto.",
+image: "tempio_rovinato.jpg",
+effetti: { popolo: 0, esercito: 0, oro: 4, fede: -6 }
+},
+
+destra: {
+etichetta: "Finanzia",
+testoConseguenza: "Il tempio viene restaurato e il clero benedice il tuo regno.",
+image: "tempio_restaurato.jpg",
+effetti: { popolo: 1, esercito: 0, oro: -5, fede: 6 }
 }
 
+},  
+
+{
+id: "cap1_guerra_001",
+capitolo: 1,
+categoria: "guerra",
+titoloInterno: "Addestramento delle truppe",
+
+testo: "Il comandante dell'esercito propone un nuovo programma di addestramento per rafforzare le truppe.",
+image: "soldati_addestramento.jpg",
+
+sinistra: {
+etichetta: "Troppo costoso",
+testoConseguenza: "L'addestramento viene cancellato. Alcuni ufficiali iniziano a dubitare della tua lungimiranza.",
+image: "soldati_scontenti.jpg",
+effetti: { popolo: 0, esercito: -5, oro: 3, fede: 0 }
+},
+
+destra: {
+etichetta: "Approva",
+testoConseguenza: "Le truppe si addestrano duramente e l'esercito diventa più disciplinato.",
+image: "esercito_addestrato.jpg",
+effetti: { popolo: 0, esercito: 6, oro: -4, fede: 0 }
+}
+
+}  
 ];
