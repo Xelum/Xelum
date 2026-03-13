@@ -148,5 +148,55 @@ image: "guardie_indagine.jpg",
 effetti: { popolo: 0, esercito: 2, oro: -2, fede: 0 }
 }
 
-}  
+},
+
+  {
+id: "cap1_diplomazia_001",
+capitolo: 1,
+categoria: "diplomazia",
+titoloInterno: "Patto con il regno vicino",
+
+testo: "Un ambasciatore del regno vicino propone un accordo commerciale e militare per rafforzare i rapporti tra le due corone.",
+image: "ambasciatore_regno.jpg",
+
+sinistra: {
+etichetta: "Rifiuta",
+testoConseguenza: "L'ambasciatore lascia la corte con freddezza. Il regno conserva la propria autonomia, ma perde un'occasione di alleanza.",
+image: "ambasciatore_offeso.jpg",
+effetti: { popolo: 0, esercito: -2, oro: 0, fede: 0 }
+},
+
+destra: {
+etichetta: "Accetta",
+testoConseguenza: "L'accordo viene firmato tra applausi e inchini. I commerci si aprono e i confini appaiono più sicuri.",
+image: "trattato_firmato.jpg",
+effetti: { popolo: 1, esercito: 2, oro: 2, fede: 0 }
+}
+
+},
+
+  {
+id: "cap1_economia_002",
+capitolo: 1,
+categoria: "economia",
+titoloInterno: "Tassa sulle botteghe",
+
+testo: "I consiglieri del tesoro propongono una nuova tassa sulle botteghe cittadine per riempire più rapidamente le casse del regno.",
+image: "botteghe_citta.jpg",
+
+sinistra: {
+etichetta: "Respingi",
+testoConseguenza: "Le botteghe tirano un sospiro di sollievo. I commercianti restano fedeli alla corona, ma il tesoro non cresce.",
+image: "mercanti_sollevati.jpg",
+effetti: { popolo: 3, esercito: 0, oro: -1, fede: 0 }
+},
+
+destra: {
+etichetta: "Imponila",
+testoConseguenza: "La nuova tassa entra in vigore. Le casse si riempiono, ma nelle strade iniziano le lamentele.",
+image: "tassa_botteghe.jpg",
+effetti: { popolo: -5, esercito: 0, oro: 5, fede: 0 }
+}
+
+}
 ];
