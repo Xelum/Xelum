@@ -1079,16 +1079,18 @@ const game = {
       if (game.gameOver) return;
 
       const payload = {
-        nomeRe: game.nomeRe,
-        giorno: game.giorno,
-        popolo: game.popolo,
-        esercito: game.esercito,
-        oro: game.oro,
-        fede: game.fede,
-        sceltaCorrente: game.sceltaCorrente,
-        gameOver: game.gameOver,
-        lockChoice: game.lockChoice
-      };
+  nomeRe: game.nomeRe,
+  giorno: game.giorno,
+  popolo: game.popolo,
+  esercito: game.esercito,
+  oro: game.oro,
+  fede: game.fede,
+  sceltaCorrente: game.sceltaCorrente,
+  gameOver: game.gameOver,
+  lockChoice: game.lockChoice,
+  eventiUsati: game.eventiUsati,
+  ultimaCategoria: game.ultimaCategoria
+};
 
       localStorage.setItem(STORAGE_SAVE_KEY, JSON.stringify(payload));
     }
@@ -1114,7 +1116,9 @@ const game = {
         game.sceltaCorrente = save.sceltaCorrente || getRandomEvento();
         game.gameOver = false;
         game.lockChoice = false;
-
+        game.eventiUsati = Array.isArray(save.eventiUsati) ? save.eventiUsati : [];
+        game.ultimaCategoria = save.ultimaCategoria || null;
+        
         aggiornaStatistiche();
         summaryBox.classList.add("hidden");
         nascondiSezioneRegno();
@@ -1210,6 +1214,7 @@ function nuovoRegno() {
   game.lockChoice = false;
 
   game.eventiUsati = [];
+  game.ultimaCategoria = null;
 
   summaryBox.classList.add("hidden");
   aggiornaStatistiche();
