@@ -762,7 +762,7 @@
       </div>
     </div>
   </div>
-
+<script src="database/eventi_capitolo1.js"></script>
   <script>
     const praenomina = [
       "Lucius", "Marcus", "Gaius", "Tiberius", "Quintus",
@@ -774,72 +774,7 @@
       "Flavianus", "Hadrianus", "Marcellus", "Drusus", "Aelianus"
     ];
 
-    const eventi = [
-      {
-        testo: "Un mercante chiede meno tasse per aiutare il popolo.",
-        image: "",
-        sinistra: {
-          etichetta: "Rifiuta",
-          testoConseguenza: "Hai mantenuto le imposte. Il tesoro cresce, ma nelle strade aumenta il malcontento.",
-          image: "",
-          effetti: { popolo: -6, esercito: 0, oro: 5, fede: 0 }
-        },
-        destra: {
-          etichetta: "Accetta",
-          testoConseguenza: "Hai abbassato le tasse. Il popolo approva, ma le casse del regno si fanno piu leggere.",
-          image: "",
-          effetti: { popolo: 6, esercito: 0, oro: -6, fede: 0 }
-        }
-      },
-      {
-        testo: "Il comandante chiede nuovi fondi per addestrare l'esercito.",
-        image: "",
-        sinistra: {
-          etichetta: "Rifiuta",
-          testoConseguenza: "Hai negato nuovi fondi. Il tesoro regge, ma i soldati si sentono trascurati.",
-          image: "",
-          effetti: { popolo: 0, esercito: -7, oro: 3, fede: 0 }
-        },
-        destra: {
-          etichetta: "Finanzia",
-          testoConseguenza: "Hai rinforzato l'addestramento. L'esercito cresce, ma l'oro diminuisce.",
-          image: "",
-          effetti: { popolo: 0, esercito: 7, oro: -7, fede: 0 }
-        }
-      },
-      {
-        testo: "Un vescovo chiede una donazione per restaurare il tempio.",
-        image: "",
-        sinistra: {
-          etichetta: "Rifiuta",
-          testoConseguenza: "Hai rifiutato l'offerta. Conservi oro, ma il clero guarda con freddezza il trono.",
-          image: "",
-          effetti: { popolo: 0, esercito: 0, oro: 2, fede: -7 }
-        },
-        destra: {
-          etichetta: "Dona",
-          testoConseguenza: "Il tempio verra restaurato. La fede si rafforza, ma spendi parte del tesoro.",
-          image: "",
-          effetti: { popolo: 0, esercito: 0, oro: -5, fede: 8 }
-        }
-      },
-      {
-        testo: "I contadini chiedono piu grano dai magazzini reali.",
-        image: "",
-        sinistra: {
-          etichetta: "Nega",
-          testoConseguenza: "Hai protetto le scorte. Il regno conserva risorse, ma il popolo soffre.",
-          image: "",
-          effetti: { popolo: -8, esercito: 0, oro: 3, fede: 0 }
-        },
-        destra: {
-          etichetta: "Concedi",
-          testoConseguenza: "Hai aperto i granai. Il popolo ti acclama, ma le riserve del regno si riducono.",
-          image: "",
-          effetti: { popolo: 8, esercito: 0, oro: -5, fede: 0 }
-        }
-      }
-    ];
+    const eventi = eventiCapitolo1;
 
     const STORAGE_SAVE_KEY = "xelum-save";
     const STORAGE_HISTORY_KEY = "xelum-history";
