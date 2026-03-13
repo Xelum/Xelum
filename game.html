@@ -779,18 +779,19 @@
     const STORAGE_SAVE_KEY = "xelum-save";
     const STORAGE_HISTORY_KEY = "xelum-history";
 
-    const game = {
-      nomeRe: "",
-      giorno: 1,
-      popolo: 50,
-      esercito: 50,
-      oro: 50,
-      fede: 50,
-      sceltaCorrente: null,
-      gameOver: false,
-      lockChoice: false,
-      eventiUsati: []
-    };
+const game = {
+  nomeRe: "",
+  giorno: 1,
+  popolo: 50,
+  esercito: 50,
+  oro: 50,
+  fede: 50,
+  sceltaCorrente: null,
+  gameOver: false,
+  lockChoice: false,
+  eventiUsati: [],
+  ultimaCategoria: null
+};
 
     const card = document.getElementById("gameCard");
     const leftHint = document.getElementById("leftHint");
@@ -953,10 +954,19 @@
       }, 6050);
     }
 
-    function getRandomEvento() {
+ function getRandomEvento() {
 
   // eventi non ancora usciti
   let disponibili = eventi.filter(e => !game.eventiUsati.includes(e.id));
+
+  // evita stessa categoria consecutiva
+  if (game.ultimaCategoria) {
+    const filtrati = disponibili.filter(e => e.categoria !== game.ultimaCategoria);
+
+    if (filtrati.length > 0) {
+      disponibili = filtrati;
+    }
+  }
 
   // se sono finiti, resettiamo
   if (disponibili.length === 0) {
@@ -968,6 +978,9 @@
 
   // segna come usato
   game.eventiUsati.push(evento.id);
+
+  // salva categoria per il prossimo turno
+  game.ultimaCategoria = evento.categoria;
 
   return evento;
 }
