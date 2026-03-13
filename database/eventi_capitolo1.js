@@ -98,5 +98,55 @@ image: "esercito_addestrato.jpg",
 effetti: { popolo: 0, esercito: 6, oro: -4, fede: 0 }
 }
 
+},
+
+{
+id: "cap1_carestia_001",
+capitolo: 1,
+categoria: "carestia",
+titoloInterno: "Granai del regno",
+
+testo: "I raccolti sono stati scarsi e i contadini chiedono di aprire i granai reali per sfamare i villaggi.",
+image: "granai_regno.jpg",
+
+sinistra: {
+etichetta: "Conserva",
+testoConseguenza: "I granai restano chiusi. Le riserve del regno sono al sicuro, ma nei villaggi cresce la fame.",
+image: "villaggio_affamato.jpg",
+effetti: { popolo: -7, esercito: 0, oro: 3, fede: 0 }
+},
+
+destra: {
+etichetta: "Aprili",
+testoConseguenza: "I granai vengono aperti e i villaggi ricevono farina e grano. Il popolo tira un sospiro di sollievo.",
+image: "grano_distribuito.jpg",
+effetti: { popolo: 7, esercito: 0, oro: -4, fede: 0 }
+}
+
+},
+
+{
+id: "cap1_intrighi_001",
+capitolo: 1,
+categoria: "intrighi",
+titoloInterno: "Nobile sospetto",
+
+testo: "Una dama di corte insinua che un nobile influente stia tramando nell'ombra contro la corona.",
+image: "corte_intrigo.jpg",
+
+sinistra: {
+etichetta: "Ignora",
+testoConseguenza: "Decidi di non agire senza prove. Il nobile resta al suo posto, ma la corte mormora sulla tua debolezza.",
+image: "nobile_sorriso.jpg",
+effetti: { popolo: 0, esercito: -1, oro: 0, fede: 0 }
+},
+
+destra: {
+etichetta: "Indaga",
+testoConseguenza: "Ordini un'indagine discreta. La corte si agita, ma il trono mostra di saper vigilare.",
+image: "guardie_indagine.jpg",
+effetti: { popolo: 0, esercito: 2, oro: -2, fede: 0 }
+}
+
 }  
 ];
