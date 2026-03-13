@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xelum - Introduzione</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: radial-gradient(circle at top, #2a1f16 0%, #17120e 35%, #0b0b0d 100%);
+      color: #f3e7d0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1100px;
+      text-align: center;
+    }
+
+    .title {
+      font-size: 40px;
+      color: #f5e6c8;
+      margin: 0 0 14px;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+    }
+
+    .intro-box {
+      background: rgba(25, 20, 16, 0.92);
+      border: 1px solid rgba(210, 185, 139, 0.18);
+      border-radius: 26px;
+      padding: 28px 22px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(3px);
+    }
+
+    .intro-text {
+      max-width: 760px;
+      margin: 0 auto 28px;
+      font-size: 20px;
+      line-height: 1.65;
+      color: #eadac0;
+    }
+
+    .intro-text strong {
+      color: #fff4df;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 16px;
+    }
+
+    .flip-card {
+      perspective: 1000px;
+      height: 350px;
+      cursor: pointer;
+    }
+
+    .flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.7s ease;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card.flipped .flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(222, 190, 134, 0.2);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+      background: linear-gradient(180deg, rgba(61, 47, 33, 0.97), rgba(33, 26, 21, 0.97));
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .flip-front {
+      transform: rotateY(0deg);
+    }
+
+    .flip-back {
+      transform: rotateY(180deg);
+      padding: 22px 18px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card-image {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      display: block;
+      background: linear-gradient(135deg, rgba(199,171,120,0.18), rgba(90,65,40,0.18));
+    }
+
+    .card-front-content {
+      padding: 16px 14px 18px;
+    }
+
+    .card-name {
+      font-size: 24px;
+      color: #fff4df;
+      margin: 0 0 6px;
+    }
+
+    .card-role {
+      font-size: 15px;
+      color: #d7c29a;
+      letter-spacing: 0.4px;
+    }
+
+    .card-desc {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #f1e1c4;
+      margin-bottom: 16px;
+    }
+
+    .card-stat {
+      font-size: 15px;
+      color: #d4a43e;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .hint {
+      margin-top: 22px;
+      color: #d7c29a;
+      font-size: 15px;
+    }
+
+    .buttons {
+      margin-top: 28px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .start-button {
+      border: none;
+      border-radius: 14px;
+      padding: 16px 26px;
+      min-width: 240px;
+      font-size: 17px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.2s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      background: #8b5e34;
+      color: #fff4e2;
+      font-weight: 700;
+    }
+
+    .start-button:hover {
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 960px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .title {
+        font-size: 30px;
+      }
+
+      .intro-text {
+        font-size: 18px;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .flip-card {
+        height: 330px;
+      }
+
+      .card-image {
+        height: 210px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1 class="title">Xelum</h1>
+
+    <div class="intro-box">
+      <p class="intro-text">
+        Il trono e tuo da poco tempo.  
+        Il regno e giovane, fragile, e deve ancora trovare la propria forma.
+        <br><br>
+        Attorno alla corona si muovono <strong>quattro figure</strong> che influenzeranno il destino del tuo governo.
+        Tocca le carte per conoscere coloro che guideranno, tenteranno o metteranno alla prova il tuo regno.
+      </p>
+
+      <div class="cards-grid">
+        <div class="flip-card" onclick="toggleCard(this)">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <img src="generale.jpg" alt="Generale" class="card-image">
+              <div class="card-front-content">
+                <h2 class="card-name">Il Generale</h2>
+                <div class="card-role">Voce dell esercito</div>
+              </div>
+            </div>
+            <div class="flip-face flip-back">
+              <div class="card-desc">
+                Il Generale comanda le guardie e le truppe del giovane regno.
+                Conosce il valore della disciplina, della forza e dei confini sicuri.
+              </div>
+              <div class="card-stat">Statistica: Esercito</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="toggleCard(this)">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <img src="monaco.jpg" alt="Monaco" class="card-image">
+              <div class="card-front-content">
+                <h2 class="card-name">Il Monaco</h2>
+                <div class="card-role">Voce della fede</div>
+              </div>
+            </div>
+            <div class="flip-face flip-back">
+              <div class="card-desc">
+                Il Monaco custodisce i riti, i presagi e il rapporto tra la corona e il sacro.
+                Dove vacilla la fede, vacilla anche la legittimita del regno.
+              </div>
+              <div class="card-stat">Statistica: Fede</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="toggleCard(this)">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <img src="ladruncolo.jpg" alt="Ladruncolo" class="card-image">
+              <div class="card-front-content">
+                <h2 class="card-name">Il Ladruncolo</h2>
+                <div class="card-role">Voce dell oro</div>
+              </div>
+            </div>
+            <div class="flip-face flip-back">
+              <div class="card-desc">
+                Il Ladruncolo conosce mercati nascosti, traffici ambigui e scorciatoie per riempire le casse.
+                Ma ogni ricchezza rapida ha sempre un prezzo.
+              </div>
+              <div class="card-stat">Statistica: Oro</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="toggleCard(this)">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <img src="sebastian.jpg" alt="Sebastian" class="card-image">
+              <div class="card-front-content">
+                <h2 class="card-name">Sebastian</h2>
+                <div class="card-role">Voce del popolo</div>
+              </div>
+            </div>
+            <div class="flip-face flip-back">
+              <div class="card-desc">
+                Sebastian rappresenta contadini, artigiani e villaggi.
+                Attraverso lui sentirai speranze, paure e malcontento della gente comune.
+              </div>
+              <div class="card-stat">Statistica: Popolo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hint">Tocca o clicca una carta per girarla</div>
+
+      <div class="buttons">
+        <button class="start-button" onclick="iniziaRegno()">Inizia il regno</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleCard(card) {
+      card.classList.toggle("flipped");
+    }
+
+    function iniziaRegno() {
+      window.location.href = "game.html";
+    }
+  </script>
+</body>
+</html>
