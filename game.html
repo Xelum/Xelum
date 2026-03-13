@@ -442,7 +442,7 @@
     }
 
     .page-turn.animate {
-      animation: turnPage 3s ease forwards;
+      animation: turnPage 6s ease forwards;
     }
 
     .page-turn-text {
@@ -466,7 +466,7 @@
     }
 
     .page-turn.animate .page-turn-text {
-      animation: epicFadeText 3s ease forwards;
+      animation: epicFadeText 6s ease forwards;
     }
 
     @keyframes turnPage {
@@ -1009,12 +1009,12 @@
 
       setTimeout(() => {
         callback();
-      }, 1650);
+      }, 3300);
 
       setTimeout(() => {
         pageTurn.classList.remove("animate");
         pageTurn.classList.add("hidden");
-      }, 3050);
+      }, 6050);
     }
 
     function getRandomEvento() {
