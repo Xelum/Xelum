@@ -619,13 +619,50 @@
     <svg class="icon-svg" viewBox="0 0 100 100" aria-hidden="true">
       <defs>
         <clipPath id="clip-oro">
-          <path d="M54 10V18C64 19 71 25 71 34C71 42 66 47 57 50L47 53C41 55 38 58 38 63C38 69 43 73 51 73C59 73 64 69 66 63H74C72 74 65 81 54 82V90H46V82C35 81 28 74 27 64H35C36 70 42 74 50 74C58 74 63 70 63 64C63 59 60 56 53 54L43 51C34 48 29 43 29 34C29 24 36 18 46 17V10H54Z"></path>
+          <!-- moneta completa -->
+          <circle cx="50" cy="50" r="34"></circle>
         </clipPath>
       </defs>
 
-      <path class="shape-base" d="M54 10V18C64 19 71 25 71 34C71 42 66 47 57 50L47 53C41 55 38 58 38 63C38 69 43 73 51 73C59 73 64 69 66 63H74C72 74 65 81 54 82V90H46V82C35 81 28 74 27 64H35C36 70 42 74 50 74C58 74 63 70 63 64C63 59 60 56 53 54L43 51C34 48 29 43 29 34C29 24 36 18 46 17V10H54Z"></path>
+      <!-- bordo esterno moneta -->
+      <circle class="shape-base" cx="50" cy="50" r="34"></circle>
 
+      <!-- bordo interno -->
+      <circle cx="50" cy="50" r="28" fill="none" stroke="#17120e" stroke-opacity="0.22" stroke-width="3"></circle>
+
+      <!-- disco centrale -->
+      <circle cx="50" cy="50" r="24" fill="#e8dcc8"></circle>
+
+      <!-- riempimento verticale -->
       <rect class="shape-gold" id="oroFill" x="0" y="50" width="100" height="50" clip-path="url(#clip-oro)"></rect>
+
+      <!-- linee decorative sopra al riempimento -->
+      <circle cx="50" cy="50" r="28" fill="none" stroke="rgba(110, 69, 18, 0.50)" stroke-width="2.2"></circle>
+      <circle cx="50" cy="50" r="24" fill="none" stroke="rgba(110, 69, 18, 0.42)" stroke-width="1.6"></circle>
+
+      <!-- simbolo $ -->
+      <path
+        d="M54 24V30
+           C63 31 69 36 69 43
+           C69 49 65 53 58 56
+           L48 60
+           C43 62 40 64 40 68
+           C40 73 44 76 50 76
+           C57 76 61 73 63 67
+           M46 76V82
+           M46 24V18
+           C37 19 31 24 31 31
+           C31 38 36 42 43 45
+           L53 49
+           C58 51 60 54 60 58
+           C60 63 56 66 50 66
+           C43 66 39 63 37 58"
+        fill="none"
+        stroke="rgba(110, 69, 18, 0.95)"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
     </svg>
   </div>
   <div class="stat-percent" id="oroPercent">50%</div>
