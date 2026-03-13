@@ -140,7 +140,12 @@
       vector-effect: non-scaling-stroke;
       pointer-events: none;
     }
-
+    
+/* ICONA MONETA ORO PIU VISIBILE */
+#oroStat .icon-shell {
+  width: 56px;
+  height: 56px;
+}
     .stat-percent {
       font-size: 15px;
       font-weight: 700;
@@ -619,50 +624,90 @@
     <svg class="icon-svg" viewBox="0 0 100 100" aria-hidden="true">
       <defs>
         <clipPath id="clip-oro">
-          <!-- moneta completa -->
           <circle cx="50" cy="50" r="34"></circle>
         </clipPath>
+
+        <radialGradient id="coinBaseLight" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#fff8df"></stop>
+          <stop offset="55%" stop-color="#eadfc8"></stop>
+          <stop offset="100%" stop-color="#cdbb98"></stop>
+        </radialGradient>
+
+        <linearGradient id="coinRimLight" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#fff1d2"></stop>
+          <stop offset="45%" stop-color="#e8dcc8"></stop>
+          <stop offset="100%" stop-color="#b59d74"></stop>
+        </linearGradient>
       </defs>
 
-      <!-- bordo esterno moneta -->
-      <circle class="shape-base" cx="50" cy="50" r="34"></circle>
+      <!-- bordo esterno -->
+      <circle cx="50" cy="50" r="34" fill="url(#coinRimLight)"></circle>
 
-      <!-- bordo interno -->
-      <circle cx="50" cy="50" r="28" fill="none" stroke="#17120e" stroke-opacity="0.22" stroke-width="3"></circle>
+      <!-- anello interno -->
+      <circle cx="50" cy="50" r="29" fill="none" stroke="rgba(110, 69, 18, 0.35)" stroke-width="2.8"></circle>
 
-      <!-- disco centrale -->
-      <circle cx="50" cy="50" r="24" fill="#e8dcc8"></circle>
+      <!-- faccia moneta -->
+      <circle cx="50" cy="50" r="24" fill="url(#coinBaseLight)"></circle>
 
-      <!-- riempimento verticale -->
+      <!-- riempimento percentuale -->
       <rect class="shape-gold" id="oroFill" x="0" y="50" width="100" height="50" clip-path="url(#clip-oro)"></rect>
 
-      <!-- linee decorative sopra al riempimento -->
-      <circle cx="50" cy="50" r="28" fill="none" stroke="rgba(110, 69, 18, 0.50)" stroke-width="2.2"></circle>
-      <circle cx="50" cy="50" r="24" fill="none" stroke="rgba(110, 69, 18, 0.42)" stroke-width="1.6"></circle>
+      <!-- dettagli moneta sopra il riempimento -->
+      <circle cx="50" cy="50" r="34" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"></circle>
+      <circle cx="50" cy="50" r="31.5" fill="none" stroke="rgba(110, 69, 18, 0.22)" stroke-width="1.4"></circle>
+      <circle cx="50" cy="50" r="24" fill="none" stroke="rgba(110, 69, 18, 0.30)" stroke-width="1.5"></circle>
 
-      <!-- simbolo $ -->
+      <!-- simbolo $ ombra -->
       <path
-        d="M54 24V30
-           C63 31 69 36 69 43
-           C69 49 65 53 58 56
-           L48 60
-           C43 62 40 64 40 68
-           C40 73 44 76 50 76
-           C57 76 61 73 63 67
-           M46 76V82
-           M46 24V18
-           C37 19 31 24 31 31
-           C31 38 36 42 43 45
-           L53 49
-           C58 51 60 54 60 58
-           C60 63 56 66 50 66
-           C43 66 39 63 37 58"
+        d="M53 22 V28
+           C61 29 67 34 67 41
+           C67 47 63 51 56 54
+           L48 57
+           C43 59 40 62 40 66
+           C40 71 44 74 50 74
+           C57 74 61 71 63 65
+           M47 74 V80
+           M47 22 V16
+           C38 17 33 22 33 29
+           C33 35 37 39 44 42
+           L52 45
+           C57 47 60 50 60 54
+           C60 59 56 62 50 62
+           C44 62 39 59 37 54"
         fill="none"
-        stroke="rgba(110, 69, 18, 0.95)"
-        stroke-width="5"
+        stroke="rgba(95, 55, 10, 0.38)"
+        stroke-width="6.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        transform="translate(1.4 1.6)"
+      ></path>
+
+      <!-- simbolo $ inciso -->
+      <path
+        d="M53 22 V28
+           C61 29 67 34 67 41
+           C67 47 63 51 56 54
+           L48 57
+           C43 59 40 62 40 66
+           C40 71 44 74 50 74
+           C57 74 61 71 63 65
+           M47 74 V80
+           M47 22 V16
+           C38 17 33 22 33 29
+           C33 35 37 39 44 42
+           L52 45
+           C57 47 60 50 60 54
+           C60 59 56 62 50 62
+           C44 62 39 59 37 54"
+        fill="none"
+        stroke="#7a4b12"
+        stroke-width="5.2"
         stroke-linecap="round"
         stroke-linejoin="round"
       ></path>
+
+      <!-- piccolo highlight -->
+      <ellipse cx="40" cy="34" rx="9" ry="5" fill="rgba(255,255,255,0.22)" transform="rotate(-25 40 34)"></ellipse>
     </svg>
   </div>
   <div class="stat-percent" id="oroPercent">50%</div>
