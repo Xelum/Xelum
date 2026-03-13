@@ -198,5 +198,55 @@ image: "tassa_botteghe.jpg",
 effetti: { popolo: -5, esercito: 0, oro: 5, fede: 0 }
 }
 
+}, 
+
+{
+id: "cap1_religione_002",
+capitolo: 1,
+categoria: "religione",
+titoloInterno: "Processione solenne",
+
+testo: "Il clero propone una grande processione pubblica per chiedere protezione divina sul raccolto e sulla città.",
+image: "processione_solenne.jpg",
+
+sinistra: {
+etichetta: "Annulla",
+testoConseguenza: "La processione viene annullata. Alcuni sacerdoti parlano di segno sfavorevole e il popolo più devoto resta turbato.",
+image: "chiesa_silenziosa.jpg",
+effetti: { popolo: -2, esercito: 0, oro: 2, fede: -5 }
+},
+
+destra: {
+etichetta: "Concedi",
+testoConseguenza: "La processione attraversa le strade tra canti e incenso. La fede del regno si rafforza.",
+image: "processione_citta.jpg",
+effetti: { popolo: 2, esercito: 0, oro: -2, fede: 5 }
 }
+
+},
+
+{
+id: "cap1_popolo_002",
+capitolo: 1,
+categoria: "popolo",
+titoloInterno: "Petizione dei villaggi",
+
+testo: "I capi di alcuni villaggi presentano una petizione: chiedono riparazioni per strade e pozzi ormai in rovina.",
+image: "villaggi_petizione.jpg",
+
+sinistra: {
+etichetta: "Rimanda",
+testoConseguenza: "Le richieste vengono rimandate. Il tesoro evita spese immediate, ma nei villaggi cresce il malcontento.",
+image: "villaggio_trascurato.jpg",
+effetti: { popolo: -5, esercito: 0, oro: 3, fede: 0 }
+},
+
+destra: {
+etichetta: "Intervieni",
+testoConseguenza: "Le strade vengono riparate e i pozzi tornano a dare acqua pulita. I villaggi lodano la corona.",
+image: "villaggio_riparato.jpg",
+effetti: { popolo: 6, esercito: 0, oro: -4, fede: 0 }
+}
+
+}  
 ];
