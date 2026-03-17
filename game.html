@@ -27,7 +27,7 @@
 
     .app {
       width: 100%;
-      max-width: 660px;
+      max-width: 760px;
       position: relative;
       z-index: 1;
     }
@@ -140,12 +140,13 @@
       vector-effect: non-scaling-stroke;
       pointer-events: none;
     }
-    
+
 /* ICONA MONETA ORO PIU VISIBILE */
 #oroStat .icon-shell {
   width: 56px;
   height: 56px;
 }
+
     .stat-percent {
       font-size: 15px;
       font-weight: 700;
@@ -244,7 +245,7 @@
 
     .card-area {
       position: relative;
-      height: 430px;
+      height: 520px;
       margin-top: 8px;
     }
 
@@ -284,11 +285,10 @@
       background: linear-gradient(180deg, rgba(61, 47, 33, 0.97), rgba(33, 26, 21, 0.97));
       border: 1px solid rgba(222, 190, 134, 0.22);
       border-radius: 28px;
-      padding: 20px 20px 26px;
+      padding: 20px 20px 24px;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
+      align-items: stretch;
       text-align: center;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
       overflow: hidden;
@@ -336,18 +336,14 @@
 
     .scene-image {
       width: 100%;
-      height: 170px;
+      height: 240px;
       border-radius: 18px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
       background: linear-gradient(135deg, rgba(199,171,120,0.18), rgba(90,65,40,0.18));
       border: 1px solid rgba(222, 190, 134, 0.14);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #d8c29c;
-      font-size: 13px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
       position: relative;
       z-index: 1;
       overflow: hidden;
@@ -357,14 +353,25 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       display: block;
     }
 
+    .scene-placeholder {
+      color: #d8c29c;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
     .card-text {
-      font-size: 28px;
-      line-height: 1.35;
+      font-size: 22px;
+      line-height: 1.42;
       color: #fff5df;
-      max-width: 470px;
+      max-width: 100%;
+      padding: 0 18px;
+      margin: 0 auto;
       position: relative;
       z-index: 1;
     }
@@ -518,19 +525,21 @@
       }
 
       .card-area {
-        height: 390px;
+        height: 450px;
       }
 
       .card {
-        padding: 16px 16px 22px;
+        padding: 16px 16px 20px;
       }
 
       .scene-image {
-        height: 130px;
+        height: 180px;
       }
 
       .card-text {
-        font-size: 23px;
+        font-size: 17px;
+        line-height: 1.38;
+        padding: 0 8px;
       }
 
       button {
@@ -618,100 +627,90 @@
           <div class="stat-percent" id="esercitoPercent">50%</div>
         </div>
 
-<div class="stat-icon-card" id="oroStat" data-stat="oro">
-  <div class="stat-tooltip" id="oroTooltip"><strong>Oro</strong><span>50%</span></div>
-  <div class="icon-shell">
-    <svg class="icon-svg" viewBox="0 0 100 100" aria-hidden="true">
-      <defs>
-        <clipPath id="clip-oro">
-          <circle cx="50" cy="50" r="34"></circle>
-        </clipPath>
+        <div class="stat-icon-card" id="oroStat" data-stat="oro">
+          <div class="stat-tooltip" id="oroTooltip"><strong>Oro</strong><span>50%</span></div>
+          <div class="icon-shell">
+            <svg class="icon-svg" viewBox="0 0 100 100" aria-hidden="true">
+              <defs>
+                <clipPath id="clip-oro">
+                  <circle cx="50" cy="50" r="34"></circle>
+                </clipPath>
 
-        <radialGradient id="coinBaseLight" cx="35%" cy="30%" r="75%">
-          <stop offset="0%" stop-color="#fff8df"></stop>
-          <stop offset="55%" stop-color="#eadfc8"></stop>
-          <stop offset="100%" stop-color="#cdbb98"></stop>
-        </radialGradient>
+                <radialGradient id="coinBaseLight" cx="35%" cy="30%" r="75%">
+                  <stop offset="0%" stop-color="#fff8df"></stop>
+                  <stop offset="55%" stop-color="#eadfc8"></stop>
+                  <stop offset="100%" stop-color="#cdbb98"></stop>
+                </radialGradient>
 
-        <linearGradient id="coinRimLight" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#fff1d2"></stop>
-          <stop offset="45%" stop-color="#e8dcc8"></stop>
-          <stop offset="100%" stop-color="#b59d74"></stop>
-        </linearGradient>
-      </defs>
+                <linearGradient id="coinRimLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fff1d2"></stop>
+                  <stop offset="45%" stop-color="#e8dcc8"></stop>
+                  <stop offset="100%" stop-color="#b59d74"></stop>
+                </linearGradient>
+              </defs>
 
-      <!-- bordo esterno -->
-      <circle cx="50" cy="50" r="34" fill="url(#coinRimLight)"></circle>
+              <circle cx="50" cy="50" r="34" fill="url(#coinRimLight)"></circle>
+              <circle cx="50" cy="50" r="29" fill="none" stroke="rgba(110, 69, 18, 0.35)" stroke-width="2.8"></circle>
+              <circle cx="50" cy="50" r="24" fill="url(#coinBaseLight)"></circle>
 
-      <!-- anello interno -->
-      <circle cx="50" cy="50" r="29" fill="none" stroke="rgba(110, 69, 18, 0.35)" stroke-width="2.8"></circle>
+              <rect class="shape-gold" id="oroFill" x="0" y="50" width="100" height="50" clip-path="url(#clip-oro)"></rect>
 
-      <!-- faccia moneta -->
-      <circle cx="50" cy="50" r="24" fill="url(#coinBaseLight)"></circle>
+              <circle cx="50" cy="50" r="34" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"></circle>
+              <circle cx="50" cy="50" r="31.5" fill="none" stroke="rgba(110, 69, 18, 0.22)" stroke-width="1.4"></circle>
+              <circle cx="50" cy="50" r="24" fill="none" stroke="rgba(110, 69, 18, 0.30)" stroke-width="1.5"></circle>
 
-      <!-- riempimento percentuale -->
-      <rect class="shape-gold" id="oroFill" x="0" y="50" width="100" height="50" clip-path="url(#clip-oro)"></rect>
+              <path
+                d="M53 22 V28
+                   C61 29 67 34 67 41
+                   C67 47 63 51 56 54
+                   L48 57
+                   C43 59 40 62 40 66
+                   C40 71 44 74 50 74
+                   C57 74 61 71 63 65
+                   M47 74 V80
+                   M47 22 V16
+                   C38 17 33 22 33 29
+                   C33 35 37 39 44 42
+                   L52 45
+                   C57 47 60 50 60 54
+                   C60 59 56 62 50 62
+                   C44 62 39 59 37 54"
+                fill="none"
+                stroke="rgba(95, 55, 10, 0.38)"
+                stroke-width="6.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                transform="translate(1.4 1.6)"
+              ></path>
 
-      <!-- dettagli moneta sopra il riempimento -->
-      <circle cx="50" cy="50" r="34" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"></circle>
-      <circle cx="50" cy="50" r="31.5" fill="none" stroke="rgba(110, 69, 18, 0.22)" stroke-width="1.4"></circle>
-      <circle cx="50" cy="50" r="24" fill="none" stroke="rgba(110, 69, 18, 0.30)" stroke-width="1.5"></circle>
+              <path
+                d="M53 22 V28
+                   C61 29 67 34 67 41
+                   C67 47 63 51 56 54
+                   L48 57
+                   C43 59 40 62 40 66
+                   C40 71 44 74 50 74
+                   C57 74 61 71 63 65
+                   M47 74 V80
+                   M47 22 V16
+                   C38 17 33 22 33 29
+                   C33 35 37 39 44 42
+                   L52 45
+                   C57 47 60 50 60 54
+                   C60 59 56 62 50 62
+                   C44 62 39 59 37 54"
+                fill="none"
+                stroke="#7a4b12"
+                stroke-width="5.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
 
-      <!-- simbolo $ ombra -->
-      <path
-        d="M53 22 V28
-           C61 29 67 34 67 41
-           C67 47 63 51 56 54
-           L48 57
-           C43 59 40 62 40 66
-           C40 71 44 74 50 74
-           C57 74 61 71 63 65
-           M47 74 V80
-           M47 22 V16
-           C38 17 33 22 33 29
-           C33 35 37 39 44 42
-           L52 45
-           C57 47 60 50 60 54
-           C60 59 56 62 50 62
-           C44 62 39 59 37 54"
-        fill="none"
-        stroke="rgba(95, 55, 10, 0.38)"
-        stroke-width="6.6"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        transform="translate(1.4 1.6)"
-      ></path>
-
-      <!-- simbolo $ inciso -->
-      <path
-        d="M53 22 V28
-           C61 29 67 34 67 41
-           C67 47 63 51 56 54
-           L48 57
-           C43 59 40 62 40 66
-           C40 71 44 74 50 74
-           C57 74 61 71 63 65
-           M47 74 V80
-           M47 22 V16
-           C38 17 33 22 33 29
-           C33 35 37 39 44 42
-           L52 45
-           C57 47 60 50 60 54
-           C60 59 56 62 50 62
-           C44 62 39 59 37 54"
-        fill="none"
-        stroke="#7a4b12"
-        stroke-width="5.2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>
-
-      <!-- piccolo highlight -->
-      <ellipse cx="40" cy="34" rx="9" ry="5" fill="rgba(255,255,255,0.22)" transform="rotate(-25 40 34)"></ellipse>
-    </svg>
-  </div>
-  <div class="stat-percent" id="oroPercent">50%</div>
-</div>
+              <ellipse cx="40" cy="34" rx="9" ry="5" fill="rgba(255,255,255,0.22)" transform="rotate(-25 40 34)"></ellipse>
+            </svg>
+          </div>
+          <div class="stat-percent" id="oroPercent">50%</div>
+        </div>
 
         <div class="stat-icon-card" id="fedeStat" data-stat="fede">
           <div class="stat-tooltip" id="fedeTooltip"><strong>Fede</strong><span>50%</span></div>
@@ -739,7 +738,9 @@
       <div class="choice-hint choice-right" id="rightHint">Destra</div>
 
       <div class="card show" id="gameCard">
-        <div class="scene-image" id="sceneImage">Consiglio del regno</div>
+        <div class="scene-image" id="sceneImage">
+          <span class="scene-placeholder">Scena</span>
+        </div>
         <div class="card-text" id="testoCarta">
           Un mercante chiede meno tasse per aiutare il popolo.
         </div>
@@ -762,7 +763,8 @@
       </div>
     </div>
   </div>
-<script src="database/eventi_capitolo1.js"></script>
+
+  <script src="database/eventi_capitolo1.js"></script>
   <script>
     const praenomina = [
       "Lucius", "Marcus", "Gaius", "Tiberius", "Quintus",
@@ -779,19 +781,19 @@
     const STORAGE_SAVE_KEY = "xelum-save";
     const STORAGE_HISTORY_KEY = "xelum-history";
 
-const game = {
-  nomeRe: "",
-  giorno: 1,
-  popolo: 50,
-  esercito: 50,
-  oro: 50,
-  fede: 50,
-  sceltaCorrente: null,
-  gameOver: false,
-  lockChoice: false,
-  eventiUsati: [],
-  ultimaCategoria: null
-};
+    const game = {
+      nomeRe: "",
+      giorno: 1,
+      popolo: 50,
+      esercito: 50,
+      oro: 50,
+      fede: 50,
+      sceltaCorrente: null,
+      gameOver: false,
+      lockChoice: false,
+      eventiUsati: [],
+      ultimaCategoria: null
+    };
 
     const card = document.getElementById("gameCard");
     const leftHint = document.getElementById("leftHint");
@@ -884,9 +886,9 @@ const game = {
 
     function mostraImmagine(url, fallbackText) {
       if (url && url.trim() !== "") {
-        sceneImage.innerHTML = `<img src="${url}" alt="Scena">`;
+        sceneImage.innerHTML = `<img src="${url}" alt="Scena" onerror="this.parentElement.innerHTML='<span class=&quot;scene-placeholder&quot;>${fallbackText}</span>'">`;
       } else {
-        sceneImage.textContent = fallbackText;
+        sceneImage.innerHTML = `<span class="scene-placeholder">${fallbackText}</span>`;
       }
     }
 
@@ -954,36 +956,29 @@ const game = {
       }, 6050);
     }
 
- function getRandomEvento() {
+    function getRandomEvento() {
+      let disponibili = eventi.filter(e => !game.eventiUsati.includes(e.id));
 
-  // eventi non ancora usciti
-  let disponibili = eventi.filter(e => !game.eventiUsati.includes(e.id));
+      if (game.ultimaCategoria) {
+        const filtrati = disponibili.filter(e => e.categoria !== game.ultimaCategoria);
 
-  // evita stessa categoria consecutiva
-  if (game.ultimaCategoria) {
-    const filtrati = disponibili.filter(e => e.categoria !== game.ultimaCategoria);
+        if (filtrati.length > 0) {
+          disponibili = filtrati;
+        }
+      }
 
-    if (filtrati.length > 0) {
-      disponibili = filtrati;
+      if (disponibili.length === 0) {
+        game.eventiUsati = [];
+        disponibili = eventi;
+      }
+
+      const evento = disponibili[Math.floor(Math.random() * disponibili.length)];
+
+      game.eventiUsati.push(evento.id);
+      game.ultimaCategoria = evento.categoria;
+
+      return evento;
     }
-  }
-
-  // se sono finiti, resettiamo
-  if (disponibili.length === 0) {
-    game.eventiUsati = [];
-    disponibili = eventi;
-  }
-
-  const evento = disponibili[Math.floor(Math.random() * disponibili.length)];
-
-  // segna come usato
-  game.eventiUsati.push(evento.id);
-
-  // salva categoria per il prossimo turno
-  game.ultimaCategoria = evento.categoria;
-
-  return evento;
-}
 
     function caricaEvento() {
       if (game.gameOver) return;
@@ -1079,18 +1074,18 @@ const game = {
       if (game.gameOver) return;
 
       const payload = {
-  nomeRe: game.nomeRe,
-  giorno: game.giorno,
-  popolo: game.popolo,
-  esercito: game.esercito,
-  oro: game.oro,
-  fede: game.fede,
-  sceltaCorrente: game.sceltaCorrente,
-  gameOver: game.gameOver,
-  lockChoice: game.lockChoice,
-  eventiUsati: game.eventiUsati,
-  ultimaCategoria: game.ultimaCategoria
-};
+        nomeRe: game.nomeRe,
+        giorno: game.giorno,
+        popolo: game.popolo,
+        esercito: game.esercito,
+        oro: game.oro,
+        fede: game.fede,
+        sceltaCorrente: game.sceltaCorrente,
+        gameOver: game.gameOver,
+        lockChoice: game.lockChoice,
+        eventiUsati: game.eventiUsati,
+        ultimaCategoria: game.ultimaCategoria
+      };
 
       localStorage.setItem(STORAGE_SAVE_KEY, JSON.stringify(payload));
     }
@@ -1118,7 +1113,7 @@ const game = {
         game.lockChoice = false;
         game.eventiUsati = Array.isArray(save.eventiUsati) ? save.eventiUsati : [];
         game.ultimaCategoria = save.ultimaCategoria || null;
-        
+
         aggiornaStatistiche();
         summaryBox.classList.add("hidden");
         nascondiSezioneRegno();
@@ -1202,24 +1197,23 @@ const game = {
       });
     }
 
-function nuovoRegno() {
-  game.nomeRe = nomeLatinoCasuale();
-  game.giorno = 1;
-  game.popolo = 50;
-  game.esercito = 50;
-  game.oro = 50;
-  game.fede = 50;
-  game.sceltaCorrente = null;
-  game.gameOver = false;
-  game.lockChoice = false;
+    function nuovoRegno() {
+      game.nomeRe = nomeLatinoCasuale();
+      game.giorno = 1;
+      game.popolo = 50;
+      game.esercito = 50;
+      game.oro = 50;
+      game.fede = 50;
+      game.sceltaCorrente = null;
+      game.gameOver = false;
+      game.lockChoice = false;
+      game.eventiUsati = [];
+      game.ultimaCategoria = null;
 
-  game.eventiUsati = [];
-  game.ultimaCategoria = null;
-
-  summaryBox.classList.add("hidden");
-  aggiornaStatistiche();
-  caricaEvento();
-}
+      summaryBox.classList.add("hidden");
+      aggiornaStatistiche();
+      caricaEvento();
+    }
 
     function inizializzaGioco() {
       const params = new URLSearchParams(window.location.search);
