@@ -1,3 +1,5 @@
+const IMG_PATH = "img_capitoli/capitolo_1/";
+
 const eventiCapitolo1 = [
 
 {
@@ -7,19 +9,19 @@ categoria: "economia",
 titoloInterno: "Mercanti stranieri",
 
 testo: "Il Ladruncolo si avvicina al trono con un sorriso furbo. \"Maestà, fuori dalle mura c'è una carovana straniera. Portano stoffe, spezie e monete. Se li fate entrare, il mercato si riempirà di vita. Se li respingete, il regno correrà meno rischi... ma molti mercanti non saranno contenti.\"",
-image: "mercanti_carovana.jpg",
+image: IMG_PATH + "carovana_evento.png",
 
 sinistra: {
 etichetta: "Rifiuta",
 testoConseguenza: "Ordini di tenere chiuse le porte. La carovana riparte all'alba e la città resta tranquilla, ma molti commercianti speravano in nuovi affari.",
-image: "mercanti_respinti.jpg",
+image: IMG_PATH + "carovana_rifiuta.png",
 effetti: { popolo: -6, esercito: 0, oro: 4, fede: 0 }
 },
 
 destra: {
 etichetta: "Accetta",
 testoConseguenza: "Le porte si aprono e il mercato si riempie di persone, voci e colori. La città è felice, ma una parte dei guadagni sfugge al controllo della corona.",
-image: "mercanti_mercato.jpg",
+image: IMG_PATH + "carovana_accetta.png",
 effetti: { popolo: 6, esercito: 0, oro: -4, fede: 0 }
 }
 
