@@ -34,19 +34,19 @@ categoria: "popolo",
 titoloInterno: "Festa del raccolto",
 
 testo: "Sebastian arriva davanti al trono con aria seria. \"Maestà, nei villaggi chiedono di organizzare una festa per il raccolto. Non vogliono solo mangiare e cantare: vogliono sentirsi parte del regno.\"",
-image: IMG_PATH + "festa_raccolto_evento",
+image: IMG_PATH + "festa_raccolto_evento.png",
 
 sinistra: {
 etichetta: "Nega",
 testoConseguenza: "Decidi di non organizzare la festa. Il denaro resta nelle casse, ma nei villaggi cresce la delusione.",
-image: IMG_PATH + "festa_raccolto_rifiuta",
+image: IMG_PATH + "festa_raccolto_rifiuta.png",
 effetti: { popolo: -7, esercito: 0, oro: 3, fede: 0 }
 },
 
 destra: {
 etichetta: "Finanzia",
 testoConseguenza: "La festa riempie i villaggi di musica, fuochi e tavole piene. Il popolo si sente più vicino alla corona.",
-image: IMG_PATH + "festa_raccolto_accetta",
+image: IMG_PATH + "festa_raccolto_accetta.png",
 effetti: { popolo: 7, esercito: 0, oro: -5, fede: 1 }
 }
 
