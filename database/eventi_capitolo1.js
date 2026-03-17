@@ -6,19 +6,19 @@ capitolo: 1,
 categoria: "economia",
 titoloInterno: "Mercanti stranieri",
 
-testo: "Il Ladruncolo compare ai piedi del trono con le mani nelle maniche e il solito mezzo sorriso. \"Maesta, fuori dalle mura c e una carovana che puzza di spezie, seta e affari. Gente straniera, ma con borse pesanti. Se li fate entrare, il mercato si sveglia. Se li lasciate fuori, nessuno vi accusera di ingenuita... almeno fino a quando le botteghe non inizieranno a lamentarsi.\"",
+testo: "Il Ladruncolo si avvicina al trono con un sorriso furbo. \"Maestà, fuori dalle mura c'è una carovana straniera. Portano stoffe, spezie e monete. Se li fate entrare, il mercato si riempirà di vita. Se li respingete, il regno correrà meno rischi... ma molti mercanti non saranno contenti.\"",
 image: "mercanti_carovana.jpg",
 
 sinistra: {
 etichetta: "Rifiuta",
-testoConseguenza: "Ordini di tenere chiuse le porte. All alba la carovana riparte senza aver venduto nulla. Le casse evitano rischi e dazi incerti, ma in citta resta l amaro di un occasione sfumata.",
+testoConseguenza: "Ordini di tenere chiuse le porte. La carovana riparte all'alba e la città resta tranquilla, ma molti commercianti speravano in nuovi affari.",
 image: "mercanti_respinti.jpg",
 effetti: { popolo: -6, esercito: 0, oro: 4, fede: 0 }
 },
 
 destra: {
 etichetta: "Accetta",
-testoConseguenza: "Le porte si aprono e il mercato si riempie di lingue straniere, stoffe colorate e monete che cambiano mano in fretta. La citta si anima, anche se una parte dei profitti sfugge al controllo diretto della corona.",
+testoConseguenza: "Le porte si aprono e il mercato si riempie di persone, voci e colori. La città è felice, ma una parte dei guadagni sfugge al controllo della corona.",
 image: "mercanti_mercato.jpg",
 effetti: { popolo: 6, esercito: 0, oro: -4, fede: 0 }
 }
@@ -31,19 +31,19 @@ capitolo: 1,
 categoria: "popolo",
 titoloInterno: "Festa del raccolto",
 
-testo: "Sebastian si presenta davanti al trono con gli stivali ancora impolverati. \"Maesta, nei villaggi chiedono una festa comune per il raccolto. Non parlano solo di vino e musica. Vogliono un giorno in cui sentirsi parte di qualcosa che non sia soltanto fatica e campi. A volte basta una tavola piena per ricordare a un popolo chi siede sul trono.\"",
+testo: "Sebastian arriva davanti al trono con aria seria. \"Maestà, nei villaggi chiedono di organizzare una festa per il raccolto. Non vogliono solo mangiare e cantare: vogliono sentirsi parte del regno.\"",
 image: "festa_raccolto.jpg",
 
 sinistra: {
 etichetta: "Nega",
-testoConseguenza: "La festa viene annullata. I granai restano chiusi, il denaro non si muove e nei villaggi si torna subito al lavoro. Ma la delusione corre veloce quanto una voce cattiva.",
+testoConseguenza: "Decidi di non organizzare la festa. Il denaro resta nelle casse, ma nei villaggi cresce la delusione.",
 image: "contadini_delusi.jpg",
 effetti: { popolo: -7, esercito: 0, oro: 3, fede: 0 }
 },
 
 destra: {
 etichetta: "Finanzia",
-testoConseguenza: "Le piazze dei villaggi si accendono di fuochi, musica e tavole condivise. Per una notte il regno non appare lontano, ma presente, quasi familiare.",
+testoConseguenza: "La festa riempie i villaggi di musica, fuochi e tavole piene. Il popolo si sente più vicino alla corona.",
 image: "festa_popolare.jpg",
 effetti: { popolo: 7, esercito: 0, oro: -5, fede: 1 }
 }
@@ -56,19 +56,19 @@ capitolo: 1,
 categoria: "religione",
 titoloInterno: "Restauro del tempio",
 
-testo: "Il Monaco avanza piano, come se pesasse ogni passo. \"Maesta, il tempio antico al centro della citta cade a pezzi. Quando le pietre sacre cedono, la gente non vede solo rovina: vede un cielo che si allontana. Restaurarlo non ridara solo un tetto ai sacerdoti, ma una forma alla speranza del regno.\"",
+testo: "Il Monaco entra nella sala del trono con passo lento. \"Maestà, il tempio antico nel cuore della città è ormai in rovina. Se resterà così, molti penseranno che gli dèi abbiano abbandonato il regno.\"",
 image: "vescovo_tempio.jpg",
 
 sinistra: {
 etichetta: "Rifiuta",
-testoConseguenza: "Decidi di non finanziare il restauro. Il tempio resta ferito e silenzioso, e tra i sacerdoti iniziano a circolare parole scomode sul destino del regno.",
+testoConseguenza: "Decidi di non finanziare il restauro. Il tempio resta in silenzio e i sacerdoti iniziano a parlare con preoccupazione del futuro del regno.",
 image: "tempio_rovinato.jpg",
 effetti: { popolo: -1, esercito: 0, oro: 4, fede: -7 }
 },
 
 destra: {
 etichetta: "Finanzia",
-testoConseguenza: "Scalpelli e martelli tornano a lavorare sulle mura del tempio. Quando le campane riprendono a suonare, il clero parla apertamente di benedizione ritrovata.",
+testoConseguenza: "Il tempio viene sistemato e le campane tornano a suonare. Il clero dice che gli dèi proteggono ancora il tuo regno.",
 image: "tempio_restaurato.jpg",
 effetti: { popolo: 2, esercito: 0, oro: -5, fede: 7 }
 }
@@ -81,19 +81,19 @@ capitolo: 1,
 categoria: "guerra",
 titoloInterno: "Addestramento delle truppe",
 
-testo: "Il Generale si ferma davanti al trono senza inchinarsi troppo. \"Maesta, i soldati sanno obbedire, ma non basta. Coraggio senza disciplina dura fino al primo scontro vero. Se volete un regno che resti in piedi, serve addestramento. Il ferro si paga, gli errori ancora di piu.\"",
+testo: "Il Generale si presenta davanti al trono con tono fermo. \"Maestà, i soldati sono coraggiosi, ma hanno bisogno di più addestramento. Se arriverà una guerra, così come sono adesso rischiano di non essere pronti.\"",
 image: "soldati_addestramento.jpg",
 
 sinistra: {
 etichetta: "Troppo costoso",
-testoConseguenza: "Decidi di rimandare l addestramento. Il tesoro tira un sospiro di sollievo, ma tra i ranghi resta la sensazione di essere carne mandata avanti senza preparazione.",
+testoConseguenza: "Decidi di rimandare l'addestramento. Il tesoro risparmia denaro, ma i soldati perdono fiducia.",
 image: "soldati_scontenti.jpg",
 effetti: { popolo: 0, esercito: -7, oro: 3, fede: 0 }
 },
 
 destra: {
 etichetta: "Approva",
-testoConseguenza: "Fuori dalle mura iniziano marce, ordini secchi e giornate di esercitazione. Le truppe diventano piu compatte e il regno mostra finalmente muscoli veri.",
+testoConseguenza: "I campi fuori dalle mura si riempiono di esercitazioni. L'esercito diventa più forte e il regno appare meglio protetto.",
 image: "esercito_addestrato.jpg",
 effetti: { popolo: 0, esercito: 7, oro: -4, fede: 0 }
 }
@@ -106,19 +106,19 @@ capitolo: 1,
 categoria: "carestia",
 titoloInterno: "Granai del regno",
 
-testo: "Sebastian arriva con il volto tirato. \"Maesta, nei villaggi il grano sta finendo. I raccolti sono stati poveri e i granai reali sono ormai l unica cosa che separa la fame dalla rabbia. Se restano chiusi troppo a lungo, la corona sara ricordata piu per le serrature che per la misericordia.\"",
+testo: "Sebastian entra con il volto teso. \"Maestà, nei villaggi il grano sta finendo. I raccolti sono stati scarsi e la gente chiede di aprire i granai reali. Se aspettiamo troppo, la fame diventerà rabbia.\"",
 image: "granai_regno.jpg",
 
 sinistra: {
 etichetta: "Conserva",
-testoConseguenza: "Ordini di mantenere chiusi i granai. Le riserve del regno restano al sicuro, ma nei villaggi iniziano a circolare fame, rancore e cattivi pensieri.",
+testoConseguenza: "Ordini di tenere chiusi i granai. Le scorte del regno restano al sicuro, ma nei villaggi iniziano a diffondersi fame e malcontento.",
 image: "villaggio_affamato.jpg",
 effetti: { popolo: -8, esercito: 0, oro: 4, fede: -1 }
 },
 
 destra: {
 etichetta: "Aprili",
-testoConseguenza: "I sigilli vengono spezzati e carri carichi di farina partono verso i villaggi. La fame si ritira per un po, anche se le scorte della corona si assottigliano visibilmente.",
+testoConseguenza: "I granai vengono aperti e il grano viene distribuito ai villaggi. Il popolo torna a respirare, anche se le riserve del regno si riducono.",
 image: "grano_distribuito.jpg",
 effetti: { popolo: 8, esercito: 0, oro: -5, fede: 1 }
 }
@@ -131,19 +131,19 @@ capitolo: 1,
 categoria: "intrighi",
 titoloInterno: "Nobile sospetto",
 
-testo: "Il Ladruncolo emerge da una colonna, come se fosse sempre stato li. \"Maesta, a corte si sorride molto... e ci si fida poco. Un nobile influente sta raccogliendo favori, cene, promesse. Forse cerca solo peso. O forse sta misurando quanto il vostro trono sia davvero saldo.\"",
+testo: "Il Ladruncolo compare vicino al trono e abbassa la voce. \"Maestà, a corte si mormora molto. Un nobile influente sta raccogliendo sostenitori. Forse è solo ambizioso... oppure sta preparando qualcosa contro di voi.\"",
 image: "corte_intrigo.jpg",
 
 sinistra: {
 etichetta: "Ignora",
-testoConseguenza: "Decidi di non muoverti senza prove. Il nobile continua a tessere relazioni indisturbato e qualcuno, a corte, inizia a chiamare prudenza cio che altri chiamano debolezza.",
+testoConseguenza: "Decidi di non agire senza prove. Il nobile continua a muoversi liberamente e qualcuno inizia a pensare che il trono sia troppo debole.",
 image: "nobile_sorriso.jpg",
 effetti: { popolo: -1, esercito: -2, oro: 0, fede: 0 }
 },
 
 destra: {
 etichetta: "Indaga",
-testoConseguenza: "Ordini alle guardie di osservare senza farsi vedere. I corridoi del palazzo diventano improvvisamente piu silenziosi: segno che qualcuno ha capito di essere sotto sguardo.",
+testoConseguenza: "Ordini alle guardie di indagare in segreto. A corte cresce la tensione, ma tutti capiscono che il trono non chiude gli occhi davanti ai sospetti.",
 image: "guardie_indagine.jpg",
 effetti: { popolo: 0, esercito: 3, oro: -2, fede: 0 }
 }
@@ -156,19 +156,19 @@ capitolo: 1,
 categoria: "diplomazia",
 titoloInterno: "Patto con il regno vicino",
 
-testo: "Davanti al trono attende un ambasciatore straniero, immobile come una statua. Il Generale parla per primo. \"Maesta, il regno oltre le colline offre commercio aperto e sostegno militare in caso di guerra. Un alleato puo tenere lontani molti problemi. Ma ogni mano stretta abbastanza a lungo finisce anche per trattenere.\"",
+testo: "Davanti al trono c'è un ambasciatore straniero. Il Generale parla con tono serio. \"Maestà, il regno oltre le colline propone un patto: commercio aperto e aiuto militare in caso di guerra. Un alleato può essere utile, ma ogni accordo ha sempre un prezzo.\"",
 image: "ambasciatore_regno.jpg",
 
 sinistra: {
 etichetta: "Rifiuta",
-testoConseguenza: "L ambasciatore lascia la corte con un inchino impeccabile e freddo. Il regno conserva la propria autonomia, ma qualcuno inizia a parlare di isolamento.",
+testoConseguenza: "L'ambasciatore lascia la corte con freddezza. Il regno resta indipendente, ma alcuni iniziano a temere l'isolamento.",
 image: "ambasciatore_offeso.jpg",
 effetti: { popolo: -1, esercito: -3, oro: 0, fede: 0 }
 },
 
 destra: {
 etichetta: "Accetta",
-testoConseguenza: "Il trattato viene firmato tra stendardi e formule solenni. I confini appaiono meno fragili e i mercanti iniziano gia a fare i loro conti.",
+testoConseguenza: "Il trattato viene firmato. I commerci aumentano e il regno sembra meno fragile agli occhi dei vicini.",
 image: "trattato_firmato.jpg",
 effetti: { popolo: 1, esercito: 3, oro: 2, fede: 0 }
 }
@@ -181,19 +181,19 @@ capitolo: 1,
 categoria: "economia",
 titoloInterno: "Tassa sulle botteghe",
 
-testo: "Il Ladruncolo si china appena, divertito. \"Maesta, le botteghe della citta lavorano bene. Troppo bene, direi. Una piccola tassa sulle vendite riempirebbe le casse in fretta. Certo, i mercanti vi sorrideranno meno... ma un sorriso non paga i muri del castello.\"",
+testo: "Il Ladruncolo si avvicina con aria complice. \"Maestà, le botteghe della città stanno guadagnando bene. Una piccola tassa sulle vendite riempirebbe in fretta le casse del regno. Certo... i mercanti non saranno felici.\"",
 image: "botteghe_citta.jpg",
 
 sinistra: {
 etichetta: "Respingi",
-testoConseguenza: "Decidi di non imporre nuove tasse. Le botteghe restano animate e i mercanti parlano della corona con gratitudine, o almeno con meno veleno del solito.",
+testoConseguenza: "Decidi di non imporre nuove tasse. I mercanti tirano un sospiro di sollievo e continuano a lavorare con serenità.",
 image: "mercanti_sollevati.jpg",
 effetti: { popolo: 4, esercito: 0, oro: -2, fede: 0 }
 },
 
 destra: {
 etichetta: "Imponila",
-testoConseguenza: "La nuova tassa entra in vigore e le guardie iniziano a riscuotere con regolarita. Le casse del regno si gonfiano, mentre nei mercati cresce un brusio sempre meno rispettoso.",
+testoConseguenza: "La nuova tassa entra in vigore e le casse del regno si riempiono. Nei mercati, però, cresce il malumore.",
 image: "tassa_botteghe.jpg",
 effetti: { popolo: -6, esercito: 0, oro: 6, fede: 0 }
 }
@@ -206,19 +206,19 @@ capitolo: 1,
 categoria: "religione",
 titoloInterno: "Processione solenne",
 
-testo: "Il Monaco alza gli occhi verso il trono. \"Maesta, il popolo ha bisogno di vedere che il cielo non ha dimenticato queste mura. Una grande processione unirebbe città e villaggi sotto un solo segno. A volte la fede, per restare viva, deve camminare in mezzo alla polvere.\"",
+testo: "Il Monaco alza lo sguardo verso il trono. \"Maestà, il popolo ha bisogno di vedere che gli dèi camminano ancora accanto al regno. Una grande processione nelle strade potrebbe unire città e villaggi sotto un solo segno di fede.\"",
 image: "processione_solenne.jpg",
 
 sinistra: {
 etichetta: "Annulla",
-testoConseguenza: "Ordini di annullare la processione. Il clero obbedisce, ma nelle strade piu devote il silenzio pesa piu di un cattivo presagio.",
+testoConseguenza: "Ordini di annullare la processione. Il clero obbedisce, ma molti fedeli vivono la decisione come un brutto segno.",
 image: "chiesa_silenziosa.jpg",
 effetti: { popolo: -3, esercito: 0, oro: 2, fede: -6 }
 },
 
 destra: {
 etichetta: "Concedi",
-testoConseguenza: "Fiaccole, incenso e canti attraversano la citta fino a tarda sera. La folla guarda in silenzio e il regno appare, almeno per un giorno, protetto da qualcosa di piu alto delle sue mura.",
+testoConseguenza: "La processione attraversa la città tra canti, fiaccole e incenso. La fede del popolo si rafforza sotto gli occhi di tutti.",
 image: "processione_citta.jpg",
 effetti: { popolo: 3, esercito: 0, oro: -3, fede: 6 }
 }
@@ -231,19 +231,19 @@ capitolo: 1,
 categoria: "popolo",
 titoloInterno: "Petizione dei villaggi",
 
-testo: "Sebastian depone una pergamena ai piedi del trono. \"Maesta, i capi dei villaggi hanno smesso di lamentarsi separatamente. Adesso parlano insieme. Strade rotte, pozzi crollati, fango ovunque. Quando il regno non arriva fino alle campagne, la gente finisce per credere di essere stata dimenticata.\"",
+testo: "Sebastian posa una pergamena ai piedi del trono. \"Maestà, i capi dei villaggi chiedono aiuto. Le strade sono rotte, i pozzi crollano e la gente inizia a chiedersi se il regno si ricordi davvero di loro.\"",
 image: "villaggi_petizione.jpg",
 
 sinistra: {
 etichetta: "Rimanda",
-testoConseguenza: "Rimandi gli interventi a tempi migliori. Le casse evitano una spesa pesante, ma nei villaggi si consolida l idea che la corona protegga prima la pietra della citta che la vita dei campi.",
+testoConseguenza: "Rimandi i lavori a tempi migliori. Il tesoro evita una grossa spesa, ma nei villaggi cresce l'idea di essere stati dimenticati.",
 image: "villaggio_trascurato.jpg",
 effetti: { popolo: -6, esercito: 0, oro: 4, fede: 0 }
 },
 
 destra: {
 etichetta: "Intervieni",
-testoConseguenza: "Operai e materiali vengono inviati fuori dalla capitale. Pozzi e strade tornano utili, e nelle campagne il nome del regno inizia finalmente a suonare meno distante.",
+testoConseguenza: "Operai e muratori vengono inviati nei villaggi. Pozzi e strade tornano utili alla gente, e la corona viene vista con maggiore rispetto.",
 image: "villaggio_riparato.jpg",
 effetti: { popolo: 7, esercito: 0, oro: -5, fede: 0 }
 }
@@ -256,19 +256,19 @@ capitolo: 1,
 categoria: "guerra",
 titoloInterno: "Torre di guardia al confine",
 
-testo: "Il Generale stende una mappa consumata sul tavolo del trono. \"Maesta, sul confine orientale sono stati visti movimenti insoliti. Non sappiamo ancora chi siano, e questo e gia un problema. Una torre di guardia darebbe occhi al regno. Senza occhi, ci resta solo la sorpresa.\"",
+testo: "Il Generale stende una mappa davanti al trono. \"Maestà, al confine orientale sono stati notati movimenti sospetti. Una torre di guardia darebbe occhi al regno, ma costruirla richiederà uomini e oro.\"",
 image: "confine_torre_guardia.jpg",
 
 sinistra: {
 etichetta: "Rinuncia",
-testoConseguenza: "Decidi di rimandare la costruzione. Il tesoro evita la spesa, ma quel tratto di confine resta scoperto come una porta socchiusa nella notte.",
+testoConseguenza: "Decidi di rimandare la costruzione. Il regno risparmia denaro, ma quel tratto di confine resta scoperto.",
 image: "confine_scoperto.jpg",
 effetti: { popolo: 0, esercito: -7, oro: 3, fede: 0 }
 },
 
 destra: {
 etichetta: "Costruiscila",
-testoConseguenza: "La torre viene innalzata sulle colline del confine e presto le sentinelle iniziano a scrutare l orizzonte giorno e notte. Il regno sembra meno cieco e piu pronto.",
+testoConseguenza: "La torre viene costruita sulle colline del confine. Le sentinelle controllano giorno e notte e il regno appare più sicuro.",
 image: "torre_costruita.jpg",
 effetti: { popolo: 0, esercito: 7, oro: -5, fede: 0 }
 }
@@ -281,19 +281,19 @@ capitolo: 1,
 categoria: "carestia",
 titoloInterno: "Semi per la prossima stagione",
 
-testo: "Sebastian posa un sacchetto di semi davanti al trono. \"Maesta, molti contadini hanno perso quasi tutto. Se non ricevono aiuto adesso, i campi resteranno vuoti anche il prossimo anno. E la fame, quando mette radici, non si ferma a una sola stagione.\"",
+testo: "Sebastian posa un sacchetto di semi davanti al trono. \"Maestà, molti contadini hanno perso quasi tutto. Senza nuovi semi e attrezzi, anche il prossimo raccolto rischia di andare male.\"",
 image: "contadini_semi.jpg",
 
 sinistra: {
 etichetta: "Nega aiuto",
-testoConseguenza: "Decidi di conservare le risorse del regno. I contadini faranno il possibile con quello che resta, ma nei campi si lavora gia con la paura del prossimo fallimento.",
+testoConseguenza: "Decidi di conservare le risorse del regno. I contadini proveranno a cavarsela da soli, ma il futuro dei campi resta incerto.",
 image: "campi_spenti.jpg",
 effetti: { popolo: -7, esercito: 0, oro: 3, fede: -1 }
 },
 
 destra: {
 etichetta: "Sostienili",
-testoConseguenza: "Il tesoro reale fornisce semi e attrezzi ai villaggi piu colpiti. Nei campi torna il lavoro, e con esso una forma prudente di speranza.",
+testoConseguenza: "Il regno fornisce semi e attrezzi ai villaggi. I contadini tornano nei campi con nuova speranza.",
 image: "campi_rinascita.jpg",
 effetti: { popolo: 7, esercito: 0, oro: -5, fede: 1 }
 }
@@ -306,19 +306,19 @@ capitolo: 1,
 categoria: "intrighi",
 titoloInterno: "Lettera intercettata",
 
-testo: "Il Ladruncolo si avvicina al trono tenendo una pergamena tra due dita. \"Maesta, questa lettera e stata intercettata prima che arrivasse a destinazione. Dentro ci sono accuse contro uno dei vostri consiglieri piu vicini. Potrebbe essere fango. Oppure il primo filo di una trama piu grossa.\"",
+testo: "Il Ladruncolo si avvicina al trono con una pergamena piegata. \"Maestà, una delle mie conoscenze ha intercettato questa lettera. Contiene accuse contro un vostro consigliere. Potrebbe essere una bugia... oppure l'inizio di un problema più grande.\"",
 image: "lettera_intercettata.jpg",
 
 sinistra: {
 etichetta: "Bruciala",
-testoConseguenza: "Decidi di distruggere la lettera per evitare scandali immediati. A corte tutto sembra restare al proprio posto, ma il sospetto continua a muoversi come fumo tra i corridoi.",
+testoConseguenza: "Decidi di distruggere la lettera per evitare scandali. La corte resta calma in apparenza, ma i sospetti continuano a circolare.",
 image: "lettera_bruciata.jpg",
 effetti: { popolo: 0, esercito: -2, oro: 0, fede: 0 }
 },
 
 destra: {
 etichetta: "Mostrala",
-testoConseguenza: "La lettera viene letta davanti alla corte. Alcuni volti impallidiscono, altri si irrigidiscono. Il trono mostra di non temere la verita, qualunque essa sia.",
+testoConseguenza: "La lettera viene letta davanti alla corte. Alcuni nobili si agitano e tutti capiscono che il trono non teme la verità.",
 image: "corte_sconvolta.jpg",
 effetti: { popolo: 0, esercito: 3, oro: -2, fede: 0 }
 }
@@ -331,19 +331,19 @@ capitolo: 1,
 categoria: "diplomazia",
 titoloInterno: "Dono all'ambasciata",
 
-testo: "Il Generale osserva l emissario straniero con distacco. \"Maesta, un dono alla loro ambasciata verrebbe interpretato come rispetto, forse persino come disponibilita. Non tutti pero ameranno vedere la corona spendere per chi vive oltre i nostri confini.\"",
+testo: "Il Generale osserva l'emissario straniero. \"Maestà, un dono alla loro ambasciata sarebbe visto come un gesto di rispetto. Potrebbe rafforzare i rapporti tra i nostri regni, ma non tutti ameranno una corona troppo generosa.\"",
 image: "emissario_dono.jpg",
 
 sinistra: {
 etichetta: "Nessun dono",
-testoConseguenza: "L emissario riceve parole corrette ma nessun segno concreto di favore. Lascia la corte con modi impeccabili e freddezza evidente.",
+testoConseguenza: "L'emissario riceve solo parole formali e lascia la corte con freddezza. Il regno risparmia denaro, ma perde una buona occasione diplomatica.",
 image: "emissario_freddo.jpg",
 effetti: { popolo: -1, esercito: -2, oro: 3, fede: 0 }
 },
 
 destra: {
 etichetta: "Invia dono",
-testoConseguenza: "Il dono raggiunge l ambasciata accompagnato dai sigilli reali. Il gesto viene accolto con favore e i rapporti tra i due regni diventano improvvisamente piu morbidi.",
+testoConseguenza: "Il dono viene accolto con favore. L'ambasciata straniera guarda ora il tuo regno con maggiore rispetto.",
 image: "dono_ambasciata.jpg",
 effetti: { popolo: 1, esercito: 2, oro: -4, fede: 0 }
 }
@@ -356,19 +356,19 @@ capitolo: 1,
 categoria: "popolo",
 titoloInterno: "Creatura nei boschi",
 
-testo: "Sebastian arriva agitato, quasi senza attendere il permesso di parlare. \"Maesta, dai villaggi vicino alla foresta arrivano storie sempre piu strane. Bestiame in fuga, pollai svuotati, bambini che non vogliono piu uscire al tramonto. Dicono di aver visto una piccola creatura alata. Alcuni sussurrano una parola che non si dovrebbe pronunciare con leggerezza: drago.\"",
+testo: "Sebastian arriva agitato. \"Maestà, nei villaggi vicino alla foresta girano strane voci. I contadini parlano di una piccola creatura alata che ruba galline e spaventa il bestiame. Alcuni dicono che sia un piccolo drago.\"",
 image: "creatura_bosco.jpg",
 
 sinistra: {
 etichetta: "Ignora",
-testoConseguenza: "Decidi di trattare la faccenda come superstizione contadina. Ma la paura, quando non viene smentita, si allarga piu in fretta della verita.",
+testoConseguenza: "Decidi di ignorare le voci. Forse è solo paura... ma nei villaggi l'ansia continua a crescere.",
 image: "villaggio_paura.jpg",
 effetti: { popolo: -4, esercito: 0, oro: 0, fede: -1 }
 },
 
 destra: {
 etichetta: "Invia soldati",
-testoConseguenza: "Una pattuglia entra nella foresta e torna dopo giorni con la carcassa di una creatura mai vista prima. Nei villaggi si torna a dormire con le porte socchiuse, non sprangate.",
+testoConseguenza: "Una pattuglia viene mandata nella foresta. Dopo alcuni giorni torna con la carcassa di una strana creatura. I villaggi tornano a sentirsi al sicuro.",
 image: "creatura_cacciata.jpg",
 effetti: { popolo: 4, esercito: -2, oro: -2, fede: 0 }
 }
@@ -381,19 +381,19 @@ capitolo: 1,
 categoria: "intrighi",
 titoloInterno: "Lo stregone errante",
 
-testo: "Il Monaco parla a voce bassa, come se temesse perfino le pareti. \"Maesta, nei villaggi del nord si e fermato un uomo che molti chiamano stregone. Dice di leggere il destino del regno e attira gente con parole che sanno di promessa e di inganno. Il clero teme che il popolo inizi ad ascoltare altre voci oltre a quelle del tempio.\"",
+testo: "Il Monaco parla a bassa voce. \"Maestà, nei villaggi del nord è arrivato un uomo misterioso. Alcuni lo chiamano stregone. Dice di poter prevedere il destino del regno, ma il clero teme che le sue arti siano oscure.\"",
 image: "stregone_oscuro.jpg",
 
 sinistra: {
 etichetta: "Scaccialo",
-testoConseguenza: "Ordini che lo straniero venga allontanato dal regno. Il clero approva con sollievo, ma alcuni contadini avrebbero voluto ascoltare ancora quelle promesse venute dal nulla.",
+testoConseguenza: "Ordini che lo stregone venga cacciato. Il clero approva, ma alcuni contadini erano affascinati dalle sue parole.",
 image: "stregone_cacciato.jpg",
 effetti: { popolo: -2, esercito: 0, oro: 0, fede: 4 }
 },
 
 destra: {
 etichetta: "Lascialo parlare",
-testoConseguenza: "Permetti allo stregone di restare. Le sue profezie attirano curiosi e inquieti, mentre il tempio osserva tutto con crescente sospetto.",
+testoConseguenza: "Permetti allo stregone di restare. Le sue profezie attirano curiosi, ma il clero osserva tutto con crescente sospetto.",
 image: "stregone_profezia.jpg",
 effetti: { popolo: 2, esercito: 0, oro: 2, fede: -4 }
 }
@@ -406,19 +406,19 @@ capitolo: 1,
 categoria: "mistero",
 titoloInterno: "Il draghetto",
 
-testo: "Il Generale entra nella sala del trono seguito da due soldati affaticati. Tra loro, legata con corde troppo grandi per il suo corpo, si agita una piccola creatura alata. \"Maesta, l abbiamo trovata nei boschi. I veterani giurano di non aver mai visto nulla di simile. Alcuni gia la chiamano giovane drago.\"",
+testo: "Il Generale entra nella sala del trono accompagnato da due soldati. Tra loro si agita una piccola creatura alata legata con delle corde. \"Maestà, i soldati l'hanno catturata nei boschi. Alcuni giurano che sia un giovane drago.\"",
 image: "draghetto_catturato.jpg",
 
 sinistra: {
 etichetta: "Liberalo",
-testoConseguenza: "Ordini di riportare la creatura nella foresta e lasciarla andare. Nei villaggi si racconta della tua clemenza, anche se una parte delle guardie considera la decisione uno spreco di occasione.",
+testoConseguenza: "Ordini di liberare la creatura nei boschi. Il popolo racconta la tua bontà, ma alcuni soldati pensano che avresti potuto sfruttare la scoperta.",
 image: "draghetto_libero.jpg",
 effetti: { popolo: 4, esercito: -1, oro: 0, fede: 1 }
 },
 
 destra: {
 etichetta: "Studialo",
-testoConseguenza: "La creatura viene trattenuta nel castello sotto stretta sorveglianza. Studiosi, curiosi e opportunisti iniziano ad affacciarsi alla tua corte.",
+testoConseguenza: "La creatura viene tenuta nel castello per essere studiata. Studiosi e curiosi arrivano da tutto il regno.",
 image: "draghetto_studiato.jpg",
 effetti: { popolo: -1, esercito: 1, oro: 3, fede: -1 }
 }
@@ -431,19 +431,19 @@ capitolo: 1,
 categoria: "intrighi",
 titoloInterno: "Lo sgherro errante",
 
-testo: "Il Ladruncolo entra accompagnato da un uomo incappucciato che evita di alzare lo sguardo. \"Maesta, questo dice di saper fare lavori che non finiscono nei registri e non portano stemmi. Missioni discrete, problemi risolti senza testimoni. Non e il genere di uomo che si mostra alla luce... ma a volte e proprio per questo che torna utile.\"",
+testo: "Il Ladruncolo entra con un uomo incappucciato alle spalle. \"Maestà, questo dice di essere uno sgherro. Può svolgere lavori sporchi e missioni segrete. Non è il tipo di uomo che si mostra alla luce... ma a volte può essere utile.\"",
 image: "sgherro_corte.jpg",
 
 sinistra: {
 etichetta: "Caccialo",
-testoConseguenza: "Ordini allo sgherro di lasciare il castello. La corte resta pulita agli occhi del regno, anche se rinunci a uno strumento che molti sovrani userebbero senza pensarci due volte.",
+testoConseguenza: "Ordini allo sgherro di lasciare il castello. Il regno mantiene la sua immagine pulita, ma perdi uno strumento utile nell'ombra.",
 image: "sgherro_cacciato.jpg",
 effetti: { popolo: 2, esercito: 0, oro: 0, fede: 2 }
 },
 
 destra: {
 etichetta: "Assumilo",
-testoConseguenza: "Accetti i servizi dell uomo. Alcuni problemi iniziano a sparire nel silenzio, ma non sempre il silenzio e il segno di una coscienza tranquilla.",
+testoConseguenza: "Accetti i suoi servizi. Alcuni problemi iniziano a sparire... anche se non sempre in modo onesto.",
 image: "sgherro_assunto.jpg",
 effetti: { popolo: -2, esercito: 2, oro: 2, fede: -1 }
 }
@@ -456,19 +456,19 @@ capitolo: 1,
 categoria: "intrighi",
 titoloInterno: "Assassino a corte",
 
-testo: "Il Generale entra con passo duro, seguito da una guardia che trascina un uomo incappucciato. \"Maesta, lo abbiamo fermato nei corridoi del palazzo. Aveva un pugnale avvelenato e una scusa pessima. Dice di essere solo un mercenario, ma nessun mercenario entra qui da solo.\"",
+testo: "Il Generale entra con una guardia che trascina un uomo incappucciato. \"Maestà, lo abbiamo catturato nei corridoi del palazzo con un pugnale avvelenato. Dice di essere solo un mercenario... ma qualcuno potrebbe averlo mandato.\"",
 image: "assassino_corte.jpg",
 
 sinistra: {
 etichetta: "Interrogalo",
-testoConseguenza: "L uomo viene portato nelle segrete e interrogato a lungo. Dalle sue parole emergono nomi, mezze verita e ombre che non rassicurano affatto.",
+testoConseguenza: "L'uomo viene interrogato nelle segrete. Le sue parole fanno nascere nuovi sospetti su possibili nemici della corona.",
 image: "assassino_interrogato.jpg",
 effetti: { popolo: 0, esercito: 3, oro: -2, fede: 0 }
 },
 
 destra: {
 etichetta: "Giustizialo",
-testoConseguenza: "Ordini l esecuzione immediata. La corte comprende il messaggio senza bisogno di altre spiegazioni: chi alza la mano contro il trono non avra una seconda occasione.",
+testoConseguenza: "Ordini l'esecuzione immediata dell'assassino. Il messaggio è chiaro: chi minaccia il trono pagherà con la vita.",
 image: "assassino_giustizia.jpg",
 effetti: { popolo: 1, esercito: 2, oro: 0, fede: 0 }
 }
@@ -481,19 +481,19 @@ capitolo: 1,
 categoria: "religione",
 titoloInterno: "La reliquia ritrovata",
 
-testo: "Il Monaco entra portando con entrambe le mani un piccolo scrigno chiuso. \"Maesta, alcuni pellegrini hanno trovato questo oggetto tra le rovine di un santuario dimenticato. Gia si parla di reliquia, di segni, di grazia. Ma la fede del popolo corre piu veloce della certezza.\"",
+testo: "Il Monaco entra nel palazzo portando un piccolo scrigno. \"Maestà, alcuni pellegrini hanno trovato questo oggetto tra le rovine di un antico santuario. Dicono che sia una reliquia sacra... ma nessuno può esserne certo.\"",
 image: "reliquia_antica.jpg",
 
 sinistra: {
 etichetta: "Conservala",
-testoConseguenza: "La reliquia viene custodita nel tempio della capitale. I fedeli iniziano presto a raccontare guarigioni, sogni e piccoli miracoli.",
+testoConseguenza: "La reliquia viene custodita nel tempio della capitale. I fedeli iniziano a parlare di miracoli e il prestigio religioso del regno cresce.",
 image: "reliquia_tempio.jpg",
 effetti: { popolo: 2, esercito: 0, oro: 0, fede: 5 }
 },
 
 destra: {
 etichetta: "Vendila",
-testoConseguenza: "Decidi di cedere l oggetto a un ricco collezionista straniero. Le casse si riempiono rapidamente, ma il clero parla della scelta come di una ferita volontaria.",
+testoConseguenza: "Decidi di vendere la reliquia a un ricco collezionista straniero. Il tesoro si riempie, ma molti sacerdoti parlano di sacrilegio.",
 image: "reliquia_venduta.jpg",
 effetti: { popolo: -2, esercito: 0, oro: 5, fede: -5 }
 }
@@ -506,19 +506,19 @@ capitolo: 1,
 categoria: "popolo",
 titoloInterno: "Voci di rivolta",
 
-testo: "Sebastian entra con il fiato corto e lo sguardo inquieto. \"Maesta, in alcuni villaggi non si mormora piu soltanto. Si parla apertamente contro la corona. Non e ancora una rivolta, ma la rabbia ha smesso di nascondersi.\"",
+testo: "Sebastian entra con aria preoccupata. \"Maestà, in alcuni villaggi si parla apertamente contro la corona. Non è ancora una rivolta... ma la rabbia sta crescendo.\"",
 image: "villaggi_rivolta.jpg",
 
 sinistra: {
 etichetta: "Calmali",
-testoConseguenza: "Invii emissari, parole misurate e qualche provvista. I villaggi si placano, almeno per ora, ma il tesoro sente il peso della pace comprata in fretta.",
+testoConseguenza: "Invii emissari e provviste per calmare gli animi. I villaggi si tranquillizzano, ma il tesoro reale ne risente.",
 image: "villaggi_calmi.jpg",
 effetti: { popolo: 6, esercito: 0, oro: -4, fede: 0 }
 },
 
 destra: {
 etichetta: "Invia soldati",
-testoConseguenza: "Le guardie ristabiliscono l ordine con disciplina e minaccia. La protesta si spegne rapidamente, ma sotto la cenere resta qualcosa che non dimentica.",
+testoConseguenza: "Le guardie ristabiliscono l'ordine con la forza. La rivolta si spegne in fretta, ma molti contadini non dimenticheranno.",
 image: "soldati_villaggi.jpg",
 effetti: { popolo: -4, esercito: 3, oro: -1, fede: 0 }
 }
@@ -531,19 +531,19 @@ capitolo: 1,
 categoria: "economia",
 titoloInterno: "Il grande mercante",
 
-testo: "Il Ladruncolo sorride indicando un uomo coperto di sete e anelli. \"Maesta, quest uomo muove carovane come altri muovono pedine. Dice di poter far scorrere ricchezza nel regno, ma vuole privilegi commerciali. E gli uomini che chiedono privilegi, di solito, non si accontentano mai di uno soltanto.\"",
+testo: "Il Ladruncolo sorride indicando un uomo vestito con abiti ricchi. \"Maestà, questo mercante controlla molte carovane. Dice di poter portare grande ricchezza nel regno... ma in cambio vuole privilegi speciali.\"",
 image: "mercante_ricco.jpg",
 
 sinistra: {
 etichetta: "Rifiuta",
-testoConseguenza: "Il mercante lascia il regno con un inchino elegante e uno sguardo gelido. Il mercato resta sotto controllo della corona, ma l occasione di un guadagno rapido svanisce con lui.",
+testoConseguenza: "Il mercante lascia il regno con freddezza. Il mercato resta sotto il controllo della corona, ma perdi una possibile occasione di guadagno.",
 image: "mercante_offeso.jpg",
 effetti: { popolo: 1, esercito: 0, oro: -2, fede: 0 }
 },
 
 destra: {
 etichetta: "Accetta",
-testoConseguenza: "Le sue carovane iniziano a percorrere le tue strade e l oro circola con maggiore velocita. Ma insieme alla ricchezza cresce anche il peso di un uomo che sa di essere diventato utile.",
+testoConseguenza: "Le carovane del mercante iniziano ad attraversare le tue strade. L'oro entra più velocemente nel regno, ma cresce anche il potere di quell'uomo.",
 image: "carovane_commercio.jpg",
 effetti: { popolo: -1, esercito: 0, oro: 6, fede: 0 }
 }
@@ -556,19 +556,19 @@ capitolo: 1,
 categoria: "economia",
 titoloInterno: "Il grande mercante",
 
-testo: "Il Ladruncolo torna alla carica con lo stesso uomo ben vestito al suo fianco. \"Maesta, certi mercanti non bussano due volte senza un motivo. Questo vuole sapere se il regno preferisce restare prudente... o diventare ricco abbastanza da farsi notare anche oltre il mare.\"",
+testo: "Il Ladruncolo torna a parlare dello stesso ricco mercante. \"Maestà, lui insiste. Dice che con il suo aiuto il regno potrebbe diventare molto più ricco. Ma uomini così non fanno mai nulla per gentilezza.\"",
 image: "mercante_ricco.jpg",
 
 sinistra: {
 etichetta: "Rifiuta",
-testoConseguenza: "Respingi la proposta e il mercante capisce di non avere spazio per imporre le proprie condizioni. La corona mantiene il controllo, ma rinuncia ancora una volta a un afflusso importante di denaro.",
+testoConseguenza: "Respingi di nuovo la proposta. Il regno mantiene il controllo dei commerci, ma rinuncia a un grosso guadagno.",
 image: "mercante_offeso.jpg",
 effetti: { popolo: 1, esercito: 0, oro: -2, fede: 0 }
 },
 
 destra: {
 etichetta: "Accetta",
-testoConseguenza: "Le strade del regno si aprono al suo commercio e le entrate crescono in fretta. In cambio, il mercante ottiene un peso che in futuro potrebbe pretendere di trasformare in potere.",
+testoConseguenza: "Le rotte commerciali del mercante si aprono al regno. Le casse si riempiono, ma quell'uomo diventa sempre più influente.",
 image: "carovane_commercio.jpg",
 effetti: { popolo: -1, esercito: 0, oro: 6, fede: 0 }
 }
@@ -581,19 +581,19 @@ capitolo: 1,
 categoria: "carestia",
 titoloInterno: "La bestia nei campi",
 
-testo: "Sebastian arriva trafelato e senza fiato. \"Maesta, nei villaggi del sud i campi sono stati devastati nella notte. Solchi profondi, recinti spezzati, bestiame disperso. I contadini parlano di una bestia uscita dalla foresta. E quando la paura trova impronte abbastanza grandi, nessuno ride piu.\"",
+testo: "Sebastian arriva trafelato. \"Maestà, nei villaggi del sud i campi sono stati distrutti durante la notte. I contadini parlano di una grossa bestia uscita dalla foresta.\"",
 image: "bestia_campi.jpg",
 
 sinistra: {
 etichetta: "Ignora",
-testoConseguenza: "Decidi di trattare il racconto come esagerazione contadina. Ma i campi restano distrutti e nei villaggi cresce l idea che il pericolo interessi solo a chi lo subisce.",
+testoConseguenza: "Decidi di ignorare le voci dei contadini. Forse è solo paura... ma nei villaggi cresce la tensione.",
 image: "campi_distrutti.jpg",
 effetti: { popolo: -5, esercito: 0, oro: -1, fede: -1 }
 },
 
 destra: {
 etichetta: "Caccia la bestia",
-testoConseguenza: "Una spedizione parte verso la foresta e torna solo dopo giorni con la prova della caccia compiuta. Nei villaggi si festeggia meno la vittoria che la fine dell attesa.",
+testoConseguenza: "Una spedizione parte verso la foresta e, dopo giorni di ricerca, la bestia viene uccisa. I villaggi festeggiano la sicurezza ritrovata.",
 image: "bestia_cacciata.jpg",
 effetti: { popolo: 4, esercito: -2, oro: -2, fede: 0 }
 }
@@ -606,19 +606,19 @@ capitolo: 1,
 categoria: "religione",
 titoloInterno: "Presagio oscuro",
 
-testo: "Il Monaco entra con il volto pallido e le mani strette nelle maniche. \"Maesta, questa notte, durante la preghiera, tutte le candele del tempio si sono spente da sole. I sacerdoti parlano di un segno oscuro. Io parlo solo di paura... ma la paura del clero, se cresce, finisce sempre per raggiungere anche il popolo.\"",
+testo: "Il Monaco entra nella sala del trono con il volto pallido. \"Maestà, durante la preghiera di stanotte le candele del tempio si sono spente da sole. Alcuni sacerdoti parlano di un segno oscuro sul destino del regno.\"",
 image: "presagio_tempio.jpg",
 
 sinistra: {
 etichetta: "Ignora",
-testoConseguenza: "Decidi di non dare peso al presagio. Il regno continua la sua vita, ma tra i fedeli resta l inquietudine di un silenzio non spiegato.",
+testoConseguenza: "Decidi di ignorare il presagio. Alcuni fedeli restano turbati, ma la vita del regno continua.",
 image: "tempio_silenzioso.jpg",
 effetti: { popolo: -2, esercito: 0, oro: 0, fede: -4 }
 },
 
 destra: {
 etichetta: "Organizza rituali",
-testoConseguenza: "Il clero avvia giorni di preghiera, digiuno e rituali pubblici. I fedeli si rassicurano, anche se il costo delle cerimonie si fa sentire nelle casse.",
+testoConseguenza: "Il clero organizza giorni di preghiera e rituali. I fedeli si rassicurano, anche se tutto questo costa tempo e denaro.",
 image: "rituale_tempio.jpg",
 effetti: { popolo: 1, esercito: 0, oro: -2, fede: 5 }
 }
@@ -631,19 +631,19 @@ capitolo: 1,
 categoria: "guerra",
 titoloInterno: "Pattuglia scomparsa",
 
-testo: "Il Generale parla senza giri di parole. \"Maesta, una pattuglia inviata al confine nord non e rientrata. Nessun messaggero, nessun segnale. Potrebbero essere briganti. Potrebbe essere qualcosa di peggio. In casi come questo, il silenzio e gia una notizia.\"",
+testo: "Il Generale parla con tono grave. \"Maestà, una pattuglia inviata lungo il confine nord non è tornata. Non sappiamo se siano stati briganti... o qualcosa di peggio.\"",
 image: "pattuglia_scomparsa.jpg",
 
 sinistra: {
 etichetta: "Invia ricerca",
-testoConseguenza: "Una seconda pattuglia viene mandata lungo lo stesso percorso. Dopo giorni di ricerche vengono trovate tracce di lotta e segni che qualcosa, lassu, si sta muovendo davvero.",
+testoConseguenza: "Una seconda pattuglia viene mandata nella zona. Dopo giorni di ricerche trovano tracce di uno scontro.",
 image: "ricerca_pattuglia.jpg",
 effetti: { popolo: 0, esercito: 3, oro: -2, fede: 0 }
 },
 
 destra: {
 etichetta: "Rafforza confine",
-testoConseguenza: "Decidi di non inseguire l ignoto e di blindare subito il confine. Le difese vengono rinforzate e i soldati si preparano al peggio.",
+testoConseguenza: "Decidi di rafforzare subito le difese del confine. I soldati si preparano a possibili minacce.",
 image: "confine_rafforzato.jpg",
 effetti: { popolo: 0, esercito: 4, oro: -3, fede: 0 }
 }
@@ -656,19 +656,19 @@ capitolo: 1,
 categoria: "intrighi",
 titoloInterno: "Briganti nelle strade",
 
-testo: "Il Generale entra con espressione dura. \"Maesta, alcune carovane sono state assalite lungo la strada reale. Non si tratta di disperati di passaggio. Una banda si e stabilita nelle colline e sta capendo fin dove puo spingersi senza risposta.\"",
+testo: "Il Generale entra con espressione cupa. \"Maestà, alcune carovane sono state assalite lungo la strada reale. Una banda di briganti sembra essersi stabilita nelle colline.\"",
 image: "briganti_strada.jpg",
 
 sinistra: {
 etichetta: "Invia soldati",
-testoConseguenza: "Una spedizione militare viene inviata nelle colline. Dopo scontri duri ma rapidi, la banda viene dispersa e la strada torna percorribile.",
+testoConseguenza: "Una spedizione militare viene inviata nelle colline. Dopo alcuni scontri, la banda viene dispersa.",
 image: "soldati_briganti.jpg",
 effetti: { popolo: 3, esercito: -2, oro: -2, fede: 0 }
 },
 
 destra: {
 etichetta: "Ignora",
-testoConseguenza: "Decidi di non intervenire subito. I briganti capiscono il segnale e alcune carovane iniziano a evitare il regno, portandosi via denaro e fiducia.",
+testoConseguenza: "Decidi di non intervenire subito. Alcune carovane evitano le tue strade e i mercanti iniziano a lamentarsi.",
 image: "carovana_paura.jpg",
 effetti: { popolo: -3, esercito: 0, oro: -3, fede: 0 }
 }
@@ -681,19 +681,19 @@ capitolo: 1,
 categoria: "religione",
 titoloInterno: "Lo studioso straniero",
 
-testo: "Il Monaco presenta uno straniero dai modi misurati e dagli abiti insoliti. \"Maesta, quest uomo viaggia tra i regni raccogliendo testi antichi e conoscenze dimenticate. Chiede accesso alle biblioteche e agli archivi del tempio. Dice di cercare sapere. Io vi dico soltanto che il sapere, a volte, entra in punta di piedi e poi cambia tutto.\"",
+testo: "Il Monaco presenta uno straniero con abiti insoliti. \"Maestà, questo studioso dice di viaggiare tra i regni alla ricerca di antiche conoscenze. Chiede accesso alle biblioteche e agli archivi del tempio.\"",
 image: "studioso_straniero.jpg",
 
 sinistra: {
 etichetta: "Rifiuta",
-testoConseguenza: "Decidi di non concedergli accesso. Lo studioso si congeda con educazione e lascia il regno portando via con se qualunque scoperta fosse venuto a cercare.",
+testoConseguenza: "Decidi di non fidarti dello straniero. Lo studioso lascia il regno in silenzio.",
 image: "studioso_partenza.jpg",
 effetti: { popolo: 0, esercito: 0, oro: 0, fede: 1 }
 },
 
 destra: {
 etichetta: "Accetta",
-testoConseguenza: "Lo studioso trascorre mesi tra pergamene, polvere e testi dimenticati. In poco tempo iniziano a circolare voci su cio che potrebbe aver scoperto tra le pagine piu antiche.",
+testoConseguenza: "Lo studioso passa mesi tra libri antichi e pergamene. Alcuni dicono che abbia scoperto cose molto importanti.",
 image: "studioso_biblioteca.jpg",
 effetti: { popolo: 1, esercito: 0, oro: -1, fede: 2 }
 }
