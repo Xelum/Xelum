@@ -59,19 +59,19 @@ categoria: "religione",
 titoloInterno: "Restauro del tempio",
 
 testo: "Il Monaco entra nella sala del trono con passo lento. \"Maestà, il tempio antico nel cuore della città è ormai in rovina. Se resterà così, molti penseranno che gli dèi abbiano abbandonato il regno.\"",
-image: IMG_PATH + "vescovo_tempio.jpg",
+image: IMG_PATH + "tempio_rovina_evento.png",
 
 sinistra: {
 etichetta: "Rifiuta",
 testoConseguenza: "Decidi di non finanziare il restauro. Il tempio resta in silenzio e i sacerdoti iniziano a parlare con preoccupazione del futuro del regno.",
-image: IMG_PATH + "tempio_rovinato.jpg",
+image: IMG_PATH + "tempio_rovina_rifiuta.png",
 effetti: { popolo: -1, esercito: 0, oro: 4, fede: -7 }
 },
 
 destra: {
 etichetta: "Finanzia",
 testoConseguenza: "Il tempio viene sistemato e le campane tornano a suonare. Il clero dice che gli dèi proteggono ancora il tuo regno.",
-image: IMG_PATH + "tempio_restaurato.jpg",
+image: IMG_PATH + "tempio_rovina_accetta.png",
 effetti: { popolo: 2, esercito: 0, oro: -5, fede: 7 }
 }
 
@@ -84,19 +84,19 @@ categoria: "guerra",
 titoloInterno: "Addestramento delle truppe",
 
 testo: "Il Generale si presenta davanti al trono con tono fermo. \"Maestà, i soldati sono coraggiosi, ma hanno bisogno di più addestramento. Se arriverà una guerra, così come sono adesso rischiano di non essere pronti.\"",
-image: IMG_PATH + "soldati_addestramento.jpg",
+image: IMG_PATH + "esercitazione_evento.png",
 
 sinistra: {
 etichetta: "Troppo costoso",
 testoConseguenza: "Decidi di rimandare l'addestramento. Il tesoro risparmia denaro, ma i soldati perdono fiducia.",
-image: IMG_PATH + "soldati_scontenti.jpg",
+image: IMG_PATH + "esercitazione_rifiuta.png",
 effetti: { popolo: 0, esercito: -7, oro: 3, fede: 0 }
 },
 
 destra: {
 etichetta: "Approva",
 testoConseguenza: "I campi fuori dalle mura si riempiono di esercitazioni. L'esercito diventa più forte e il regno appare meglio protetto.",
-image: IMG_PATH + "esercito_addestrato.jpg",
+image: IMG_PATH + "esercitazione_accetta.png",
 effetti: { popolo: 0, esercito: 7, oro: -4, fede: 0 }
 }
 
@@ -109,19 +109,19 @@ categoria: "carestia",
 titoloInterno: "Granai del regno",
 
 testo: "Sebastian entra con il volto teso. \"Maestà, nei villaggi il grano sta finendo. I raccolti sono stati scarsi e la gente chiede di aprire i granai reali. Se aspettiamo troppo, la fame diventerà rabbia.\"",
-image: IMG_PATH + "granai_regno.jpg",
+image: IMG_PATH + "carestia_evento.png",
 
 sinistra: {
 etichetta: "Conserva",
 testoConseguenza: "Ordini di tenere chiusi i granai. Le scorte del regno restano al sicuro, ma nei villaggi iniziano a diffondersi fame e malcontento.",
-image: IMG_PATH + "villaggio_affamato.jpg",
+image: IMG_PATH + "carestia_rifiuta.png",
 effetti: { popolo: -8, esercito: 0, oro: 4, fede: -1 }
 },
 
 destra: {
 etichetta: "Aprili",
 testoConseguenza: "I granai vengono aperti e il grano viene distribuito ai villaggi. Il popolo torna a respirare, anche se le riserve del regno si riducono.",
-image: IMG_PATH + "grano_distribuito.jpg",
+image: IMG_PATH + "carestia_accetta.png",
 effetti: { popolo: 8, esercito: 0, oro: -5, fede: 1 }
 }
 
@@ -134,19 +134,19 @@ categoria: "intrighi",
 titoloInterno: "Nobile sospetto",
 
 testo: "Il Ladruncolo compare vicino al trono e abbassa la voce. \"Maestà, a corte si mormora molto. Un nobile influente sta raccogliendo sostenitori. Forse è solo ambizioso... oppure sta preparando qualcosa contro di voi.\"",
-image: IMG_PATH + "corte_intrigo.jpg",
+image: IMG_PATH + "nobile_sospetto_evento.png",
 
 sinistra: {
 etichetta: "Ignora",
 testoConseguenza: "Decidi di non agire senza prove. Il nobile continua a muoversi liberamente e qualcuno inizia a pensare che il trono sia troppo debole.",
-image: IMG_PATH + "nobile_sorriso.jpg",
+image: IMG_PATH + "nobile_sospetto_rifiuta.png",
 effetti: { popolo: -1, esercito: -2, oro: 0, fede: 0 }
 },
 
 destra: {
 etichetta: "Indaga",
 testoConseguenza: "Ordini alle guardie di indagare in segreto. A corte cresce la tensione, ma tutti capiscono che il trono non chiude gli occhi davanti ai sospetti.",
-image: IMG_PATH + "guardie_indagine.jpg",
+image: IMG_PATH + "nobile_sospetto_accetta.png",
 effetti: { popolo: 0, esercito: 3, oro: -2, fede: 0 }
 }
 
