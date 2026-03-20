@@ -159,19 +159,19 @@ categoria: "diplomazia",
 titoloInterno: "Patto con il regno vicino",
 
 testo: "Davanti al trono c'è un ambasciatore straniero. Il Generale parla con tono serio. \"Maestà, il regno oltre le colline propone un patto: commercio aperto e aiuto militare in caso di guerra. Un alleato può essere utile, ma ogni accordo ha sempre un prezzo.\"",
-image: IMG_PATH + "ambasciatore_regno.jpg",
+image: IMG_PATH + "patto_evento.png",
 
 sinistra: {
 etichetta: "Rifiuta",
 testoConseguenza: "L'ambasciatore lascia la corte con freddezza. Il regno resta indipendente, ma alcuni iniziano a temere l'isolamento.",
-image: IMG_PATH + "ambasciatore_offeso.jpg",
+image: IMG_PATH + "patto_rifiuta.png",
 effetti: { popolo: -1, esercito: -3, oro: 0, fede: 0 }
 },
 
 destra: {
 etichetta: "Accetta",
 testoConseguenza: "Il trattato viene firmato. I commerci aumentano e il regno sembra meno fragile agli occhi dei vicini.",
-image: IMG_PATH + "trattato_firmato.jpg",
+image: IMG_PATH + "patto_accetta.png",
 effetti: { popolo: 1, esercito: 3, oro: 2, fede: 0 }
 }
 
@@ -184,19 +184,19 @@ categoria: "economia",
 titoloInterno: "Tassa sulle botteghe",
 
 testo: "Il Ladruncolo si avvicina con aria complice. \"Maestà, le botteghe della città stanno guadagnando bene. Una piccola tassa sulle vendite riempirebbe in fretta le casse del regno. Certo... i mercanti non saranno felici.\"",
-image: IMG_PATH + "botteghe_citta.jpg",
+image: IMG_PATH + "nuovatassa_evento.png",
 
 sinistra: {
 etichetta: "Respingi",
 testoConseguenza: "Decidi di non imporre nuove tasse. I mercanti tirano un sospiro di sollievo e continuano a lavorare con serenità.",
-image: IMG_PATH + "mercanti_sollevati.jpg",
+image: IMG_PATH + "nuovatassa_rifiuta.png",
 effetti: { popolo: 4, esercito: 0, oro: -2, fede: 0 }
 },
 
 destra: {
 etichetta: "Imponila",
 testoConseguenza: "La nuova tassa entra in vigore e le casse del regno si riempiono. Nei mercati, però, cresce il malumore.",
-image: IMG_PATH + "tassa_botteghe.jpg",
+image: IMG_PATH + "nuovatassa_accetta.png",
 effetti: { popolo: -6, esercito: 0, oro: 6, fede: 0 }
 }
 
@@ -209,19 +209,19 @@ categoria: "religione",
 titoloInterno: "Processione solenne",
 
 testo: "Il Monaco alza lo sguardo verso il trono. \"Maestà, il popolo ha bisogno di vedere che gli dèi camminano ancora accanto al regno. Una grande processione nelle strade potrebbe unire città e villaggi sotto un solo segno di fede.\"",
-image: IMG_PATH + "processione_solenne.jpg",
+image: IMG_PATH + "processione_evento.png",
 
 sinistra: {
 etichetta: "Annulla",
 testoConseguenza: "Ordini di annullare la processione. Il clero obbedisce, ma molti fedeli vivono la decisione come un brutto segno.",
-image: IMG_PATH + "chiesa_silenziosa.jpg",
+image: IMG_PATH + "processione_rifiuta.png",
 effetti: { popolo: -3, esercito: 0, oro: 2, fede: -6 }
 },
 
 destra: {
 etichetta: "Concedi",
 testoConseguenza: "La processione attraversa la città tra canti, fiaccole e incenso. La fede del popolo si rafforza sotto gli occhi di tutti.",
-image: IMG_PATH + "processione_citta.jpg",
+image: IMG_PATH + "processione_accetta.png",
 effetti: { popolo: 3, esercito: 0, oro: -3, fede: 6 }
 }
 
@@ -234,19 +234,19 @@ categoria: "popolo",
 titoloInterno: "Petizione dei villaggi",
 
 testo: "Sebastian posa una pergamena ai piedi del trono. \"Maestà, i capi dei villaggi chiedono aiuto. Le strade sono rotte, i pozzi crollano e la gente inizia a chiedersi se il regno si ricordi davvero di loro.\"",
-image: IMG_PATH + "villaggi_petizione.jpg",
+image: IMG_PATH + "petizione_evento.png",
 
 sinistra: {
 etichetta: "Rimanda",
 testoConseguenza: "Rimandi i lavori a tempi migliori. Il tesoro evita una grossa spesa, ma nei villaggi cresce l'idea di essere stati dimenticati.",
-image: IMG_PATH + "villaggio_trascurato.jpg",
+image: IMG_PATH + "petizione_rifiuta.png",
 effetti: { popolo: -6, esercito: 0, oro: 4, fede: 0 }
 },
 
 destra: {
 etichetta: "Intervieni",
 testoConseguenza: "Operai e muratori vengono inviati nei villaggi. Pozzi e strade tornano utili alla gente, e la corona viene vista con maggiore rispetto.",
-image: IMG_PATH + "villaggio_riparato.jpg",
+image: IMG_PATH + "petizione_accetta.png",
 effetti: { popolo: 7, esercito: 0, oro: -5, fede: 0 }
 }
 
