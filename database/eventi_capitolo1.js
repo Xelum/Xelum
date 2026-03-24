@@ -553,26 +553,27 @@ effetti: { popolo: -1, esercito: 0, oro: 6, fede: 0 }
 },
 
 {
-id: "cap1_economia_004",
+id: "cap1_mistero_004",
 capitolo: 1,
-categoria: "economia",
-titoloInterno: "Il grande mercante",
+categoria: "mistero",
+titoloInterno: "Il passaggio oscuro",
 
-testo: "Il Ladruncolo torna a parlare dello stesso ricco mercante. \"Maestà, lui insiste. Dice che con il suo aiuto il regno potrebbe diventare molto più ricco. Ma uomini così non fanno mai nulla per gentilezza.\"",
-image: IMG_PATH + "mercante_ricco.jpg",
+testo: "Le guardie hanno scoperto un passaggio segreto nei sotterranei del castello. È stretto, buio, e da lì provengono rumori non umani. I monaci sono turbati e chiedono di sigillarlo immediatamente. \"Maestà, certi luoghi è meglio non profanarli...\"",
+
+image: IMG_PATH + "passaggio_segreto.jpg",
 
 sinistra: {
-etichetta: "Rifiuta",
-testoConseguenza: "Respingi di nuovo la proposta. Il regno mantiene il controllo dei commerci, ma rinuncia a un grosso guadagno.",
-image: IMG_PATH + "mercante_offeso.jpg",
-effetti: { popolo: 1, esercito: 0, oro: -2, fede: 0 }
+etichetta: "Sigilla",
+testoConseguenza: "Decidi di chiudere per sempre il passaggio. I monaci applicano un sigillo con una croce dorata. I rumori cessano e, per celebrare la liberazione dal male, organizzano un pranzo per tutta la comunità.",
+image: IMG_PATH + "sigillo_monaci.jpg",
+effetti: { popolo: 2, esercito: 0, oro: 0, fede: 8 }
 },
 
 destra: {
-etichetta: "Accetta",
-testoConseguenza: "Le rotte commerciali del mercante si aprono al regno. Le casse si riempiono, ma quell'uomo diventa sempre più influente.",
-image: IMG_PATH + "carovane_commercio.jpg",
-effetti: { popolo: -1, esercito: 0, oro: 6, fede: 0 }
+etichetta: "Esplora",
+testoConseguenza: "Ti avventuri nei sotterranei. Scopri una miniera infestata da creature mai viste, simili a talpe ma aggressive. Le guardie reali intervengono per difenderti mentre fuggite. Riesci a portare via qualche lingotto, ma il prezzo è alto.",
+image: IMG_PATH + "creature_sotterranee.jpg",
+effetti: { popolo: 0, esercito: -6, oro: 3, fede: -3 }
 }
 
 },
